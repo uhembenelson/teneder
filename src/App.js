@@ -6,6 +6,7 @@ import SignUp from './Pages/Organization/SignUp/SignUp'
 import Login from './Pages/Organization/Login/Login'
 import ForgotPassword from './Pages/Organization/ForgotPassword/ForgotPassword'
 import ResetPassword from './Pages/Organization/ResetPassword/ResetPassword'
+import TwoFactor from './Pages/Organization/TwoFactor/TwoFactor'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path='/' element={<Welcome />} />
           <Route path='/organization/signup' element={<SignUp />} />
           <Route path='/organization/signin' element={<Login />} />
+          <Route path='/organization/twofactor' element={<TwoFactor />} />
           <Route path='/organization/forgot-password' element={<ForgotPassword />} />
           <Route path='/organization/reset-password' element={<ResetPassword />} />
         </Routes>

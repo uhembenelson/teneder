@@ -85,6 +85,22 @@ background-color: rgb(8, 0, 100);
     cursor: pointer;
 }
 
-.loginLabel{
-    margin-bottom: 1rem;
+.twoFAContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: red; */
+    padding: 0;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.verifyBtn{
+    
+    background-color: rgb(8, 0, 100);
+}
+
+.formattedTime{
+    margin-bottom: 2rem;
+    color: red;
+    text-align: center;
 }
