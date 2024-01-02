@@ -1,0 +1,14 @@
+.customBtnContainer{
+    color: white;
+    background: linear-gradient(to right, #f77f7c, #ff3268);
+    width: 10rem;
+    outline: none;
+    border: none;
+    height: 3rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: Inter, Helvetica, sans-serif;
+    
+
+}

@@ -1,0 +1,58 @@
+.clientContainer{
+    background-color: #08015f;
+    width: 100vw;
+    height: 90vh;
+    margin-top: 3rem;
+    
+    
+}
+
+.clientBox{
+    width: 90%;
+    margin: auto;
+    max-width: 1700px;
+    padding: 1rem 0;
+
+}
+
+.clientBox h2{
+    text-align: center;
+    color: white;
+    font-family: Inter;
+}
+
+.userCardHolder{
+    margin-top: 4rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.userCardContainer{
+    background-color: #000b45;
+    width: 30%;
+    padding:2rem 1rem;
+    border-radius: 1rem;
+
+}
+
+.userCardInner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userCardName, .userCardRole{
+    margin: 0;
+    margin-top: .5rem;
+
+    color: #cfcfcf
+}
+
+.userCardText {
+    margin: 0;
+    margin-top: 1rem;
+    font-size: .9rem;
+    color: #cfcfcf
+}

@@ -1,0 +1,17 @@
+.uploadContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.uploadBox{
+    width: 90%;
+    
+}
+
+.pdfImage{
+    width: 2rem;
+    height: 2rem;
+}

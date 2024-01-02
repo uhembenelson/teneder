@@ -1,0 +1,47 @@
+.WhyUs{
+    margin-top: 2rem;
+    width: 90%;
+    max-width: 1700px;
+    margin: auto;
+    
+}
+
+.defiContainer{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    place-items: center;
+    margin-top: 2rem;
+    grid-gap: 1rem;
+    width: 100%;
+}
+
+.defiContainerBox{
+    height: fit-content;
+    border-radius: 2rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 15rem;
+    background-color: #d9d9d9;
+}
+
+.defiDesc{
+    font-family: Inter, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    width: 70%;
+    color: rgba(0, 11, 69, 1);
+}
+
+.defiImage{
+    width: 8rem;
+    height: 7rem;
+}
+
+.whyUsTitle{
+    color: rgba(48, 61, 127, 1);
+    font-size: 2rem;
+    font-family: Lemon, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+

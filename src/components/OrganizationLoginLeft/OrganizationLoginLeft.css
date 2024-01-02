@@ -1,0 +1,39 @@
+.OrganizationLoginLeftContainer{
+    width: 25%;
+    height: 100vh;
+    
+}
+
+.organizationContainer{
+    display: flex;
+    flex-direction: column;
+    background:linear-gradient(to  bottom, #399dde, #010e2c);
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.loginLogo{
+    align-self: center;
+    width: 12rem;
+    position: absolute;
+    top: 5rem;
+    margin: 0;
+}
+
+.hands{
+    width: 100%;
+    height: 28rem;
+    
+    
+}
+
+.leftContainerTitle{
+    text-align: center;
+    color: white
+}
+
+.leftContainerText{
+    color: #bdbdbd;
+    text-align: center;
+}

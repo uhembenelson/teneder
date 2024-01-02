@@ -1,0 +1,39 @@
+.successModalOverlay{
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    background-color: rgba(249, 249, 250, .8);
+    
+}
+
+.successModal{
+    width: 30%;
+    padding: 2rem;
+    background-color: #fff;
+    
+}
+
+.successText{
+    font-size: .8rem;
+    text-align: center;
+}
+
+.successImage{
+    width: 6rem;
+    display: block;
+    margin: auto;
+}
+
+.successModalBtn{
+    
+    width: 95%;
+}
+
+.successHeader{
+    text-align: center;
+}

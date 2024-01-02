@@ -1,0 +1,94 @@
+.signUpContainer{
+    width: 90%;
+    max-width: 1700px;
+    margin: auto;
+}
+.signUpBox{
+    display: flex;
+    justify-content: space-between;
+}
+
+.alreadyText{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.memberContainer{
+    display: flex;
+    align-items: center;
+}
+
+.loginText{
+    color: #424242;
+    font-weight: 500;
+    margin-left: .3rem;
+}
+
+.companyTypeInputContainer{
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+}
+
+.typeInput{
+    margin-bottom: 1rem;
+    
+    
+}
+
+.typeInput span{
+    color: red;
+    font-size: 1rem;
+    margin-right: .1rem;
+}
+
+.inputTypeSelect, .inputTypeInput, .PhoneInput{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    
+    
+}
+
+#termsOfUse{
+    color: blue;
+}
+
+.companyContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.companyLeft{
+    width: 45%;
+}
+
+.companyBox{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.companyTypeInputContainer2{
+    margin-bottom: 2rem;
+        border-bottom: 2px solid #ccc;
+        width: 46%;
+        padding-bottom: 1rem;
+}
+
+.registerBtn{
+    margin-top: 3rem;
+    width: 100%;
+    margin-bottom: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #fff;
+    border-radius: .5rem;
+    border: 1px solid black;
+}
