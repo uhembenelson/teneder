@@ -1,36 +1,36 @@
-.heroSectionContainer{
-    background-color: rgb(8, 0, 100);
-    display: flex;
-    justify-content: space-between;
-    height: 80vh;
-    width: 90%;
-    align-items: center;
-    max-width: 1700px;
-    margin: auto;
-    padding: 0 2rem;
+.heroSectionContainer {
+	background-color: rgb(8, 0, 100);
+	display: flex;
+	justify-content: space-between;
+	height: 80dvh;
+	width: 90%;
+	align-items: center;
+	max-width: 1700px;
+	margin: auto;
+	padding: 0 2rem;
 }
 
-.heroTitle{
-    font-family: Lemon, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: white;
-    width: 90%;
-    margin-bottom: 2rem;
+.heroTitle {
+	font-family: Lemon, Cochin, Georgia, Times, 'Times New Roman', serif;
+	color: white;
+	width: 90%;
+	margin-bottom: 2rem;
 }
 
-.heroDesc{
-    color: white;
-    width: 90%;
-    font-family: Inter, Cochin, Georgia, Times, 'Times New Roman', serif;
+.heroDesc {
+	color: white;
+	width: 90%;
+	font-family: Inter, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-.heroImage{
-    width: 50%;
-    object-fit: contain;
-}
-
-.btnHolder{
-    margin-right: 3rem;
+.heroImage {
+	width: 50%;
+	object-fit: contain;
 }
 
-.btnContainer{
-    display: flex;
+.btnHolder {
+	margin-right: 3rem;
+}
+
+.btnContainer {
+	display: flex;
 }
