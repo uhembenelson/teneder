@@ -4,7 +4,7 @@ import './Dummy.css'
 const Dummy = () => {
     return (
         <div className='dummyContainer'>
-            <div className='dummyBoxHolder' >
+            <div className='dummyBoxHolder ' >
                 <div className='dummyBox' >
                     <div>
                         <p className='bidders' >Bidders</p>

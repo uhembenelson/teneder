@@ -50,7 +50,7 @@ const Login = () => {
                         <button className='loginBtn' >Proceed to my Account</button>
                     </div>
                     <div>
-                        <button onClick={() => navigate('/organization/forgot-password')} className='forgotPwd' >Forgot Password?</button>
+                        <button onClick={() => navigate('/bidder/forgot-password')} className='forgotPwd' >Forgot Password?</button>
                     </div>
 
 

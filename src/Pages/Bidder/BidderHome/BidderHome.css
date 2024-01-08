@@ -1,0 +1,132 @@
+.BidderHome{
+    width: 90%;
+    max-width: 1700px;
+    margin: auto;
+    height: 60vh;
+}
+
+.bidderHomeContainer{
+    
+    padding-bottom: 3rem;
+}
+
+.bidderHomeText{
+    margin: 3rem 0;
+    color: rgb(8, 0, 100);
+    text-align: center;
+}
+
+.bidderHomeCardList{
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* For the company card */
+.companyHomeCard{
+    height: 10rem;
+        width: 10rem;
+        border-radius: 1rem;
+        object-fit: contain;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(45deg, #564e88, #080b4b);
+}
+
+.bidderHomeCard{
+    height: 13rem;
+    width: 13rem;
+    border-radius: 1rem;
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #030ce7;
+}
+
+.bidderHomeImage{
+    height: 90%;
+    width: 90%;
+    
+}
+
+.bidderCardBox{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-radius: 2rem;
+    padding: .5rem 0;
+    margin-top: 1rem;
+    cursor: pointer;
+    /* background: linear-gradient(45deg, #a7a1ea, #6e71b0); */
+    background: #6dbbec;
+}
+
+.bidderCardBox p{
+    margin: 0;
+    color: #fff;
+}
+
+.bidderBoxDummy{
+    width: 90%;
+    margin-top: 3rem;
+    
+}
+
+.bidderdummyBox{
+    background: linear-gradient(45deg, #3538e3, #030ce7);
+}
+
+.topCompanyCard{
+    background: linear-gradient(45deg, #a7a1ea, #6e71b0);
+    border: 1px solid black;
+    width: 200px;
+    height: 18rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.topCompanyCardImage{
+    width: 70%;
+}
+
+.topCompanyCardName{
+    color: white;
+}
+
+.topCompanyCardDesc{
+    text-align: center;
+    font-size: .8rem;
+    color: white;
+    margin-top: 0;
+}
+
+.starContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.topCompanyContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+}
+
+.topBidderCard{
+    background-color: #030ce7;
+    border: 1px solid black;
+        width: 200px;
+        height: 18rem;
+        border-radius: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+}

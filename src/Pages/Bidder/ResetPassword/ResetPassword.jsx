@@ -66,8 +66,8 @@ const ResetPassword = () => {
 
                                 <input placeholder='8 symbls at least' className='loginInput' type={showConPassword ? 'text' : 'password'} />
                             </div>
-                            {showPassword ? <span className='loginSpan' onClick={toggleConPassword} >HIDE</span> :
-                                <span className='loginSpan' onClick={togglePassword} >SHOW</span>}
+                            {showConPassword ? <span className='loginSpan' onClick={toggleConPassword} >HIDE</span> :
+                                <span className='loginSpan' onClick={toggleConPassword} >SHOW</span>}
 
                         </div>
                     </div>

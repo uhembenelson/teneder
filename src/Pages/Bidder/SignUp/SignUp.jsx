@@ -17,7 +17,7 @@ const SignUp = () => {
                 </div>
                 <div className='memberContainer' >
                     <p  >Already a member?</p>
-                    <Link className='loginText' to='/organization/signin' >LOG IN NOW</Link>
+                    <Link className='loginText' to='/bidder/signin' >LOG IN NOW</Link>
                 </div>
             </div>
             <form>

@@ -104,3 +104,8 @@ background-color: rgb(8, 0, 100);
     color: red;
     text-align: center;
 }
+
+.resendBtn{
+    color: red;
+    cursor: pointer;
+}

@@ -98,7 +98,7 @@ const TwoFactor = () => {
 
 
 
-                    <p>If you didn’t receive a code! Resend</p>
+                    <p>If you didn’t receive a code! <span className='resendBtn' >Resend</span></p>
 
                 </form >
             </div >

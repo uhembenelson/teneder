@@ -1,0 +1,32 @@
+.LoginModeContainer{
+    width: 90%;
+    max-width: 1700px;
+    margin: auto;
+    background-color: #908c8d;
+    height: 90vh;
+}
+
+.modeHeader{
+    text-align: center;
+    padding-top: 2rem;
+    color: #fff;
+}
+
+.modeContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.modeHolder{
+    padding: 0 2rem;
+    margin-top: 2rem;
+    display: flex;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+

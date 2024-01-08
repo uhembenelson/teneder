@@ -1,0 +1,48 @@
+.BidderHistoryContainer{
+    width: 80%;
+    max-width: 1700px;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.historyHeader{
+    width: 60%;
+    justify-content: space-between;
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+}
+
+.bidderHistorySelect{
+    height: 3rem;
+    width: 15rem;
+}
+
+.historyTable{
+    
+    width: 100%;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin-top: 2rem;
+        
+    
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+
+.pdfTable{
+    height: 20px;
+}
+
+.tableDataImg{
+    margin-top: .5rem;
+    align-self: center;
+    height: 20px;
+    
+}
