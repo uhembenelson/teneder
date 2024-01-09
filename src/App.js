@@ -11,7 +11,7 @@ import BidderHome from './Pages/Bidder/BidderHome/BidderHome'
 import BidderHistory from './Pages/Bidder/BidderHistory/BidderHistory'
 import HelpCenter from './Pages/Bidder/HelpCenter/HelpCenter'
 import BidderProfile from './Pages/Bidder/BidderProfile/BidderProfile'
-import LoginMode from './Pages/LoginMode/LoginMode'
+import LoginMode from './components/LoginMode/LoginMode'
 
 const App = () => {
   return (
@@ -19,7 +19,6 @@ const App = () => {
       <div className='app' >
         <Routes>
           <Route path='/' element={<Welcome />} />
-          <Route path='/login/mode' element={<LoginMode />} />
           <Route path='/bidder/signup' element={<SignUp />} />
           <Route path='/bidder/signin' element={<Login />} />
           <Route path='/bidder/twofactor' element={<TwoFactor />} />

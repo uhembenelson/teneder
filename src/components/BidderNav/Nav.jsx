@@ -5,8 +5,9 @@ import vector from '../../assets/Vector.png';
 import user from '../../assets/Male User.png';
 import arrow from '../../assets/Expand Arrow.png';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Nav() {
+function BidderNav() {
 	const [showMenu, setShowMenu] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
 
@@ -18,20 +19,23 @@ function Nav() {
 	return (
 		<nav className='nav'>
 			<div className='nav__container'>
-				<img
-					src={logo}
-					alt='logo'
-					className='nav__logo'
-				/>
+				<Link to='/bidder/home' >
+					<img
+						src={logo}
+						alt='logo'
+						className='nav__logo'
+					/></Link>
 
 				<ul className='nav__items'>
-					<li>
-						notifications
-						<img
-							src={bell}
-							alt='notification'
-						/>
-					</li>
+					<Link to='/bidder/history' >
+						<li>
+							notifications
+							<img
+								src={bell}
+								alt='notification'
+							/>
+						</li>
+					</Link>
 					<li>
 						wallet
 						<img
@@ -50,7 +54,7 @@ function Nav() {
 							alt='arrow'
 						/>
 					</li>
-					<li>history</li>
+					<Link to='/bidder/history' ><li>history</li></Link>
 				</ul>
 
 				<button
@@ -100,4 +104,4 @@ function Nav() {
 	);
 }
 
-export default Nav;
+export default BidderNav;

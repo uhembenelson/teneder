@@ -5,6 +5,7 @@ import pdf from '../../../assets/Import Pdf.png'
 import checked from '../../../assets/Checked Checkbox.png'
 import cancel from '../../../assets/Cancel Order.png'
 import multiplication from '../../../assets/Multiplication.png'
+import BidderNav from '../../../components/BidderNav/Nav'
 
 const BidderHistory = () => {
 
@@ -197,37 +198,41 @@ const BidderHistory = () => {
 
 
     return (
-        <div className='BidderHistoryContainer' >
-            <div className='historyHeader'>
-                <h1>History</h1>
-                <select className='bidderHistorySelect'
-                    onChange={(event) => setOption(event.target.value)}
-                    value={option}
-                >
-                    <option value='all' >Search Filters</option>
-                    <option value='cancelled' >Cancelled </option>
-                    <option value='ongoing'>On-Going</option>
-                    <option value='completed'>Completed </option>
-                    <option value='rejected'>Rejected </option>
+        <div>
+            <BidderNav />
+            <div className='BidderHistoryContainer' >
+                <div className='historyHeader'>
+                    <h1>History</h1>
+                    <select className='bidderHistorySelect'
+                        onChange={(event) => setOption(event.target.value)}
+                        value={option}
+                    >
+                        <option value='all' >Search Filters</option>
+                        <option value='cancelled' >Cancelled </option>
+                        <option value='ongoing'>On-Going</option>
+                        <option value='completed'>Completed </option>
+                        <option value='rejected'>Rejected </option>
 
-                </select>
+                    </select>
+                </div>
+                <table className='historyTable' >
+                    <tr>
+                        <th>TENDER ID</th>
+                        <th>PROPOSAL</th>
+                        <th>COMPANY</th>
+                        <th>ETHURIUM VALUE</th>
+                        <th>STATUS</th>
+                    </tr>
+
+                    {content}
+
+
+
+                </table>
+
             </div>
-            <table className='historyTable' >
-                <tr>
-                    <th>TENDER ID</th>
-                    <th>PROPOSAL</th>
-                    <th>COMPANY</th>
-                    <th>ETHURIUM VALUE</th>
-                    <th>STATUS</th>
-                </tr>
-
-                {content}
-
-
-
-            </table>
-
         </div>
+
     )
 }
 
