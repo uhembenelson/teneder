@@ -7,8 +7,16 @@ import cancel from '../../../assets/Multiplication.png';
 import approval from '../../../assets/Approval.png';
 import flag from '../../../assets/flag.png';
 import location from '../../../assets/location.png';
+import { useState } from 'react';
+import CancelOrder from './CancelOrder';
 
 function TenderTable() {
+	const [showModal, setShowModal] = useState(false);
+
+	function handleShowModal() {
+		setShowModal(!showModal);
+	}
+
 	return (
 		<section className='table__section'>
 			<CompanyNav />
@@ -140,15 +148,19 @@ function TenderTable() {
 									/>
 								</td>
 								<td>
-									<img
-										src={cancel}
-										alt='cancel'
-									/>
+									<button onClick={handleShowModal}>
+										<img
+											src={cancel}
+											alt='cancel'
+										/>
+									</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</section>
+
+				{showModal && <CancelOrder show={showModal} />}
 			</div>
 		</section>
 	);
