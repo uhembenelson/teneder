@@ -37,3 +37,8 @@
     color: #bdbdbd;
     text-align: center;
 }
+@media screen and (max-width: 780px) {
+    .OrganizationLoginLeftContainer{
+        display: none;
+    }
+}

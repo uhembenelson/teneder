@@ -109,3 +109,33 @@ background-color: rgb(8, 0, 100);
     color: red;
     cursor: pointer;
 }
+
+@media screen and (max-width: 780px) {
+    .loginBox {
+        width: 90%;
+        
+    }
+
+    .loginForm{
+        width: 100%;
+        
+    }
+    .loginInputContainer{
+        padding: 0 0rem;
+    }
+    .loginSpan{
+        padding-right: .5rem;
+    }
+    .icon{
+        padding-left: .5rem;
+    }
+    .signUpBox{
+        margin-top: 1rem;
+    }
+    .loginBtn{
+        padding:0 ;
+    }
+    .loginForm h3, .loginForm p{
+        margin-bottom: .5rem;
+    }
+}
