@@ -76,8 +76,16 @@
     
 }
 
+.dummyBox2{
+background: linear-gradient(45deg, #3538e3, #030ce7);
+}
+
 .bidderdummyBox{
-    background: linear-gradient(45deg, #3538e3, #030ce7);
+    
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .topCompanyCard{
@@ -129,4 +137,152 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+}
+
+@media screen and (max-width: 1389px) {
+    .bidderBoxDummy{
+        display: grid;
+        grid-template-columns:repeat(3, 1fr) ;
+        margin: auto;
+        margin-top: 2rem;
+        width: 70%;
+        grid-gap: 1rem;
+        
+    }
+}
+
+@media screen and (max-width: 1345px) {
+    .bidderBoxDummy {
+        
+        grid-template-columns: repeat(2, 1fr);
+        
+        width: 70%;
+        
+
+    }
+    .dummyBox2{
+        width: 92%;
+    }
+    .bidderdummyBox{
+        width: 90%;
+        padding: 1rem 1rem;
+    }
+}
+
+@media screen and (max-width: 1050px){
+    .bidderHomeCardList, .bidderBoxDummy, .topCompanyContainer{
+        width: 100%;
+    }
+    .bidderdummyBox{
+        width: 92%;
+        
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .bidderdummyBox {
+        width: 90%;
+
+    }
+}
+
+
+@media screen and (max-width: 720px) {
+    .bidderHomeCard{
+        height: 10rem;
+    width: 10rem;
+    }
+         .topBidderCard {
+             width: 30%;
+             height: 15rem;
+             margin-bottom: 2rem;
+         }
+}
+
+@media screen and (max-width: 680px) {
+    .bidderdummyBox {
+        width: 88%;
+
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .topCompanyContainer {
+            flex-direction: column;
+        }
+    .topBidderCard {
+            width: 100%;
+            height: 15rem;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+        .topCompanyCardImage {
+            width: 30%;
+        }
+        .dummyBox2{
+            width: 87%;
+            margin: auto;
+        }
+        .bidderdummyBox {
+            padding: .5rem;
+
+        }
+}
+
+@media screen and (max-width: 550px) {
+    .bidderHomeCard {
+        height: 8rem;
+        width: 8rem;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .bidderBoxDummy{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .bidderdummyBox {
+            width: 100%;
+    
+        }
+        .dummyBox2{
+            width: 93%;
+        }
+}
+
+@media screen and (max-width: 450px) {
+    .bidderHomeCardList {
+            flex-direction: column;
+        }
+        .bidderHomeCardContainer{
+            margin-bottom: 2rem
+        }
+
+        .bidderdummyBox {
+            width: 92%;
+    
+        }
+            
+        
+    .bidderHomeCard {
+        height: 15rem;
+        
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    
+
+    .dummyBox2 {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
+
+    .dummyBox2 {
+        width: 88%;
+    }
 }

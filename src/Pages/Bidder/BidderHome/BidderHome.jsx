@@ -10,29 +10,27 @@ import BidderNav from '../../../components/BidderNav/Nav'
 
 const BidderHome = () => {
 
-
-
     return (
         <div>
-            <BidderNav />
+            {/*<BidderNav />*/}
             <div className='BidderHome' >
                 <div className='bidderHomeContainer' >
                     <h1 className='bidderHomeText' >Menu</h1>
                     <div className='bidderHomeCardList' >
-                        <div>
+                        <div className='bidderHomeCardContainer'>
                             <div className='bidderHomeCard ' >
                                 <img className='bidderHomeImage' src={Image11} alt='bidder' />
 
                             </div>
                             <div className='bidderCardBox' ><p>Bid Tender</p></div>
                         </div>
-                        <div>
+                        <div className='bidderHomeCardContainer'>
                             <div className='bidderHomeCard ' >
                                 <img className='bidderHomeImage' src={Image12} alt='bidder' />
                             </div>
                             <div className='bidderCardBox'><p>Approval Check</p></div>
                         </div>
-                        <div>
+                        <div className='bidderHomeCardContainer'>
 
                             <div className='bidderHomeCard ' >
                                 <img className='bidderHomeImage' src={Image10} alt='bidder' />
