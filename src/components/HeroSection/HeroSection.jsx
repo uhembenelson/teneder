@@ -22,7 +22,7 @@ const HeroSection = () => {
 
 					<CustomBtn title='Learn More' />
 
-					<Link to='/table'>Table</Link>
+					<Link to='/manage-tender'>Table</Link>
 				</div>
 			</div>
 			<img

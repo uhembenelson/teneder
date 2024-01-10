@@ -72,10 +72,12 @@ function TenderTable() {
 									<span className='date'>15-Feb-2024</span>
 								</td>
 								<td>
-									<img
-										src={cancel}
-										alt='cancel'
-									/>
+									<button onClick={handleShowModal}>
+										<img
+											src={cancel}
+											alt='cancel'
+										/>
+									</button>
 								</td>
 							</tr>
 
@@ -108,10 +110,12 @@ function TenderTable() {
 									<span className='date'>07-Mar-2024</span>
 								</td>
 								<td>
-									<img
-										src={cancel}
-										alt='cancel'
-									/>
+									<button onClick={handleShowModal}>
+										<img
+											src={cancel}
+											alt='cancel'
+										/>
+									</button>
 								</td>
 							</tr>
 
@@ -160,7 +164,12 @@ function TenderTable() {
 					</table>
 				</section>
 
-				{showModal && <CancelOrder show={showModal} />}
+				{showModal && (
+					<CancelOrder
+						show={showModal}
+						handleShowModal={handleShowModal}
+					/>
+				)}
 			</div>
 		</section>
 	);

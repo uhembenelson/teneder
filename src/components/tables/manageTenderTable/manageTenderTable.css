@@ -1,0 +1,76 @@
+.manage__container {
+	width: 80%;
+}
+
+.manage_container .table__heading {
+	width: 100%;
+}
+
+.description {
+	width: 100%;
+	margin: auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	margin-bottom: 1rem;
+}
+
+.description p {
+	font-size: 1.385625rem;
+}
+
+.description p b {
+	text-transform: uppercase;
+}
+
+.description__inner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	margin-top: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+}
+
+.manage__btn {
+	margin: 1rem 0 1rem 76%;
+
+	font-size: 1.2rem;
+}
+
+/* MEDIA QUERIES (Tablets) */
+@media (max-width: 1024px) {
+	.description p {
+		font-size: 1.085625rem;
+	}
+
+	.manage__btn {
+		margin-left: 69%;
+		font-size: 1rem;
+	}
+}
+
+/* MEDIA QUERIES (Phones) */
+@media (max-width: 524px) {
+	.description p {
+		font-size: 0.7rem;
+	}
+
+	.description__inner {
+		gap: 1rem;
+		letter-spacing: 1px;
+	}
+
+	.manage__btn {
+		margin-left: 50%;
+		font-size: 0.77rem;
+		padding: 0.5rem;
+	}
+
+	.manage__container .tender__table th {
+		font-size: 0.66rem;
+	}
+}
