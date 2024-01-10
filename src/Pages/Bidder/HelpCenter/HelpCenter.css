@@ -73,8 +73,8 @@
 .moreQuestionContainer{
     justify-content: space-between;
     width: 90%;
-        align-items: center;
-        display: flex;
+    align-items: center;
+    display: flex;
 }
 
 .getInTouchBtn{
@@ -106,6 +106,18 @@
         grid-template-columns: repeat(2, 1fr);
        
     }
+.moreQuestionBox{
+    height: 23vh;
+}
+
+    .moreQuestionContainer{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .getInTouchBtn{
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (max-width: 550px) {
@@ -115,4 +127,18 @@
         grid-template-columns: repeat(1, 1fr);
         
     }
+}
+@media screen and (max-width: 400px) {
+
+.faqContainer {
+    
+    height: 30vh;
+    
+    
+}
+.faqContainer p {
+    width: 80%;
+    margin: auto;
+    margin-top: 1rem;
+}
 }
