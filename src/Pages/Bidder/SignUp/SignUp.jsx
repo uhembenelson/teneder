@@ -12,7 +12,7 @@ const SignUp = () => {
     const navigate = useNavigate()
     return (
         <div>
-            <BidderHomeNavBar />
+
             <div className='signUpContainer' >
                 <div className='signUpBox' >
                     <div onClick={() => navigate(-1)}>

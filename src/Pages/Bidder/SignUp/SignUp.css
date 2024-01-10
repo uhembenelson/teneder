@@ -92,3 +92,16 @@
     border-radius: .5rem;
     border: 1px solid black;
 }
+
+@media screen and (max-width: 780px){
+    .signUpContainer{
+
+    }
+    .companyBox{
+        width: 100%;
+        flex-direction: column;
+    }
+    .companyTypeInputContainer2{
+        width: 100%;
+    }
+}
