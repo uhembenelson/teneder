@@ -67,6 +67,7 @@
     width: 85%;
     margin: auto;
     font-weight: 500;
+    padding: .7rem 0;
 }
 
 .bidderProfileRight{
@@ -110,6 +111,7 @@
 .documentList{
     display: flex;
     justify-content: space-between;
+    padding-bottom: 1rem;
 }
 
 .docName{
@@ -121,5 +123,36 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 1rem;
     color: #fff;
+}
+
+@media screen and (max-width: 900px){
+    .profileBox{
+        flex-direction: column;
+    }
+    .bidderProfileLeft{
+        width: 100%;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+    }
+    .bidderProfileRight{
+        width: 100%;
+    }
+
+}
+
+
+
+@media screen and (max-width: 500px) {
+    .documentList {
+            margin-top: 1rem;
+            flex-direction: column;
+            
+            padding-left: 1rem;
+        }
+        .docContainer{
+            width: 100%;
+            margin-bottom: .5rem;
+        }
 }
