@@ -1,4 +1,4 @@
-import './CompanyNav.css';
+import './OrganizationNav.css';
 import logo from '../../assets/SYMBOL.png';
 import bell from '../../assets/Doorbell.png';
 import vector from '../../assets/Vector.png';

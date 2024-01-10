@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import CompanyNav from '../../CompanyNav/CompanyNav';
+import CompanyNav from '../../OrganizationNav/OrganizationNav';
 import './tenderTable.css';
 
 import backArrow from '../../../assets/Shape.png';

@@ -1,5 +1,5 @@
 .LoginModeContainer{
-    width: 90%;
+    width: 70%;
     max-width: 1700px;
     margin: auto;
     position: relative;
@@ -13,7 +13,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: rgb(0, 0, 0);
+    opacity: .9;
     position: fixed;
     top: 0;
     left: 0;
