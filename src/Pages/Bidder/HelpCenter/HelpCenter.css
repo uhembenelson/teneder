@@ -98,3 +98,21 @@
     color: #fff;
         margin: 0;
 }
+
+@media screen and (max-width: 780px){
+    .questionsContainer{
+        
+        
+        grid-template-columns: repeat(2, 1fr);
+       
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .questionsContainer {
+
+        
+        grid-template-columns: repeat(1, 1fr);
+        
+    }
+}
