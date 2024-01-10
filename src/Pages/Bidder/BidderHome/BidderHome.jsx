@@ -12,7 +12,7 @@ const BidderHome = () => {
 
     return (
         <div>
-            {/*<BidderNav />*/}
+            <BidderNav />
             <div className='BidderHome' >
                 <div className='bidderHomeContainer' >
                     <h1 className='bidderHomeText' >Menu</h1>
