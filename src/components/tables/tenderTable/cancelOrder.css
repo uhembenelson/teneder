@@ -1,0 +1,135 @@
+.cancel__order {
+	--red-border: #fe0000;
+	border: 8px solid var(--red-border);
+	border-radius: 5.125rem;
+	width: 36.875rem;
+	background-color: white;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 2rem;
+	z-index: 2;
+
+	position: absolute;
+	top: 25%;
+	left: 27%;
+}
+
+.cancel__head {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.cancel__head h3 {
+	font-weight: 700;
+	font-size: 1.23875rem;
+	margin-bottom: 0.7rem;
+}
+
+.cancel__form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.cancel__form h3 {
+	font-weight: 600;
+	font-size: 0.9025rem;
+	margin-bottom: 0.7rem;
+}
+
+.cancel__form label {
+	font-weight: 600;
+	font-size: 0.651875rem;
+	margin-bottom: 0.5rem;
+}
+
+.cancel__form input,
+.cancel__form select {
+	--placeholder-color: #242731ba;
+	padding: 5px 12.84px;
+	margin-bottom: 0.7rem;
+}
+
+.cancel__form input::placeholder {
+	color: var(--placeholder-color);
+	font-weight: 0.9025rem;
+}
+
+.action__btns {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+}
+
+.act__btn {
+	text-transform: uppercase;
+	color: white;
+	padding: 1rem;
+	border-radius: 1.880625rem;
+	font-weight: 600;
+	font-size: 1.675rem;
+
+	border: none;
+	outline: none;
+	cursor: pointer;
+	margin-top: 0.5rem;
+	transition: all 500ms ease;
+}
+
+.act__btn:hover {
+	opacity: 0.7;
+}
+
+.cancel__btn {
+	background: #de0000cf;
+}
+
+.return__btn {
+	background: linear-gradient(to bottom right, #ed37da, #5961f9);
+}
+
+.cancel__overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(3px);
+	z-index: 1;
+}
+
+/* MEDIA QUERIES (Tablets) */
+@media (max-width: 1024px) {
+	.cancel__order {
+		width: 50%;
+		padding: 1.5rem;
+		top: 25%;
+		left: 20%;
+	}
+}
+
+/* MEDIA QUERIES (Phones) */
+@media (max-width: 524px) {
+	.cancel__order {
+		width: 70%;
+		padding: 1.5rem;
+		top: 10%;
+		left: 7%;
+	}
+
+	.act__btn {
+		text-transform: uppercase;
+		color: white;
+		padding: 1rem;
+		border-radius: 1.880625rem;
+		font-weight: 600;
+		font-size: 0.8375rem;
+	}
+}

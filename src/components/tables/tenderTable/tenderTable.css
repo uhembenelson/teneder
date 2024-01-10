@@ -1,5 +1,6 @@
 .table__section {
 	height: 100dvh;
+	position: relative;
 }
 
 .table__container {
