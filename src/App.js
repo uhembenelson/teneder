@@ -14,6 +14,7 @@ import BidderProfile from './Pages/Bidder/BidderProfile/BidderProfile';
 // import LoginMode from './components/LoginMode/LoginMode';
 import TenderTable from './components/tables/tenderTable/TenderTable';
 import ManageTenderTable from './components/tables/manageTenderTable/ManageTenderTable';
+import CreateTender from './Pages/Organization/CreateTender/CreateTender';
 
 const App = () => {
 	return (
@@ -67,6 +68,10 @@ const App = () => {
 					<Route
 						path='/manage-tender'
 						element={<ManageTenderTable />}
+					/>
+					<Route
+						path='/organization/create-tender'
+						element={<CreateTender />}
 					/>
 				</Routes>
 			</div>

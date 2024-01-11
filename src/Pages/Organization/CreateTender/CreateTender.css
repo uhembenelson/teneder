@@ -1,0 +1,69 @@
+.createNavContainer{
+    width: 90%;
+    max-width: 1700px;
+    padding-bottom: 1rem;
+    margin: auto;
+}
+
+.createNavContainer h2{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.labelContainer{
+    display: flex;
+}
+
+.labelContainer span {
+    color: red
+}
+
+.createTenderBox{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.createTenderBox textarea {
+    height: 6rem;
+    padding: 1rem;
+    outline: none;
+    margin-top: .3rem;
+    margin-bottom: 2rem;
+}
+
+
+
+.durationBox{
+    width: 46%;
+}
+
+.createTenderBox input {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.createTenderBtn{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+@media screen and (max-width: 780px) {
+
+    .companyBox {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .durationBox {
+        width: 100%;
+    }
+
+    .createTenderBox input {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+}
