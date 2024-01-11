@@ -2,7 +2,7 @@ import './cancelOrder.css';
 
 import sad from '../../../assets/Sad.png';
 
-function CancelOrder() {
+function CancelOrder({ handleShowModal }) {
 	return (
 		<>
 			<section className='cancel__order'>
@@ -42,7 +42,11 @@ function CancelOrder() {
 					</select>
 
 					<div className='action__btns'>
-						<button className='cancel__btn act__btn'>cancel</button>
+						<button
+							className='cancel__btn act__btn'
+							onClick={handleShowModal}>
+							cancel
+						</button>
 						<button className='return__btn act__btn'>Return</button>
 					</div>
 				</form>

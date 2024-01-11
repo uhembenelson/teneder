@@ -11,8 +11,9 @@ import BidderHome from './Pages/Bidder/BidderHome/BidderHome';
 import BidderHistory from './Pages/Bidder/BidderHistory/BidderHistory';
 import HelpCenter from './Pages/Bidder/HelpCenter/HelpCenter';
 import BidderProfile from './Pages/Bidder/BidderProfile/BidderProfile';
-import LoginMode from './components/LoginMode/LoginMode';
+// import LoginMode from './components/LoginMode/LoginMode';
 import TenderTable from './components/tables/tenderTable/TenderTable';
+import ManageTenderTable from './components/tables/manageTenderTable/ManageTenderTable';
 
 const App = () => {
 	return (
@@ -62,6 +63,10 @@ const App = () => {
 					<Route
 						path='/table'
 						element={<TenderTable />}
+					/>
+					<Route
+						path='/manage-tender'
+						element={<ManageTenderTable />}
 					/>
 				</Routes>
 			</div>
