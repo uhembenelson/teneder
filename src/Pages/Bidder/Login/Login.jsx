@@ -22,7 +22,7 @@ const Login = () => {
                     </div>
                     <div className='memberContainer' >
                         <p  >Not a member?</p>
-                        <Link className='loginText' to='/organization/signup' >JOIN NOW</Link>
+                        <Link className='loginText' to='/bidder/signup' >JOIN NOW</Link>
                     </div>
                 </div>
                 <form className='loginForm' >
