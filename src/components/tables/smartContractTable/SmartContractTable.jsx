@@ -1,21 +1,12 @@
 import { Link } from 'react-router-dom';
 import CompanyNav from '../../OrganizationNav/OrganizationNav';
-import './manageTenderTable.css';
+import './smartContractTable.css';
 
 import backArrow from '../../../assets/Shape.png';
 import exportPdf from '../../../assets/Export Pdf.png';
-import lightApprove from '../../../assets/approval-1.png';
-import x from '../../../assets/x.png';
-import { useState } from 'react';
-import CancelOrder from '../tenderTable/CancelOrder';
+import approve from '../../../assets/Approval.png';
 
-function ManageTenderTable() {
-	const [showModal, setShowModal] = useState(false);
-
-	function handleShowModal() {
-		setShowModal(!showModal);
-	}
-
+function SmartContractTable() {
 	return (
 		<section>
 			<CompanyNav />
@@ -69,10 +60,17 @@ function ManageTenderTable() {
 								</td>
 								<td>13-sept-2023</td>
 								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
+									<form className='contract__reason-form'>
+										<select
+											name='contract__reason'
+											id=''>
+											<option>Non-competitive pricing</option>
+											<option>Criterion Not Fulfilled</option>
+											<option>Less Work Experience</option>
+											<option>Incorrect-Documentation</option>
+											<option>Others</option>
+										</select>
+									</form>
 								</td>
 							</tr>
 
@@ -87,10 +85,17 @@ function ManageTenderTable() {
 								</td>
 								<td>13-sept-2023</td>
 								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
+									<form className='contract__reason-form'>
+										<select
+											name='contract__reason'
+											id=''>
+											<option>Non-competitive pricing</option>
+											<option>Criterion Not Fulfilled</option>
+											<option>Less Work Experience</option>
+											<option>Incorrect-Documentation</option>
+											<option>Others</option>
+										</select>
+									</form>
 								</td>
 							</tr>
 
@@ -105,10 +110,17 @@ function ManageTenderTable() {
 								</td>
 								<td>13-sept-2023</td>
 								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
+									<form className='contract__reason-form'>
+										<select
+											name='contract__reason'
+											id=''>
+											<option>Non-competitive pricing</option>
+											<option>Criterion Not Fulfilled</option>
+											<option>Less Work Experience</option>
+											<option>Incorrect-Documentation</option>
+											<option>Others</option>
+										</select>
+									</form>
 								</td>
 							</tr>
 
@@ -124,8 +136,8 @@ function ManageTenderTable() {
 								<td>13-sept-2023</td>
 								<td>
 									<img
-										src={lightApprove}
-										alt='lightApprove'
+										src={approve}
+										alt='approve'
 									/>
 								</td>
 							</tr>
@@ -141,35 +153,30 @@ function ManageTenderTable() {
 								</td>
 								<td>13-sept-2023</td>
 								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
+									<form className='contract__reason-form'>
+										<select
+											name='contract__reason'
+											id=''>
+											<option>Non-competitive pricing</option>
+											<option>Criterion Not Fulfilled</option>
+											<option>Less Work Experience</option>
+											<option>Incorrect-Documentation</option>
+											<option>Others</option>
+										</select>
+									</form>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 
-					<button
-						className='cancel__btn act__btn manage__btn'
-						onClick={handleShowModal}>
-						<img
-							src={x}
-							alt='x'
-						/>
-						cancel the tender
+					{/* using the same class name as the provide reason table because the have the same styles */}
+					<button className=' act__btn manage__btn provide__btn'>
+						proceed to smart contract
 					</button>
 				</section>
-
-				{showModal && (
-					<CancelOrder
-						show={showModal}
-						handleShowModal={handleShowModal}
-					/>
-				)}
 			</div>
 		</section>
 	);
 }
 
-export default ManageTenderTable;
+export default SmartContractTable;

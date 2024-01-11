@@ -1,0 +1,113 @@
+.cancellation__container {
+	width: 90%;
+	/* height: 100dvh; */
+	margin: auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	flex-direction: column;
+}
+
+.cancellation__container h1 {
+	font-size: 2.84625rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-bottom: 0.5rem;
+}
+
+.cancellation__body {
+	border: 2px solid black;
+	width: 90%;
+	padding: 1rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.cancellation__body h2 {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 1.5rem;
+	font-size: 1.8125rem;
+	font-weight: 700;
+}
+
+.cancellation__inner li {
+	margin-bottom: 0.7rem;
+	font-size: 1.175rem;
+}
+
+.cancellation__inner span {
+	color: #fe0000;
+}
+
+.cancellation__form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+
+.cancellation__form select {
+	--select-bg: #d9d9d9;
+	padding: 1rem;
+	font-size: 1.172875rem;
+	background: var(--select-bg);
+	outline: none;
+	border: none;
+}
+
+.cancellation__form button {
+	padding: 1rem 1.5rem;
+	border-radius: 2.5rem;
+	background-color: #59599b;
+	font-size: 1.54625rem;
+	text-transform: uppercase;
+	color: white;
+	font-weight: 800;
+	transition: all 500ms ease;
+}
+
+.cancellation__form button:hover {
+	opacity: 0.7;
+}
+
+/* MEDIA QUERIES (Tablets) */
+@media (max-width: 1024px) {
+	.cancellation__container h1 {
+		font-size: 1.84625rem;
+	}
+}
+
+/* MEDIA QUERIES (Phones) */
+@media (max-width: 524px) {
+	.cancellation__container h1 {
+		font-size: 1.04625rem;
+	}
+
+	.cancellation__body h2 {
+		margin-bottom: 1rem;
+		font-size: 0.9125rem;
+	}
+
+	.cancellation__inner li {
+		margin-bottom: 0.7rem;
+		font-size: 0.77rem;
+	}
+
+	.cancellation__form select {
+		padding: 0.7rem;
+		font-size: 0.77rem;
+	}
+
+	.cancellation__form button {
+		padding: 0.7rem 0.75rem;
+		border-radius: 2.5rem;
+
+		font-size: 0.74625rem;
+	}
+}

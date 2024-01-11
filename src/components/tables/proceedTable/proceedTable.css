@@ -1,0 +1,37 @@
+.proceed__btn {
+	margin: 1rem 0 1rem 76%;
+	font-size: 1.2rem;
+
+	background: linear-gradient(to bottom right, #ed37da, #5961f9);
+	font-weight: 400;
+	margin-left: 76%;
+
+	text-transform: uppercase;
+	color: white;
+	padding: 1rem;
+	border-radius: 1.880625rem;
+	font-size: 1rem;
+
+	border: none;
+	outline: none;
+	cursor: pointer;
+	margin-top: 0.5rem;
+	transition: all 500ms ease;
+}
+
+.end {
+	font-weight: 600;
+	color: #fe0000;
+	text-transform: capitalize;
+}
+
+/* MEDIA QUERIES (Phones) */
+@media (max-width: 524px) {
+	.proceed__btn {
+		margin-left: 50%;
+		padding: 0.7rem 0.75rem;
+		border-radius: 2.5rem;
+
+		font-size: 0.44625rem;
+	}
+}

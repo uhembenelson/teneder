@@ -37,8 +37,17 @@
 
 .manage__btn {
 	margin: 1rem 0 1rem 76%;
-
 	font-size: 1.2rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+.manage__btn img {
+	width: 20px;
+	height: 20px;
 }
 
 /* MEDIA QUERIES (Tablets) */

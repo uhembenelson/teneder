@@ -1,21 +1,14 @@
 import { Link } from 'react-router-dom';
 import CompanyNav from '../../OrganizationNav/OrganizationNav';
-import './manageTenderTable.css';
+import './provideTable.css';
+// import './manageTenderTable.css';
 
 import backArrow from '../../../assets/Shape.png';
 import exportPdf from '../../../assets/Export Pdf.png';
 import lightApprove from '../../../assets/approval-1.png';
-import x from '../../../assets/x.png';
-import { useState } from 'react';
-import CancelOrder from '../tenderTable/CancelOrder';
+import approve from '../../../assets/Approval.png';
 
-function ManageTenderTable() {
-	const [showModal, setShowModal] = useState(false);
-
-	function handleShowModal() {
-		setShowModal(!showModal);
-	}
-
+function ProvideTable() {
 	return (
 		<section>
 			<CompanyNav />
@@ -124,8 +117,8 @@ function ManageTenderTable() {
 								<td>13-sept-2023</td>
 								<td>
 									<img
-										src={lightApprove}
-										alt='lightApprove'
+										src={approve}
+										alt='approve'
 									/>
 								</td>
 							</tr>
@@ -150,26 +143,13 @@ function ManageTenderTable() {
 						</tbody>
 					</table>
 
-					<button
-						className='cancel__btn act__btn manage__btn'
-						onClick={handleShowModal}>
-						<img
-							src={x}
-							alt='x'
-						/>
-						cancel the tender
+					<button className=' act__btn manage__btn provide__btn'>
+						provide reasons
 					</button>
 				</section>
-
-				{showModal && (
-					<CancelOrder
-						show={showModal}
-						handleShowModal={handleShowModal}
-					/>
-				)}
 			</div>
 		</section>
 	);
 }
 
-export default ManageTenderTable;
+export default ProvideTable;

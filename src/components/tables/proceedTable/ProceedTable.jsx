@@ -1,21 +1,12 @@
 import { Link } from 'react-router-dom';
 import CompanyNav from '../../OrganizationNav/OrganizationNav';
-import './manageTenderTable.css';
+import './proceedTable.css';
 
 import backArrow from '../../../assets/Shape.png';
 import exportPdf from '../../../assets/Export Pdf.png';
-import lightApprove from '../../../assets/approval-1.png';
-import x from '../../../assets/x.png';
-import { useState } from 'react';
-import CancelOrder from '../tenderTable/CancelOrder';
+import approve from '../../../assets/Approval.png';
 
-function ManageTenderTable() {
-	const [showModal, setShowModal] = useState(false);
-
-	function handleShowModal() {
-		setShowModal(!showModal);
-	}
-
+function ProceedTable() {
 	return (
 		<section>
 			<CompanyNav />
@@ -68,12 +59,7 @@ function ManageTenderTable() {
 									/>
 								</td>
 								<td>13-sept-2023</td>
-								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
-								</td>
+								<td className='end'>Non-competitive Pricing</td>
 							</tr>
 
 							<tr>
@@ -86,12 +72,7 @@ function ManageTenderTable() {
 									/>
 								</td>
 								<td>13-sept-2023</td>
-								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
-								</td>
+								<td className='end'>Incorrect Documentation</td>
 							</tr>
 
 							<tr>
@@ -104,12 +85,7 @@ function ManageTenderTable() {
 									/>
 								</td>
 								<td>13-sept-2023</td>
-								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
-								</td>
+								<td className='end'>Non-competitive Pricing</td>
 							</tr>
 
 							<tr>
@@ -124,8 +100,8 @@ function ManageTenderTable() {
 								<td>13-sept-2023</td>
 								<td>
 									<img
-										src={lightApprove}
-										alt='lightApprove'
+										src={approve}
+										alt='approve'
 									/>
 								</td>
 							</tr>
@@ -140,36 +116,18 @@ function ManageTenderTable() {
 									/>
 								</td>
 								<td>13-sept-2023</td>
-								<td>
-									<img
-										src={lightApprove}
-										alt='lightApprove'
-									/>
-								</td>
+								<td className='end'>Less Work Experience</td>
 							</tr>
 						</tbody>
 					</table>
 
-					<button
-						className='cancel__btn act__btn manage__btn'
-						onClick={handleShowModal}>
-						<img
-							src={x}
-							alt='x'
-						/>
-						cancel the tender
-					</button>
-				</section>
+					{/* using the same class name as the provide reason table because the have the same styles */}
 
-				{showModal && (
-					<CancelOrder
-						show={showModal}
-						handleShowModal={handleShowModal}
-					/>
-				)}
+					<button className='proceed__btn'>proceed to smart contract</button>
+				</section>
 			</div>
 		</section>
 	);
 }
 
-export default ManageTenderTable;
+export default ProceedTable;

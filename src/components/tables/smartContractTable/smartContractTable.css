@@ -1,0 +1,24 @@
+.contract__reason-form select {
+	--select-bg: #d9d9d9;
+	padding: 1rem;
+	font-size: 1.172875rem;
+	background: var(--select-bg);
+	outline: none;
+	border: none;
+}
+
+/* MEDIA QUERIES (Tablets) */
+@media (max-width: 1024px) {
+	.contract__reason-form select {
+		padding: 0.7rem;
+		font-size: 0.8rem;
+	}
+}
+
+/* MEDIA QUERIES (Phones) */
+@media (max-width: 524px) {
+	.contract__reason-form select {
+		padding: 0.5rem;
+		font-size: 0.77rem;
+	}
+}
