@@ -18,6 +18,7 @@ import CreateTender from './Pages/Organization/CreateTender/CreateTender';
 import ReasonForCancellation from './components/cancellation/ReasonForCancellation';
 import OrganizationFeedback from './Pages/Organization/OrganizationFeedback/OrganizationFeedback';
 import OrganizationHome from './Pages/Organization/OrganizationHome/OrganizationHome';
+import OrganizationNotification from './Pages/Organization/OrganizationNotification/OrganizationNotification';
 
 const App = () => {
 	return (
@@ -70,11 +71,12 @@ const App = () => {
 						element={<OrganizationHome />}
 					/>
 					<Route
-						path='/table'
+						path='/organization/manage-tender'
 						element={<TenderTable />}
 					/>
 					<Route
-						path='/manage-tender'
+						path='/organization/manage-tender/table'
+						// Should have an id
 						element={<ManageTenderTable />}
 					/>
 					<Route
@@ -89,6 +91,11 @@ const App = () => {
 						path='/organization/feedback'
 						element={<OrganizationFeedback />}
 					/>
+					<Route
+						path='/organization/notification'
+						element={<OrganizationNotification />}
+					/>
+
 
 				</Routes>
 			</div>

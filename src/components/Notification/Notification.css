@@ -1,0 +1,48 @@
+.notificationCard{
+    background-color: #ccc;
+    width: 50%;
+    margin: auto;
+    border-radius: 2rem;
+    padding: .5rem 0;
+    margin-top: .5rem;
+}
+
+.notificationBox{
+    margin-bottom: 1rem;
+}
+
+.notificationCardInner{
+    width: 95%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.notificationCard img{
+    height: 2rem;
+}
+
+.notificationMain{
+    font-weight: 500;
+}
+
+@media screen and (max-width: 1120px){
+    .notificationCard{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .notificationCard {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .notificationCard {
+        width: 100%;
+    }
+    .notificationCardInner span{
+        font-size: .8rem;
+    }
+}

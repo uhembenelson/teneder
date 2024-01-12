@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CompanyNav from '../../OrganizationNav/OrganizationNav';
 import './manageTenderTable.css';
 
@@ -12,6 +12,8 @@ import CancelOrder from '../tenderTable/CancelOrder';
 function ManageTenderTable() {
 	const [showModal, setShowModal] = useState(false);
 
+	const navigate = useNavigate()
+
 	function handleShowModal() {
 		setShowModal(!showModal);
 	}
@@ -23,13 +25,13 @@ function ManageTenderTable() {
 			{/* still giving them same class name as other table names to avoid too much styling */}
 			<div className='table__container manage__container'>
 				<div className='table__heading'>
-					<Link to='#'>
+					<div className='arrowBack' onClick={() => navigate(-1)}>
 						<img
 							src={backArrow}
 							alt='backArrow'
 						/>
 						<span>return</span>
-					</Link>
+					</div>
 					<h2>manage tender</h2>
 				</div>
 

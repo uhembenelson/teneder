@@ -1,0 +1,42 @@
+.organizationNotification{
+    max-width: 1700px;
+    margin: auto;
+    width: 90%;
+    padding-bottom: 2rem;
+}
+
+.notificationTopContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #111;
+}
+.mark{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 1rem;
+    align-items: center;
+}
+.markAll{
+    background-color: #ccc;
+    border-radius: 2rem;
+    padding: 1rem;
+}
+
+.markAsRead{
+    color: rgba(3, 12, 231, 1);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.todaysDate{
+    background-color: #ccc;
+    width: 200px;
+    margin: auto;
+    text-align: center;
+    padding: .6rem 0;
+    font-weight: 500;
+    border-radius: 2rem;
+}

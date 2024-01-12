@@ -6,6 +6,17 @@
 	width: 100%;
 }
 
+.arrowBack{
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.arrowBack span {
+	font-size: 1rem;
+	font-weight: 500;
+}
+
 .description {
 	width: 100%;
 	margin: auto;
