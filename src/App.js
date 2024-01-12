@@ -17,6 +17,7 @@ import ManageTenderTable from './components/tables/manageTenderTable/ManageTende
 import CreateTender from './Pages/Organization/CreateTender/CreateTender';
 import ReasonForCancellation from './components/cancellation/ReasonForCancellation';
 import OrganizationFeedback from './Pages/Organization/OrganizationFeedback/OrganizationFeedback';
+import OrganizationHome from './Pages/Organization/OrganizationHome/OrganizationHome';
 
 const App = () => {
 	return (
@@ -62,6 +63,11 @@ const App = () => {
 					<Route
 						path='/bidder/profile'
 						element={<BidderProfile />}
+					/>
+					// Organization
+					<Route
+						path='/organization/home'
+						element={<OrganizationHome />}
 					/>
 					<Route
 						path='/table'

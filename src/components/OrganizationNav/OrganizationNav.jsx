@@ -19,14 +19,15 @@ function CompanyNav() {
     return (
         <nav className='nav'>
             <div className='nav__container'>
-                <img
-                    src={logo}
-                    alt='logo'
-                    className='nav__logo'
-                />
+                <Link to='/organization/home'>
+                    <img
+                        src={logo}
+                        alt='logo'
+                        className='nav__logo'
+                    /></Link>
 
                 <ul className='nav__items'>
-                    <Link to='/bidder/history' >
+                    <Link to='/organization/notification' >
                         <li>
                             notifications
                             <img
@@ -53,7 +54,10 @@ function CompanyNav() {
                             alt='arrow'
                         />
                     </li>
-                    <li>history</li>
+                    <Link to='/organization/history' >
+
+                        <li>history</li>
+                    </Link>
                 </ul>
 
                 <button

@@ -1,0 +1,13 @@
+.organizationCardBox{
+    background: linear-gradient(45deg, #a8a1e6,#999dfa,#5b5fa7);
+    
+}
+.organizationHomeCard{
+    background: linear-gradient(45deg, #564e88, #494ea2, #080b4d);
+}
+
+.organizationCardBox p{
+    font-weight: 500;
+    color: #121212;
+}
+
