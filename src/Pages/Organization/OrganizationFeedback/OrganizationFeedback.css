@@ -3,7 +3,8 @@
     max-width: 1700px;
     margin: auto;
     display: flex;
-    height: 110vh;
+    height: fit-content;
+    padding-bottom: 1rem;
 }
 
 .feedbackImageContainer{
@@ -105,10 +106,6 @@ width: 100%;
     margin: auto
 }
 
-.feedback {
-    
-    height: 120vh;
-}
 }
 
 @media screen and (max-width:550px) {
