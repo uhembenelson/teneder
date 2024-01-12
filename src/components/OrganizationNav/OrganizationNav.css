@@ -103,7 +103,7 @@
 	}
 
 	.mobile__nav {
-		position: absolute;
+		position: fixed;
 		top: 4rem;
 		right: 1rem;
 		display: flex;
