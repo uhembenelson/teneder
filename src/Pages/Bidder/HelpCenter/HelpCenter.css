@@ -99,6 +99,10 @@
         margin: 0;
 }
 
+.organizationFaqContainer{
+    background-color: rgba(89, 89, 155, 1);
+}
+
 @media screen and (max-width: 780px){
     .questionsContainer{
         

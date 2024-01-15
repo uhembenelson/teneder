@@ -57,6 +57,75 @@
 	height: 1.5rem;
 }
 
+.popUpContainer{
+	position: relative;
+}
+
+.popUpContainer:hover .navPopUp{
+	display: block;
+	padding: .5rem 0;
+}
+
+
+
+.navPopUp{
+	
+	height: fit-content;
+	width: 100%;
+	border-radius: .5rem;
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	z-index: 1000;
+	top: 3rem;
+	box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
+	right: 0;
+}
+
+.navPopUpBox{
+	width: 90%;
+	margin: auto;
+}
+
+
+.navPopUpTop{
+	
+	display: flex;
+	border-bottom: 1px solid #ccc;
+	align-items: center;
+	padding: .5rem 0;
+}
+.navPopUpDetails{
+	margin-left: .5rem;
+}
+.navPopUpEmail{
+	font-size: .8rem;
+	color: #ccc;
+	font-weight: 400;
+	
+}
+.navPopUpName{
+	font-size: .7rem;
+	font-weight: 400;
+	color: #111;
+}
+.navPopUpDept{
+	font-size: .5rem;
+	width: fit-content;
+	padding: .2rem;
+		color: rgba(0, 88, 250, 1);
+		background-color: rgba(204, 221, 249, 1);
+		border-radius: .3rem;
+		margin-left: .5rem;
+}
+.navPopNameType{
+	display: flex;
+}
+
+.settingsText{
+	font-weight: 500;
+}
+
 /* Resonsiveness (Tablets) */
 @media (max-width: 1024px) {
 	.nav {
@@ -102,6 +171,20 @@
 		z-index: 2;
 	}
 
+	.navPopUp {
+	
+		height: fit-content;
+		width: 70%;
+		border-radius: .5rem;
+		display: none;
+		position: absolute;
+		background-color: #fff;
+		z-index: 1000;
+		top: 3rem;
+		box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
+		left: 0;
+	}
+
 	.mobile__nav {
 		position: fixed;
 		top: 4rem;
@@ -112,9 +195,10 @@
 		flex-direction: column;
 		gap: 1.5rem;
 		padding: 1rem;
-		width: 70%;
+		width: 50%;
 		z-index: 2;
 		background: var(--mob-bg);
+		background-color: red;
 	}
 
 	.mobile__nav li {

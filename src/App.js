@@ -19,6 +19,14 @@ import ReasonForCancellation from './components/cancellation/ReasonForCancellati
 import OrganizationFeedback from './Pages/Organization/OrganizationFeedback/OrganizationFeedback';
 import OrganizationHome from './Pages/Organization/OrganizationHome/OrganizationHome';
 import OrganizationNotification from './Pages/Organization/OrganizationNotification/OrganizationNotification';
+import OrganizationHistory from './Pages/Organization/OrganizationHistory/OrganizationHistory';
+import OrganizationProfile from './Pages/Organization/OrganizationProfile/OrganizationProfile';
+import OrganizationLogin from './Pages/Organization/OrganizationAuth/OrganizationLogin';
+import OrganizationForgotPassword from './Pages/Organization/OrganizationAuth/OrganizationForgorPassword';
+import OrganizationTwoFactor from './Pages/Organization/OrganizationAuth/OrganizationTwoFactor';
+import OrganizationSignUp from './Pages/Organization/OrganizationAuth/OrganizationSignUp';
+import OrganizationHelpCenter from './Pages/Organization/OrganizationHelpCenter/OrganizationHelpCenter';
+import EditProfile from './Pages/Organization/EditProfile/EditProfile';
 
 const App = () => {
 	return (
@@ -65,11 +73,31 @@ const App = () => {
 						path='/bidder/profile'
 						element={<BidderProfile />}
 					/>
-					// Organization
+					{/*// Organization*/}
+					<Route
+						path='/organization/signup'
+						element={<OrganizationSignUp />}
+					/>
 					<Route
 						path='/organization/home'
 						element={<OrganizationHome />}
 					/>
+					<Route
+						path='/organization/profile'
+						element={<OrganizationProfile />}
+					/><Route
+						path='/organization/login'
+						element={<OrganizationLogin />}
+					/>
+					<Route
+						path='/organization/forgot-password'
+						element={<OrganizationForgotPassword />}
+					/>
+					<Route
+						path='/organization/twofactor'
+						element={<OrganizationTwoFactor />}
+					/>
+
 					<Route
 						path='/organization/manage-tender'
 						element={<TenderTable />}
@@ -95,7 +123,18 @@ const App = () => {
 						path='/organization/notification'
 						element={<OrganizationNotification />}
 					/>
-
+					<Route
+						path='/organization/help-center'
+						element={<OrganizationHelpCenter />}
+					/>
+					<Route
+						path='/organization/history'
+						element={<OrganizationHistory />}
+					/>
+					<Route
+						path='/organization/edit-profile'
+						element={<EditProfile />}
+					/>
 
 				</Routes>
 			</div>
