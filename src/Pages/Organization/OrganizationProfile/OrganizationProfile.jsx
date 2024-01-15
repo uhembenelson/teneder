@@ -16,7 +16,7 @@ const OrganizationProfile = () => {
                     <div className='bidderProfileContainer' >
                         <div className='bidderProfileNav' >
                             <p onClick={() => navigate(-1)} className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
-                            <button>Edit Profile</button>
+                            <button onClick={() => navigate('organization/edit-profile')}>Edit Profile</button>
                         </div>
                         <div className='profileBox' >
                             <div className='bidderProfileLeft' >

@@ -78,6 +78,8 @@
 
 .dummyBox2{
 background: linear-gradient(45deg, #3538e3, #030ce7);
+width: 90%;
+margin: auto;
 }
 
 .bidderdummyBox{
@@ -139,10 +141,12 @@ background: linear-gradient(45deg, #3538e3, #030ce7);
         flex-direction: column;
 }
 
+/* dummyBox dummyBox2 organizationDummyBox */
+
 @media screen and (max-width: 1389px) {
     .bidderBoxDummy{
         display: grid;
-        grid-template-columns:repeat(3, 1fr) ;
+        grid-template-columns:repeat(2, 1fr) ;
         margin: auto;
         margin-top: 2rem;
         width: 70%;

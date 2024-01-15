@@ -1,0 +1,112 @@
+
+
+.evaluateTender{
+    width: 90%;
+    max-width: 1700px;
+    margin: auto;
+}
+
+.refNo{
+    font-weight: bold;
+}
+
+.evaluateTenderCard{
+    padding: 1rem;
+    background-color: rgba(117, 117, 117, 0.18);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+.evalCardTopContainer{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.evalTextDescContainer{
+    display: flex;
+    width: 70%;
+}
+
+.evalTextDescContainer p {
+    font-weight: bold;
+    width: 30%;
+    margin-right: .6rem;
+}
+
+.evalCardBottomContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: .5rem;
+}
+
+.statusContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+}
+
+.statusContainer p{
+    font-weight: bold;
+    
+}
+
+.statusContainer span{
+    font-weight: 400;
+}
+
+.completedBy {
+    margin-right: 3rem;
+}
+
+.complete{
+    color: rgba(0, 107, 5, 1);
+    font-weight: bold;
+}
+
+.evalButton{
+    background: linear-gradient(45deg, #98228b, #39369f);
+    display: flex;
+    align-items: center;
+    border-radius: 1rem;
+    width: 12rem;
+    justify-content: space-between;
+    color: #fff;
+    padding:1rem;
+}
+
+
+@media screen and (max-width: 750px) {
+    .evalCardTopContainer{
+        flex-direction: column;
+    }
+    .evalTextDescContainer{
+        flex-direction: column;
+        width: 100%;
+    }
+    .evalTextDescContainer p{
+        width: 100%;
+        margin-bottom: .5rem;
+    }
+    .evalTextDescContainer span{
+        width: 100%;
+        margin-bottom: .5rem;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .statusContainer{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .evalCardBottomContainer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .progressContainer{
+        margin-top: 1rem;
+    }
+}

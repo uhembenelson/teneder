@@ -1,0 +1,59 @@
+.editProfileContainer{
+    max-width: 1700px;
+    margin: auto;
+    padding-bottom: 1rem;
+    width: 90%;
+}
+
+.avatarContainer{
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 100%;
+}
+
+.imageInput{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 1;
+    top: 1px;
+
+    opacity: 0;
+}
+
+.headContainer{
+    width: 100%;
+    border-bottom: 1px solid #111;
+    padding-bottom: 1rem;
+}
+
+.middleProfileContainer{
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.editProfileInfo{
+    margin: 1rem 0;
+}
+
+.confirmBtnContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.editProfileName{
+    font-size: .8rem;
+    color: rgba(138, 121, 205, 1)
+
+}
+
+@media screen and (max-width:600px ){
+    .editProfileInfo{
+        font-size: 1rem;
+    }
+}

@@ -39,7 +39,7 @@ const OrganizationHome = () => {
                             <div className='bidderHomeCard organizationHomeCard' >
                                 <img className='bidderHomeImage' src={Image12} alt='bidder' />
                             </div>
-                            <div className='bidderCardBox organizationCardBox'><p>Evaluate Tender</p></div>
+                            <div onClick={() => navigate('/organization/evaluate-tender')} className='bidderCardBox organizationCardBox'><p>Evaluate Tender</p></div>
                         </div>
 
 

@@ -27,6 +27,7 @@ import OrganizationTwoFactor from './Pages/Organization/OrganizationAuth/Organiz
 import OrganizationSignUp from './Pages/Organization/OrganizationAuth/OrganizationSignUp';
 import OrganizationHelpCenter from './Pages/Organization/OrganizationHelpCenter/OrganizationHelpCenter';
 import EditProfile from './Pages/Organization/EditProfile/EditProfile';
+import EvaluateTender from './Pages/Organization/EvaluateTender/EvaluateTender'
 
 const App = () => {
 	return (
@@ -134,6 +135,10 @@ const App = () => {
 					<Route
 						path='/organization/edit-profile'
 						element={<EditProfile />}
+					/>
+					<Route
+						path='/organization/evaluate-tender'
+						element={<EvaluateTender />}
 					/>
 
 				</Routes>

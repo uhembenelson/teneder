@@ -3,7 +3,16 @@ import { useDropzone } from "react-dropzone";
 import pdf from '../../assets/Import Pdf.png'
 import './UploadFile.css'
 
-const UploadFile = () => {
+const UploadFile = ({ name }) => {
+    
+    let label = null
+    if (!name) {
+        label = 'Select Document'
+    }
+    else {
+        label = name
+    }
+
     const { getRootProps, getInputProps } = useDropzone({
         onDrop: (acceptedFiles) => {
             // if (title === "Identity Verification") {
@@ -27,7 +36,7 @@ const UploadFile = () => {
             >
                 <input {...getInputProps()} />
 
-                <p>Select Document</p>
+                <p>{label}</p>
             </div>
             <img className='pdfImage' src={pdf} alt='pdf' />
         </div>
