@@ -15,7 +15,7 @@ const Welcome = () => {
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	return (
 		<div>
-			{/* <MainNav
+			<MainNav
 				setShowLoginModal={setShowLoginModal}
 				setShowSignUpModal={setShowSignUpModal}
 			/>
@@ -27,8 +27,8 @@ const Welcome = () => {
 			<WhyUs />
 			<Clients />
 			<Dummy />
-			<Footer /> */}
-			<ProceedTable />
+			<Footer />
+			{/*<ProceedTable />*/}
 		</div>
 	);
 };

@@ -127,6 +127,21 @@
     color: #fff;
 }
 
+.editProfileBtn{
+    background: linear-gradient(45deg, #a44ce9, #d112a0, #5c3ec1);
+    padding: .6rem 1rem;
+    border-radius: .6rem;
+    width: fit-content;
+    display: flex;
+    color: white;
+    align-items: center;
+
+}
+
+.editProfileBtn img{
+    height: 1rem;
+}
+
 @media screen and (max-width: 900px){
     .profileBox{
         flex-direction: column;

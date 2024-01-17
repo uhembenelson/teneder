@@ -74,7 +74,7 @@ const BidderDummy = () => {
             <div className='dummyBox dummyBox2' >
                 <div className='bidderdummyBox' >
                     <div>
-                        <p className='bidders'>Transactions</p>
+                        <p className='bidders'>Ratings</p>
                         <p className='dummyBoxAmount'>4.8</p>
                         <div>
                             <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">

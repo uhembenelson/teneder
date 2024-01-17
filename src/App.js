@@ -29,6 +29,13 @@ import OrganizationHelpCenter from './Pages/Organization/OrganizationHelpCenter/
 import EditProfile from './Pages/Organization/EditProfile/EditProfile';
 import EvaluateTender from './Pages/Organization/EvaluateTender/EvaluateTender'
 import BidDetails from './Pages/Bidder/BidDetails/BidDetails';
+import ApprovalCheck from './Pages/Bidder/ApprovalCheck/ApprovalCheck';
+import ApproveTender from './Pages/Bidder/ApproveTender/ApproveTender';
+import BidTender from './Pages/Bidder/BidTender/BidTender';
+import ViewTender from './Pages/Bidder/ViewTender/ViewTender';
+import BidderNotification from './Pages/Bidder/BidderNotification/BidderNotification';
+import BidderEditProfile from './Pages/Bidder/BidderEditProfile/BidderEditProfile';
+import BidderFeedback from './Pages/Bidder/BidderFeedback/BidderFeedback';
 
 const App = () => {
 	return (
@@ -68,6 +75,11 @@ const App = () => {
 						element={<BidderHistory />}
 					/>
 					<Route
+						path='/bidder/notification'
+						element={<BidderNotification />}
+					/>
+
+					<Route
 						path='/bidder/Help-center'
 						element={<HelpCenter />}
 					/>
@@ -76,8 +88,32 @@ const App = () => {
 						element={<BidderProfile />}
 					/>
 					<Route
+						path='/bidder/edit-profile'
+						element={<BidderEditProfile />}
+					/>
+					<Route
+						path='/bidder/bid-tender'
+						element={<BidTender />}
+					/>
+					<Route
 						path='/bidder/bid-details/:bidId'
 						element={<BidDetails />}
+					/>
+					<Route
+						path='/bidder/approve'
+						element={<ApproveTender />}
+					/>
+					<Route
+						path='/bidder/approval/:id'
+						element={<ApprovalCheck />}
+					/>
+					<Route
+						path='/bidder/view-tender'
+						element={<ViewTender />}
+					/>
+					<Route
+						path='/bidder/feedback'
+						element={<BidderFeedback />}
 					/>
 					{/*// Organization*/}
 					<Route

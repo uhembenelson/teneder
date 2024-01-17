@@ -1,0 +1,104 @@
+.approvalCheckBox{
+    max-width: 1700px;
+    margin: auto;
+    width: 90%;
+}
+
+.approvalCheckBox h2{
+    text-align: center;
+}
+
+.approvalCheckContentBox{
+    width: 70%;
+    margin: auto;
+    margin-top: 2rem;
+    background: linear-gradient(45deg, #24069a, #020645);
+    height: 60vh;
+}
+
+.approvalCheckContentTop{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid white;
+    align-items: center;
+}
+
+.tenderText{
+    font-size: 1.3rem;
+    color: #fff
+}
+
+.tenderNumber{
+    font-size: .8rem;
+    color: #fff;
+}
+
+.approvalContentBox{
+    width: 70%;
+    margin: auto;
+    margin-top: 2rem;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    /* background-color: red; */
+
+}
+
+.textHeaderContainer{
+    display: flex;   
+}
+
+.textHeader{
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-right: .5rem;
+}
+
+.textDesc{
+    color: #fff;
+}
+
+.textHeaderContainer{
+    margin-bottom: 1rem;
+}
+
+.textDescApproved{
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 880px){
+ .approvalCheckContentBox{
+    width: 80%;
+ }
+}
+@media screen and (max-width: 770px) {
+    .approvalCheckContentBox {
+        width: 90%;
+    }
+    .approvalContentBox{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 770px) {
+   
+    .textHeaderContainer {
+        flex-direction: column;
+    }
+    .textHeader{
+        margin-bottom: .3rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+   
+    
+    .textHeader{
+        font-size: .9rem;
+    }
+}

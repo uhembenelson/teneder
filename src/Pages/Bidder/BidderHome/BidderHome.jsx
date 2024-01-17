@@ -6,9 +6,11 @@ import Image10 from '../../../assets/image 10.png'
 import TopBidders from '../../../components/TopBidders/TopBidders'
 import BidderDummy from '../../../components/BidderDummy/BidderDummy'
 import BidderNav from '../../../components/BidderNav/Nav'
+import { useNavigate } from 'react-router-dom'
 
 
 const BidderHome = () => {
+    const navigate = useNavigate()
 
     return (
         <div>
@@ -22,20 +24,20 @@ const BidderHome = () => {
                                 <img className='bidderHomeImage' src={Image11} alt='bidder' />
 
                             </div>
-                            <div className='bidderCardBox' ><p>Bid Tender</p></div>
+                            <div onClick={() => navigate('/bidder/bid-tender')} className='bidderCardBox' ><p>Bid Tender</p></div>
                         </div>
                         <div className='bidderHomeCardContainer'>
                             <div className='bidderHomeCard ' >
                                 <img className='bidderHomeImage' src={Image12} alt='bidder' />
                             </div>
-                            <div className='bidderCardBox'><p>Approval Check</p></div>
+                            <div onClick={() => navigate('/bidder/approve')} className='bidderCardBox'><p>Approval Check</p></div>
                         </div>
                         <div className='bidderHomeCardContainer'>
 
                             <div className='bidderHomeCard ' >
                                 <img className='bidderHomeImage' src={Image10} alt='bidder' />
                             </div>
-                            <div className='bidderCardBox'><p>View Tender</p></div>
+                            <div onClick={() => navigate('/bidder/view-tender')} className='bidderCardBox'><p>View Tender</p></div>
                         </div>
 
 

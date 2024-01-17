@@ -10,6 +10,7 @@
 	width: 100%;
 	height: 100%;
 	margin: auto;
+	padding-bottom: 1rem;
 }
 
 .table__heading {
@@ -59,11 +60,11 @@
 	border-collapse: collapse;
 }
 
-.tender__table thead th {
+/* .tender__table thead th {
 	position: sticky;
 	top: 0;
 	left: 0;
-}
+} */
 
 .tender__table th,
 .tender__table td {
