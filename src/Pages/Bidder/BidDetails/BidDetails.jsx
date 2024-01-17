@@ -45,7 +45,7 @@ const BidDetails = () => {
                             <p>Organization : </p>
                             <p>YTL Corporation LTD.</p>
                         </div>
-                        <div className='tenderDetailSmall' >
+                        <div className='tenderDetailSmall locBox' >
                             <p>T. Number  :</p>
                             <p>4567832 </p>
                         </div>
@@ -74,11 +74,11 @@ const BidDetails = () => {
                             <p>Work Period :</p>
                             <p>31/04/2022 - 31/07/2022 </p>
                         </div>
-                        <div className='tenderDetailBig' >
+                        <div className='tenderDetailBig locBox' >
                             <p>Location   :</p>
                             <p>Panjim</p>
                         </div>
-                        <div className='tenderDetailBig' >
+                        <div className='tenderDetailBig locBox' >
                             <p>Type :  </p>
                             <p>Private</p>
                         </div>

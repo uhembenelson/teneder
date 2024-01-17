@@ -92,6 +92,10 @@
     margin-bottom: .5rem;
 }
 
+.locBox{
+    display: flex;
+}
+
 .attachmentsContainer{
     display: flex;
 }
@@ -113,6 +117,9 @@
     .tenderDetailBig, .tenderDetailSmall {
         flex-direction: column;
     }
+    .locBox{
+        flex-direction: row;
+    }
 }
 
 @media screen and (max-width: 550px) {
@@ -120,4 +127,9 @@
     .bidDetail__heading {
         width: 100%;
     }
+                .tenderDetailBigAttach {
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                }
 }

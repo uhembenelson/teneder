@@ -82,4 +82,8 @@
         flex-direction: column;
 
     }
+    .uploadFormBox{
+        width: 80%;
+        
+    }
 }
