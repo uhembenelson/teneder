@@ -1,0 +1,123 @@
+.bidDetailsContainer{
+    width: 90%;
+    padding-bottom: 1rem;
+    margin: auto;
+    max-width: 1700px
+}
+
+.bidDetail__heading{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.bidDetail__heading img{
+    height: 1.5rem;
+    margin-right: .5rem;
+}
+
+.backArrow{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tenderDetailsContainer{
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 1rem;
+    background: linear-gradient(45deg,#24069a,#020645);
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tenderDetailsHeaderBox{
+    border: 1px solid white;
+    
+}
+
+.tenderDocContainer{
+    color: #fff;
+    padding: 1rem;
+}
+
+.tenderDocOptionsContainer{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.tenderDocDownloadContainer{
+    display: flex;
+    margin-left:3rem;
+}
+
+.tenderDocDownloadContainer  p{
+    cursor: pointer;
+}
+
+.tenderDocDownloadContainer > p{
+    margin-right: 1rem;
+}
+
+.tenderDetailsHeaderBox h2{
+    padding: 1rem;
+    color: #fff;
+}
+
+.tenderDetailsContentBox{
+    padding: 1rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+
+
+.tenderDetailSmall >p, .tenderDetailBig p {
+    margin-right: .5rem;
+}
+
+.tenderDetailBig, .tenderDetailSmall {
+    display: flex;
+    
+}
+
+.tenderDetailBigAttach{
+    display: flex;
+        align-items: center;
+}
+
+.tenderDetailBig p,
+.tenderDetailSmall p {
+    margin-bottom: .5rem;
+}
+
+.attachmentsContainer{
+    display: flex;
+}
+
+.attachmentsContainer p{
+    margin-left: .5rem;
+    border-radius: 1rem;
+    padding: .3rem;
+    height: fit-content;
+    background-color: #fff;
+    color: #111;
+}
+
+.attachmentsContainer img{
+    height: 2rem;
+}
+
+@media screen and (max-width: 1200px){
+    .tenderDetailBig, .tenderDetailSmall {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 550px) {
+
+    .bidDetail__heading {
+        width: 100%;
+    }
+}

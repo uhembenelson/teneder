@@ -28,6 +28,7 @@ import OrganizationSignUp from './Pages/Organization/OrganizationAuth/Organizati
 import OrganizationHelpCenter from './Pages/Organization/OrganizationHelpCenter/OrganizationHelpCenter';
 import EditProfile from './Pages/Organization/EditProfile/EditProfile';
 import EvaluateTender from './Pages/Organization/EvaluateTender/EvaluateTender'
+import BidDetails from './Pages/Bidder/BidDetails/BidDetails';
 
 const App = () => {
 	return (
@@ -73,6 +74,10 @@ const App = () => {
 					<Route
 						path='/bidder/profile'
 						element={<BidderProfile />}
+					/>
+					<Route
+						path='/bidder/bid-details/:bidId'
+						element={<BidDetails />}
 					/>
 					{/*// Organization*/}
 					<Route
