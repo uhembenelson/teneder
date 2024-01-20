@@ -15,10 +15,10 @@ const Welcome = () => {
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	return (
 		<div>
-			<MainNav
+			{/*<MainNav
 				setShowLoginModal={setShowLoginModal}
 				setShowSignUpModal={setShowSignUpModal}
-			/>
+	/>*/}
 			{showLoginModal && <LoginMode setShowLoginModal={setShowLoginModal} />}
 			{showSignUpModal && (
 				<SignUpMode setShowSignUpModal={setShowSignUpModal} />

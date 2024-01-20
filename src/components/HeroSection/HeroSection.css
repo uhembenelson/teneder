@@ -33,4 +33,51 @@
 
 .btnContainer {
 	display: flex;
+	margin-top: 1rem;
+}
+
+
+@media screen and (max-width: 800px){
+	.heroSectionContainer{
+		flex-direction: column;
+		height: fit-content;
+		padding : 1rem;
+		align-items: center;
+	}
+
+	.heroImage{
+		order: 1;
+		display: block;
+		margin: auto;
+	}
+	.herotextbox{
+		order: 2;
+	}
+	.herotextbox h1, .herotextbox p{
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.btnHolder{
+		margin-right: 1.5rem;
+	}
+	.heroSectionContainer {
+		background-color: rgb(8, 0, 100);
+		display: flex;
+		justify-content: space-between;
+		width: 95%;
+		margin: 0;
+		padding: 2rem .5rem;
+	}
+}
+
+@media screen and (max-width: 350px){
+	.btnContainer {
+			
+			flex-direction: column;
+		}
+	.btnHolder {
+		margin-bottom: 1rem;
+	}
 }

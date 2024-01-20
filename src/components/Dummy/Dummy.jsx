@@ -3,9 +3,9 @@ import './Dummy.css'
 
 const Dummy = () => {
     return (
-        <div className='dummyContainer'>
-            <div className='dummyBoxHolder ' >
-                <div className='dummyBox' >
+        <div className='dummyContainer homeDummyContainer'>
+            <div className='dummyBoxHolder homeDummyBoxHolder' >
+                <div className='dummyBox homeDummyBidder' >
                     <div>
                         <p className='bidders' >Bidders</p>
                         <p className='dummyBoxAmount'>2,2 mil</p>
@@ -23,7 +23,7 @@ const Dummy = () => {
 
                 </div>
 
-                <div className='dummyBox' >
+                <div className='dummyBox homeDummyBidder' >
                     <div>
                         <p className='bidders'>Organization</p>
                         <p className='dummyBoxAmount'>1,6 mil</p>
@@ -50,7 +50,7 @@ const Dummy = () => {
 
 
                 </div>
-                <div className='dummyBox' >
+                <div className='dummyBox homeDummyBidder' >
                     <div>
                         <p className='bidders'>Transactions</p>
                         <p className='dummyBoxAmount'>215,0 mil</p>

@@ -2,12 +2,12 @@ import React from 'react';
 import './HeroSection.css';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import HeroImage from '../../assets/heroImage.png';
-import { Link } from 'react-router-dom';
+
 
 const HeroSection = () => {
 	return (
 		<div className='heroSectionContainer'>
-			<div>
+			<div className='herotextbox' >
 				<div>
 					<h1 className='heroTitle'>WELCOME TO E-TENDER LET’S GET STARTED</h1>
 					<p className='heroDesc'>
@@ -22,7 +22,7 @@ const HeroSection = () => {
 
 					<CustomBtn title='Learn More' />
 
-					<Link to='/manage-tender'>Table</Link>
+
 				</div>
 			</div>
 			<img

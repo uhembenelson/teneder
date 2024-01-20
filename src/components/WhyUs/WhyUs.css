@@ -7,12 +7,17 @@
 }
 
 .defiContainer{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    place-items: center;
+    display: flex;
+    justify-content: space-between;
     margin-top: 2rem;
     grid-gap: 1rem;
     width: 100%;
+}
+
+.allDefiContainers{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
 }
 
 .defiContainerBox{
@@ -24,6 +29,10 @@
     align-items: center;
     width: 15rem;
     background-color: #d9d9d9;
+}
+
+.whyUsBox{
+    width: 30%;
 }
 
 .defiDesc{
@@ -45,3 +54,40 @@
     font-family: Lemon, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+@media screen and (max-width: 1300px){
+    .defiContainer{
+        flex-direction: column;
+    }
+    .allDefiContainers{
+        width: 100%;
+    }
+    .whyUsBox{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 920px) {
+
+    .allDefiContainers {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+    }
+    .defiContainerBox{
+        width: 90%;
+    }
+
+}
+@media screen and (max-width: 660px) {
+
+    .allDefiContainers {
+        
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 1rem;
+    }
+
+    .defiContainerBox {
+        width: 90%;
+    }
+
+}

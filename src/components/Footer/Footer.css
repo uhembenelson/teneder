@@ -1,5 +1,5 @@
 .footerContainer{
-    height :60vh;
+    height :fit-content;
     width: 100vw;
     max-width: 1700px;
     margin: auto;
@@ -66,6 +66,7 @@ color: #ffffffba
 .footerText{
     color: #cfcfcfb3;
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .inputBox input{
@@ -108,4 +109,64 @@ color: #ffffffba
     align-items: center;
     align-self: center;
     justify-content: space-between;
+}
+
+@media screen and (max-width: 1050px) {
+    .footerBox{
+        
+        padding: 1rem 0;
+    }
+}
+@media screen and (max-width: 950px) {
+    .footerBody{
+        flex-direction: column;
+    }
+    .leftFooter {
+        width: 90%;
+        margin-bottom: 1rem;
+    }
+    .Right{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+
+.footerBottom{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.footerBottomLeft {
+    margin-bottom: 1rem;
+    align-items: flex-start;
+    align-self: flex-start;
+}
+.footerBottomRight {
+    width: 60%;
+    
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-content: space-between;
+}
+
+
+}
+
+@media screen and (max-width: 520px) {
+   
+
+    .Right {
+        flex-direction: column;
+    }
+    .helpBox, .contactBox {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .footerBottomLeft span{
+        font-size: .6rem;
+        align-self: center;
+    }
+    
+   
 }

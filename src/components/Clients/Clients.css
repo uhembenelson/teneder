@@ -56,3 +56,38 @@
     font-size: .9rem;
     color: #cfcfcf
 }
+@media screen and (max-width: 1500px) {
+    
+    .clientContainer {
+        padding: 1rem 0;
+        height: fit-content;
+    }
+
+}
+
+@media screen and (max-width: 1155px) {
+    .userCardHolder{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+        margin: auto;
+    }
+    .userCardContainer{
+        width: 90%;
+    }
+
+    
+
+}
+
+@media screen and (max-width: 660px) {
+    .userCardHolder {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 1rem;
+    }
+
+    .userCardContainer {
+        width: 90%;
+    }
+}

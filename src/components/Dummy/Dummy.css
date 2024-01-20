@@ -9,6 +9,11 @@
     align-items: center;
 }
 
+.homeDummyContainer{
+    height: fit-content;
+    padding: 2rem 0;
+}
+
 .dummyBoxHolder{
     display: flex;
     width: 70%;
@@ -41,4 +46,39 @@
 }
 .bidders{
     margin: 0;
+}
+
+@media screen and (max-width: 1182px) {
+    .homeDummyBoxHolder{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .homeDummyBoxHolder {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 880px) {
+    .homeDummyBoxHolder {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+    }
+    .homeDummyBidder {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .homeDummyBoxHolder {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 1rem;
+    }
+
+    .homeDummyBidder {
+        width: 90%;
+        margin: auto;
+    }
 }
