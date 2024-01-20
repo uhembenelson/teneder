@@ -82,7 +82,7 @@
 }
 
 /* Mobile phones */
-@media (max-width: 524px) {
+@media (max-width: 780px) {
 	.nav {
 		height: 3.9375rem;
 		

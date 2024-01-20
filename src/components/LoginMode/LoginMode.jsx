@@ -16,11 +16,11 @@ const LoginMode = ({ setShowLoginModal }) => {
                 <h1 className='modeHeader' >LOGIN AS </h1>
                 <div className='modeContainer' >
                     <div onClick={() => navigate('/bidder/signin')} className='modeHolder' >
-                        <img src={bidder} alt='bidder' />
+                        <img className='modeImage' src={bidder} alt='bidder' />
                         <h3>BIDDER</h3>
                     </div>
-                    <div onClick={() => navigate('/organization/signin')} className='modeHolder' >
-                        <img src={Organization} alt='bidder' />
+                    <div onClick={() => navigate('/organization/login')} className='modeHolder' >
+                        <img className='modeImage' src={Organization} alt='bidder' />
                         <h3>ORGANIZATION</h3>
                     </div>
                 </div>

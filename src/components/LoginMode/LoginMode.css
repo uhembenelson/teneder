@@ -3,8 +3,9 @@
     max-width: 1700px;
     margin: auto;
     position: relative;
+    padding: 1rem 0;
     background-color: #908c8d;
-    height: 90vh;
+    height: fit-content;
 }
 
 .loginModeLayout{
@@ -49,4 +50,15 @@
     right: 10px;
     top: 10px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1050px) {
+    .modeContainer{
+        flex-direction: column;
+    }
+    .modeImage{
+        height: 20vh;
+        width: 50%;
+        margin: auto;
+    }
 }

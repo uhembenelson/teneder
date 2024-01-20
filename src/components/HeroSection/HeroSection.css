@@ -49,6 +49,9 @@
 		order: 1;
 		display: block;
 		margin: auto;
+		height: 50vh;
+		width: 100%;
+
 	}
 	.herotextbox{
 		order: 2;
