@@ -29,6 +29,7 @@
     width: 12rem;
     height: 12rem;
     margin-bottom: 1rem;
+    border: 1px solid #121212;
     border-radius: 100%;
 }
 

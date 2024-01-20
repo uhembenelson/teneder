@@ -1,7 +1,8 @@
 import React from 'react'
-import user from '../../../assets/Ellipse 18.png'
+import user from '../../../assets/Ellipse 4.png'
 import pdf from '../../../assets/Import Pdf.png'
 import { useNavigate } from 'react-router-dom'
+import userRegImage from '../../../assets/Registration.png'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 
 const OrganizationProfile = () => {
@@ -16,13 +17,18 @@ const OrganizationProfile = () => {
                     <div className='bidderProfileContainer' >
                         <div className='bidderProfileNav' >
                             <p onClick={() => navigate(-1)} className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
-                            <button onClick={() => navigate('organization/edit-profile')}>Edit Profile</button>
+
+                            <button className='editProfileBtn' onClick={() => navigate('/organization/edit-profile')} >
+
+                                Edit Profile
+                                <img src={userRegImage} alt='' />
+                            </button>
                         </div>
                         <div className='profileBox' >
                             <div className='bidderProfileLeft' >
                                 <div className='bidderProfileInfoContainer'>
-                                    <h2 className='profileUsername' >Josie Styler</h2>
-                                    <p className='profileUserwork' >WCT holdings  Ltd</p>
+                                    <h2 className='profileUsername' >L & T</h2>
+                                    <p className='profileUserwork' >Promise for the future</p>
                                     <div className='profileImageContainer'>
                                         <img className='profileImage' src={user} alt='' />
                                     </div>
@@ -54,13 +60,13 @@ const OrganizationProfile = () => {
                                     <div className='companyBox' >
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
-                                                <label className='profileLabel'>Full Name of Company</label>
+                                                <label className='profileLabel'>Full Name of Organization</label>
                                             </div>
                                             <input className='inputTypeInput' type='text' />
                                         </div>
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
-                                                <label>Company Type</label>
+                                                <label>Organization Type</label>
                                             </div>
                                             <input className='inputTypeInput' type='text' />
                                         </div>
@@ -82,13 +88,13 @@ const OrganizationProfile = () => {
                                     <div className='companyBox' >
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
-                                                <label className='profileLabel'>Company Address</label>
+                                                <label className='profileLabel'>Organization Address</label>
                                             </div>
                                             <input className='inputTypeInput' type='text' />
                                         </div>
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
-                                                <label>Company Website </label>
+                                                <label>Organization Website </label>
                                             </div>
                                             <input className='inputTypeInput' type='text' />
                                         </div>
