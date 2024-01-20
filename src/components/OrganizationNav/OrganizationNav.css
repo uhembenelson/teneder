@@ -1,15 +1,15 @@
 :root {
 	--btn-bg: linear-gradient(to right, #f77f7c, #ff3268);
 	/* --nav-bg: linear-gradient(to right, #8a79cd, #737aff, #050a6c); */
-	--nav-bg: linear-gradient(to right, #8a79cd, #050a6c);
-	--mob-bg: linear-gradient(to bottom right, #8a79cd, #050a6c);
+	--nav-bg: linear-gradient(to bottom, #494ea2, #0f1256);
+	--mob-bg: linear-gradient(to bottom right, #494ea2, #0f1256);
 }
 
 .toggle__btn {
 	display: none;
 }
 
-.nav {
+.orgNav {
 	width: 100%;
 	height: 8.9375rem;
 	background: var(--nav-bg);
@@ -128,8 +128,8 @@
 
 /* Resonsiveness (Tablets) */
 @media (max-width: 1024px) {
-	.nav {
-		height: 4.9375rem;
+	.orgNav {
+		height: 5rem;
 		
 	}
 
@@ -151,11 +151,7 @@
 
 /* Mobile phones */
 @media (max-width: 524px) {
-	.nav {
-		height: 3.9375rem;
-		
-	}
-
+	
 	.nav__items {
 		display: none;
 	}

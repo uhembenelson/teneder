@@ -55,7 +55,7 @@ function BidderNav() {
 							src={arrow}
 							alt='arrow'
 						/>
-						<div className='navPopUp' >
+						<div className='navPopUp mobileNavPopUp' >
 							<div className='navPopUpBox' >
 								<div className='navPopUpTop' >
 									<img src={profile} alt='' />
@@ -124,7 +124,7 @@ function BidderNav() {
 			{showMenu && (
 				<>
 					<ul className='mobile__nav'>
-						<li>
+						<li onClick={() => navigate('/bidder/notification')} >
 							notifications
 							<img
 								src={bell}
@@ -202,7 +202,8 @@ function BidderNav() {
 
 							</div>
 						</li>
-						<li>history</li>
+						<li onClick={() => navigate('/bidder/history')} >history</li>
+
 					</ul>
 
 					<div className='overlay'></div>
