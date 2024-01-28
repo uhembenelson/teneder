@@ -1,16 +1,16 @@
 import { combineReducers } from "redux";
 import { persistReducer } from 'redux-persist'
 import storage from "redux-persist/lib/storage";
-import reducer from "./reducer";
+import organizationReducer from "./Organization/Reducer";
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['details']
+    whitelist: ['organization', 'bidder']
 }
 
 const rootReducer = combineReducers({
-    details: reducer,
+    organization: organizationReducer,
 
 })
 

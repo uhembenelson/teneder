@@ -1,11 +1,42 @@
-import React from 'react'
-import user from '../../../assets/Ellipse 4.png'
+import React, { useEffect } from 'react'
+import userImage from '../../../assets/Ellipse 4.png'
 import pdf from '../../../assets/Import Pdf.png'
 import { useNavigate } from 'react-router-dom'
 import userRegImage from '../../../assets/Registration.png'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
+import { useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 const OrganizationProfile = () => {
+
+    const user = useSelector(state => state.organization.user)
+
+    const {
+        setValue,
+        register,
+
+
+    } = useForm({
+        criteriaMode: "all",
+        reValidateMode: "onSubmit",
+        mode: "onChange",
+    });
+
+    useEffect(() => {
+        setValue('name_of_organization', user?.name_of_organization)
+        setValue('organization_type', user?.organization_type)
+        setValue('registration_number', user?.registration_number)
+        setValue('no_of_employees', user?.no_of_employees)
+        setValue('address_one', user?.address_one)
+        setValue('organization_website', user?.organization_website)
+        setValue('postal_code', user?.postal_code)
+        setValue('state', user?.state)
+        setValue('public_address', user?.public_address)
+        setValue('wallet_address', user?.wallet_address)
+    }, [setValue, user])
+
     const navigate = useNavigate()
 
     const starArray = [0, 1, 2, 3, 4]
@@ -27,10 +58,10 @@ const OrganizationProfile = () => {
                         <div className='profileBox' >
                             <div className='bidderProfileLeft' >
                                 <div className='bidderProfileInfoContainer'>
-                                    <h2 className='profileUsername' >L & T</h2>
+                                    <h2 className='profileUsername' >{user?.name_of_organization}</h2>
                                     <p className='profileUserwork' >Promise for the future</p>
                                     <div className='profileImageContainer'>
-                                        <img className='profileImage' src={user} alt='' />
+                                        <img className='profileImage' src={userImage} alt='' />
                                     </div>
                                     <div className='starContainer profileRatingContainer ' >
                                         {
@@ -47,11 +78,11 @@ const OrganizationProfile = () => {
 
                                 </div>
                                 <div className='profileDetailsContainer' >
-                                    <p><span>First Name :</span><span></span></p>
-                                    <p><span>Last Name :</span><span></span></p>
-                                    <p><span>Contact Number :</span><span></span></p>
-                                    <p><span>Job Title  :</span><span></span></p>
-                                    <p><span>Email :</span><span></span></p>
+                                    <p><span>First Name :</span><span>{user?.first_name}</span></p>
+                                    <p><span>Last Name :</span><span>{user?.last_name}</span></p>
+                                    <p><span>Contact Number :</span><span>{user?.contact_number}</span></p>
+                                    <p><span>Job Title  :</span><span></span>{user?.job_title}</p>
+                                    <p><span>Email :</span><span>{user?.email}</span></p>
                                 </div>
                             </div>
                             <div className='bidderProfileRight' >
@@ -62,13 +93,13 @@ const OrganizationProfile = () => {
                                             <div className='typeInput' >
                                                 <label className='profileLabel'>Full Name of Organization</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('name_of_organization')} />
                                         </div>
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
                                                 <label>Organization Type</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('organization_type')} />
                                         </div>
                                     </div>
                                     <div className='companyBox' >
@@ -76,13 +107,13 @@ const OrganizationProfile = () => {
                                             <div className='typeInput' >
                                                 <label className='profileLabel'>Registration No.</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('registration_number')} />
                                         </div>
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
                                                 <label>No. of Employees</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('no_of_employees')} />
                                         </div>
                                     </div>
                                     <div className='companyBox' >
@@ -90,13 +121,13 @@ const OrganizationProfile = () => {
                                             <div className='typeInput' >
                                                 <label className='profileLabel'>Organization Address</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('address_one')} />
                                         </div>
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
                                                 <label>Organization Website </label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('organization_website')} />
                                         </div>
                                     </div>
                                     <div className='companyBox' >
@@ -104,13 +135,13 @@ const OrganizationProfile = () => {
                                             <div className='typeInput' >
                                                 <label className='profileLabel'>Postal Code</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('postal_code')} />
                                         </div>
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
                                                 <label>State</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('state')} />
                                         </div>
                                     </div>
                                     <div className='companyBox' >
@@ -118,13 +149,13 @@ const OrganizationProfile = () => {
                                             <div className='typeInput' >
                                                 <label className='profileLabel'>Public Address</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('public_address')} />
                                         </div>
                                         <div className='companyTypeInputContainer2'>
                                             <div className='typeInput' >
                                                 <label>Wallet Address</label>
                                             </div>
-                                            <input className='inputTypeInput' type='text' />
+                                            <input className='inputTypeInput' type='text' {...register('wallet_address')} />
                                         </div>
                                     </div>
 
@@ -139,7 +170,7 @@ const OrganizationProfile = () => {
                                         </div>
                                         <div className='docContainer' >
                                             <img className='pdfImage' src={pdf} alt='pdf' />
-                                            <p className='docName' >Pan card card</p>
+                                            <p className='docName' >Pan card</p>
 
                                         </div>
                                         <div className='docContainer' >

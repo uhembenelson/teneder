@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
 import pdf from '../../../assets/Import Pdf.png'
-
+import useSWR from 'swr'
+import { useSelector } from 'react-redux'
 import checked from '../../../assets/Checked Checkbox.png'
 import cancel from '../../../assets/Cancel Order.png'
 import multiplication from '../../../assets/Multiplication.png'
@@ -12,162 +13,78 @@ const OrganizationHistory = () => {
 
     const [option, setOption] = useState('all')
 
-    const completeData = [
-        {
-            id: 0,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Completed'
+    const fetchHistory = async (url, token) => {
+        const headers = new Headers();
 
-        },
-        {
-            id: 1,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Completed'
+        if (token) {
+            headers.append('Authorization', `Bearer ${token}`);
+        }
 
-        },
-        {
-            id: 2,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Completed'
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+    };
 
-        },
-        {
-            id: 3,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Completed'
+    const { token, organization_id } = useSelector(state => state.organization.user)
+    const url = `https://school-project-production-459d.up.railway.app/V7/organization/history/438e288e`
+    const completedUrl = `https://school-project-production-459d.up.railway.app/V7/organization/complete/${organization_id}`
+    const cancelledUrl = `https://school-project-production-459d.up.railway.app/V7/organization/cancelled/438e288e`
+    const ongoingUrl = `https://school-project-production-459d.up.railway.app/V7/organization/ongoing/${organization_id}`
 
-        },
-    ]
 
-    const rejectedData = [
-        {
-            id: 0,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Rejected'
+    const { data: allHistory } = useSWR([url, token], () => fetchHistory(url, token));
+    const { data: completedHistory } = useSWR([completedUrl, token], () => fetchHistory(completedUrl, token));
+    const { data: ongoingHistory } = useSWR([ongoingUrl, token], () => fetchHistory(ongoingUrl, token));
+    const { data: cancelledHistory } = useSWR([cancelledUrl, token], () => fetchHistory(cancelledUrl, token));
 
-        },
-        {
-            id: 1,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Rejected'
-
-        },
-        {
-            id: 2,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Rejected'
-
-        },
-
-    ]
-
-    const tableData = [
-        {
-            id: 0,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Completed'
-
-        },
-        {
-            id: 1,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Cancelled'
-
-        },
-        {
-            id: 2,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Completed'
-
-        },
-        {
-            id: 3,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Completed'
-
-        },
-        {
-            id: 4,
-            tenderId: 650156,
-            hasDoc: true,
-            company: 'YTL Corporation LTD.',
-            ethVal: '0.03 ETH',
-            reason: 'Rejected'
-
-        },
-    ]
 
     // For each of the options in the select replace their respective table with it..
 
+    console.log(allHistory)
+    console.log(cancelledHistory)
+    console.log(ongoingHistory)
+    console.log(completedHistory)
 
-    // something like, c
 
-    let content = tableData.map(data => {
-        return (
-            <tr>
-                <td>{data.tenderId}</td>
-                <td>
-                    {data.hasDoc && <img className='pdfTable' src={pdf} alt='pdf' />}
-                </td>
-                <td>{data.company}</td>
-                <td>{data.ethVal}</td>
-                <td  >{data.reason} {
-                    (data.reason === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
-                    || data.reason === 'Rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
-                    || (data.reason === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
-                }</td>
-            </tr>
+    let content = null
+    if (option === 'all') {
+        content = allHistory?.map(data => {
+            return (
+                <tr>
+                    <td>{data.tender_id}</td>
+                    <td>
+                        {data.aadhar_card && <img className='pdfTable' src={pdf} alt='pdf' />}
+                    </td>
+                    <td>{data.name_of_company}</td>
+                    <td>{data.ethereum_value
+                    }</td>
+                    <td  >{data.status} {
+                        (data.status === 'completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data.status === 'rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data.status === 'cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    }</td>
+                </tr>
 
-        )
-    })
+            )
+        })
+
+    }
 
     if (option === 'completed') {
-        content = completeData.map(data => {
+        content = completedHistory?.map(data => {
             return (
                 <tr>
-                    <td>{data.tenderId}</td>
+                    <td>{data?.organization_id}</td>
                     <td>
-                        {data.hasDoc && <img className='pdfTable' src={pdf} alt='pdf' />}
+                        {data?.aadhar_card && <img className='pdfTable' src={pdf} alt='pdf' />}
                     </td>
-                    <td>{data.company}</td>
-                    <td>{data.ethVal}</td>
-                    <td  >{data.reason} {
-                        (data.reason === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
-                        || data.reason === 'Rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
-                        || (data.reason === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    <td>{data?.name_of_company}</td>
+                    <td>{data?.ethereum_value
+                    }</td>
+                    <td  >{data?.status} {
+                        (data?.status === 'completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data?.status === 'ongoing' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data?.status === 'cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
                     }</td>
                 </tr>
 
@@ -175,26 +92,52 @@ const OrganizationHistory = () => {
         })
     }
 
-    if (option === 'rejected') {
-        content = rejectedData.map(data => {
+    if (option === 'cancelled') {
+        content = cancelledHistory?.map(data => {
             return (
                 <tr>
-                    <td>{data.tenderId}</td>
+                    <td>{data.tender_id}</td>
                     <td>
-                        {data.hasDoc && <img className='pdfTable' src={pdf} alt='pdf' />}
+                        {data.aadhar_card && <img className='pdfTable' src={pdf} alt='pdf' />}
                     </td>
-                    <td>{data.company}</td>
-                    <td>{data.ethVal}</td>
-                    <td  >{data.reason} {
-                        (data.reason === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
-                        || data.reason === 'Rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
-                        || (data.reason === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    <td>{data.name_of_company}</td>
+                    <td>{data.ethereum_value
+                    }</td>
+                    <td  >{data.status} {
+                        (data.status === 'completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data.status === 'rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data.status === 'cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
                     }</td>
                 </tr>
 
             )
         })
     }
+
+    if (option === 'ongoing') {
+        content = ongoingHistory?.map(data => {
+            return (
+                <tr>
+                    <td>{data.organization_id}</td>
+                    <td>
+                        {data.aadhar_card && <img className='pdfTable' src={pdf} alt='pdf' />}
+                    </td>
+                    <td>{data.name_of_company}</td>
+                    <td>{data.ethereum_value
+                    }</td>
+                    <td  >{data.status} {
+                        (data.status === 'completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data.status === 'ongoing' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data.status === 'cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    }</td>
+                </tr>
+
+            )
+        })
+    }
+    // else {
+    //     content = <div className='emptyStateContainer' ><p style={{ textAlign: 'center', marginTop: '2rem' }} >No Data yet</p></div>
+    // }
 
 
 
@@ -208,11 +151,11 @@ const OrganizationHistory = () => {
                         onChange={(event) => setOption(event.target.value)}
                         value={option}
                     >
-                        <option value='all' >Search Filters</option>
+                        <option value='all' >All</option>
                         <option value='cancelled' >Cancelled </option>
                         <option value='ongoing'>On-Going</option>
                         <option value='completed'>Completed </option>
-                        <option value='rejected'>Rejected </option>
+
 
                     </select>
                 </div>
@@ -225,8 +168,8 @@ const OrganizationHistory = () => {
                         <th>STATUS</th>
                     </tr>
 
-                    {content}
 
+                    {content}
 
 
                 </table>

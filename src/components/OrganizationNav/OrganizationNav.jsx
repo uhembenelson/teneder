@@ -2,15 +2,25 @@ import './OrganizationNav.css';
 import logo from '../../assets/SYMBOL.png';
 import bell from '../../assets/Doorbell.png';
 import vector from '../../assets/Vector.png';
-import user from '../../assets/Male User.png';
+import userImage from '../../assets/Male User.png';
 import arrow from '../../assets/Expand Arrow.png';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import profile from '../../assets/PROFILE.png'
+import { useSelector } from 'react-redux';
 
 function CompanyNav() {
     const [showMenu, setShowMenu] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const user = useSelector(state => state.organization.user)
+
+    let style = {}
+
+
+
+
+
 
     const navigate = useNavigate()
 
@@ -49,7 +59,7 @@ function CompanyNav() {
                     <li className='popUpContainer' >
                         grp-cp09
                         <img
-                            src={user}
+                            src={userImage}
                             alt='user'
                         />
                         <img
@@ -63,9 +73,9 @@ function CompanyNav() {
                                     <div className='navPopUpDetails' >
                                         <div className='navPopNameType'>
                                             <p className='navPopUpName'>GRP-CP09</p>
-                                            <p className='navPopUpDept'>0rganizaton</p>
+                                            <p className='navPopUpDept'>{user?.roles}</p>
                                         </div>
-                                        <p className='navPopUpEmail'>GRP-CP09@mail.com</p>
+                                        <p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>
                                     </div>
                                 </div>
                                 <div className='navPopUpTop' onClick={() => navigate('/organization/profile')} >
@@ -145,7 +155,7 @@ function CompanyNav() {
                         <li className='popUpContainer' >
                             grp-cp09
                             <img
-                                src={user}
+                                src={userImage}
                                 alt='user'
                             />
                             <img
@@ -159,9 +169,9 @@ function CompanyNav() {
                                         <div className='navPopUpDetails' >
                                             <div className='navPopNameType'>
                                                 <p className='navPopUpName'>GRP-CP09</p>
-                                                <p className='navPopUpDept'>0rganizaton</p>
+                                                <p className='navPopUpDept'>{user?.roles}</p>
                                             </div>
-                                            <p className='navPopUpEmail'>GRP-CP09@mail.com</p>
+                                            <p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>
                                         </div>
                                     </div>
                                     <div onClick={() => navigate('/organization/profile')} className='navPopUpTop' >

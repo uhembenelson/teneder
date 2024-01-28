@@ -53,6 +53,12 @@
     /* height: 2rem; */
 }
 
+.errorMsg{
+    color: red;
+    font-size: .8rem;
+    margin-bottom: 1rem;
+}
+
 .loginSpan{
     cursor: pointer;
     color: #ccc;

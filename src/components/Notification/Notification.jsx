@@ -4,13 +4,13 @@ import './Notification.css'
 
 import NotificationCard from './NotificationCard'
 
-const Notification = ({ date }) => {
+const Notification = ({ notification }) => {
     return (
         <div className='organizationNotification notificationBox' >
-            <div className='todaysDate' >{date}</div>
-            <NotificationCard />
-            <NotificationCard />
-            <NotificationCard />
+            <div className='todaysDate' >today</div>
+            <NotificationCard notification={notification} />
+            {/*<NotificationCard / >
+            // <NotificationCard />*/}
         </div>
     )
 }

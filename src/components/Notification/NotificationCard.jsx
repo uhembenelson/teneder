@@ -2,12 +2,12 @@ import React from 'react'
 import account from '../../assets/Account.png'
 import fire from '../../assets/Fire.png'
 
-const NotificationCard = () => {
+const NotificationCard = ({ notification }) => {
     return (
         <div className='notificationCard' >
             <div className='notificationCardInner' >
                 <img src={account} alt='' />
-                <p><span className='notificationMain' >YTL Corporation LTD.</span><span className='notificationtext' >Just palced a bid for your tender</span></p>
+                <p><span className='notificationMain' >{notification?.name_of_company} </span><span className='notificationtext' >{notification?.notification_message}</span></p>
                 <img src={fire} alt='' />
             </div>
 
