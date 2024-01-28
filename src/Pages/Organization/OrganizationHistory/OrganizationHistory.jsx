@@ -26,9 +26,9 @@ const OrganizationHistory = () => {
     };
 
     const { token, organization_id } = useSelector(state => state.organization.user)
-    const url = `https://school-project-production-459d.up.railway.app/V7/organization/history/438e288e`
+    const url = `https://school-project-production-459d.up.railway.app/V7/organization/history/${organization_id}`
     const completedUrl = `https://school-project-production-459d.up.railway.app/V7/organization/complete/${organization_id}`
-    const cancelledUrl = `https://school-project-production-459d.up.railway.app/V7/organization/cancelled/438e288e`
+    const cancelledUrl = `https://school-project-production-459d.up.railway.app/V7/organization/cancelled/${organization_id}`
     const ongoingUrl = `https://school-project-production-459d.up.railway.app/V7/organization/ongoing/${organization_id}`
 
 

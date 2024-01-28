@@ -26,17 +26,17 @@ const organizationReducer = (state = initialState, action) => {
             }
 
         // Get Notification
-        case actionTypes.FETCH_ORGANIZATION_NOTIFICATION_START:
+        case actionTypes.ORGANIZATION_REGISTER_START:
             return {
-                ...state, isLoading: true, errorMsg: ''
+                ...state, isLoading: true, isRegistered: false
             }
-        case actionTypes.FETCH_ORGANIZATION_NOTIFICATION_SUCCESS:
+        case actionTypes.ORGANIZATION_REGISTER_SUCCESS:
             return {
-                ...state, isLoading: false, notification: action.payload
+                ...state, isLoading: false, isRegistered: true
             }
-        case actionTypes.FETCH_ORGANIZATION_NOTIFICATION_FAILED:
+        case actionTypes.ORGANIZATION_REGISTER_FAILED:
             return {
-                ...state, isLoading: false, errorMsg: action.payload
+                ...state, isLoading: false, isRegistered: false
             }
         default:
             return state

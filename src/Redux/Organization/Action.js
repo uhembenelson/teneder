@@ -46,66 +46,48 @@ export const loginOrganization = (userLoginDetails) => async (dispatch) => {
     }
 }
 
-// Get All Notifications
 
-// const fetchNotificationStart = () => ({
-//     type: actionTypes.FETCH_ORGANIZATION_NOTIFICATION_START
-// })
+// register
 
-// const fetchNotificationSuccess = (data) => ({
-//     type: actionTypes.FETCH_ORGANIZATION_NOTIFICATION_SUCCESS,
-//     payload: data
-// })
+const registerStart = () => ({
+    type: actionTypes.ORGANIZATION_REGISTER_START
+})
 
-// const fetchNotificationFailed = (data) => ({
-//     type: actionTypes.FETCH_ORGANIZATION_NOTIFICATION_FAILED,
-//     payload: data
-// })
+const registerSuccess = (data) => ({
+    type: actionTypes.ORGANIZATION_REGISTER_SUCCESS,
+    payload: data
+})
 
-// const url = 'https://school-project-production-459d.up.railway.app/v8/notification/organization'
-// const fetcher = async (url, token) => {
-//     const headers = new Headers();
+const registerFailed = (data) => ({
+    type: actionTypes.ORGANIZATION_REGISTER_SUCCESS,
+    payload: data
+})
 
-//     if (token) {
-//         headers.append('Authorization', `Bearer ${token}`);
-//     }
+export const registerOrganization = (userDetails) => async (dispatch) => {
+    try {
+        dispatch(registerStart());
+        let res = await fetch(`https://school-project-production-459d.up.railway.app/v1/auth/signup`, {
+            method: "POST",
+            headers: {
+                // "Content-Type": "application/json",
+            },
+            body: userDetails
+        })
+        const data = await res.json();
+        console.log(data)
 
-//     const response = await fetch(url, { headers });
-//     const data = await response.json();
-//     return data;
-// };
+        if (res.status === 200) {
+            dispatch(registerSuccess(data));
 
-// export const fetchNotification = (token) => async (dispatch) => {
-//     // try {
-//     //     dispatch(fetchNotificationStart());
-//     //     let res = await fetch(`https://school-project-production-459d.up.railway.app/v8/notification/organization`, {
-//     //         method: "GET",
-//     //         headers: {
-//     //             "Content-Type": "application/json",
-//     //             'Authorization': `Bearer ${token}`
-//     //         }
-//     //     })
-//     //     const data = await res.json();
-//     //     console.log(data)
-//     //     if (res.status === 200) {
-//     //         dispatch(fetchNotificationSuccess(data));
+        }
+        // if (res.status === 401) {
+        //     dispatch(loginFailed(data));
+        // }
+        else {
+            dispatch(registerFailed(data));
+        }
 
-//     //     }
-//     //     else {
-//     //         dispatch(fetchNotificationFailed(data.message));
-//     //     }
-
-//     // } catch (err) {
-//     //     dispatch(fetchNotificationFailed("An error occured"));
-//     // }
-
-
-//     dispatch(fetchNotificationStart());
-//     try {
-//         const result = await useSWR([url, token], fetcher);
-//         dispatch(fetchNotificationSuccess(result));
-//     }
-//     catch (err) {
-//         fetchNotificationFailed(err)
-//     }
-// }
+    } catch (err) {
+        dispatch(registerFailed("An error occured"));
+    }
+}
