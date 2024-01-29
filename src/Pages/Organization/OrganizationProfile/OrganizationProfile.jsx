@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import userImage from '../../../assets/Ellipse 4.png'
 import pdf from '../../../assets/Import Pdf.png'
 import { useNavigate } from 'react-router-dom'
@@ -6,23 +6,36 @@ import userRegImage from '../../../assets/Registration.png'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+
+
 
 const OrganizationProfile = () => {
+
+    const [panCardLink, setPanCardLink] = useState('')
+    const [registrationCertLink, setRegCertLink] = useState('')
+    const [aadharCardLink, setAadharCardLink] = useState('')
 
     const user = useSelector(state => state.organization.user)
 
     const {
         setValue,
         register,
-
-
     } = useForm({
         criteriaMode: "all",
         reValidateMode: "onSubmit",
         mode: "onChange",
     });
+
+
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v3/download/${user?.pan_card}`)
+            .then(res => setPanCardLink(res.url))
+        fetch(`https://school-project-production-459d.up.railway.app/v3/download/${user?.aadhar_card}`)
+            .then(res => setAadharCardLink(res.url))
+        fetch(`https://school-project-production-459d.up.railway.app/v3/download/${user?.registration_certificate}`)
+            .then(res => setRegCertLink(res.url))
+    }, [setPanCardLink, setRegCertLink, setAadharCardLink])
+
 
     useEffect(() => {
         setValue('name_of_organization', user?.name_of_organization)
@@ -163,21 +176,21 @@ const OrganizationProfile = () => {
                                 <div className='userAndCompanyDocuments' >
                                     <h2 className='detailsHeader' >DOCUMENTS</h2>
                                     <div className='documentList' >
-                                        <div className='docContainer' >
+                                        <a href={aadharCardLink} className='docContainer'>
                                             <img className='pdfImage' src={pdf} alt='pdf' />
                                             <p className='docName' >Aadhar card</p>
 
-                                        </div>
-                                        <div className='docContainer' >
+                                        </a>
+                                        <a href={panCardLink} className='docContainer' >
                                             <img className='pdfImage' src={pdf} alt='pdf' />
                                             <p className='docName' >Pan card</p>
 
-                                        </div>
-                                        <div className='docContainer' >
+                                        </a>
+                                        <a href={registrationCertLink} className='docContainer' >
                                             <img className='pdfImage' src={pdf} alt='pdf' />
                                             <p className='docName' >Registration Certificate</p>
 
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
