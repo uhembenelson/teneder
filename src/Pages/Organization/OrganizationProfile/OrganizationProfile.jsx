@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import userImage from '../../../assets/Ellipse 4.png'
+import { Avatar } from '@mui/material'
 import pdf from '../../../assets/Import Pdf.png'
 import { useNavigate } from 'react-router-dom'
 import userRegImage from '../../../assets/Registration.png'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import useSWR from 'swr'
+
 
 
 
@@ -16,6 +19,26 @@ const OrganizationProfile = () => {
     const [aadharCardLink, setAadharCardLink] = useState('')
 
     const user = useSelector(state => state.organization.user)
+
+    const { token, organization_id } = user
+
+    // Get user profile picture
+    const fetchProfilePicture = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+
+
+    };
+
+    const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`
+    const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
 
     const {
         setValue,
@@ -73,9 +96,11 @@ const OrganizationProfile = () => {
                                 <div className='bidderProfileInfoContainer'>
                                     <h2 className='profileUsername' >{user?.name_of_organization}</h2>
                                     <p className='profileUserwork' >Promise for the future</p>
-                                    <div className='profileImageContainer'>
-                                        <img className='profileImage' src={userImage} alt='' />
-                                    </div>
+
+
+                                    {data ? <Avatar className='avatarImage' sx={{ height: "12rem", width: "12rem" }} src={data?.slice(-1).pop()?.imageUrl} /> :
+                                        <Avatar className='avatarImage' sx={{ height: "12rem", width: "12rem" }} />}
+
                                     <div className='starContainer profileRatingContainer ' >
                                         {
                                             starArray.map((star) => {

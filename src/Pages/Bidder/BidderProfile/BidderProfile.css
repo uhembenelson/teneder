@@ -25,9 +25,16 @@
     height: 100%;
 }
 
+.profImage{
+    height: 100% !important;
+    
+    object-fit: fill;
+    border-radius: 100%;
+}
+
 .profileImageContainer{
-    width: 12rem;
-    height: 12rem;
+    width: 10rem;
+    height: 10rem;
     margin-bottom: 1rem;
     border: 1px solid #121212;
     border-radius: 100%;
@@ -60,6 +67,7 @@
 
 .profileRatingContainer{
     margin-bottom: 2rem;
+    margin-top: 1rem;
 }
 
 .profileDetailsContainer{

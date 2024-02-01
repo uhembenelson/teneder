@@ -145,7 +145,7 @@ const App = () => {
 						element={<TenderTable />}
 					/>
 					<Route
-						path='/organization/manage-tender/table'
+						path='/organization/manage-tender/:id'
 						// Should have an id
 						element={<ManageTenderTable />}
 					/>

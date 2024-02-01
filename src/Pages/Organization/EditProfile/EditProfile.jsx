@@ -1,23 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import { Avatar } from '@mui/material'
 import UploadFile from '../../../components/UploadFile/UploadFile'
 import CustomBtn from '../../../components/CustomBtn/CustomBtn'
 import './EditProfile.css'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import useSWR from 'swr'
+import { setOrganizationProfilePicture } from '../../../Redux/Organization/Action'
 
 const EditProfile = () => {
+    const dispatch = useDispatch()
 
     const user = useSelector(state => state.organization.user)
+
+    const { token, organization_id } = user
 
     const [contact_number, setContactNumber] = useState()
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
     const [panCard, setPanCard] = useState(null)
+
+    const [picture, setPicture] = useState(null)
+
     const schema = yup.object().shape({
         name_of_organization: yup.string().required('Company name is required'),
         organization_website: yup.string().required('organization_website is required'),
@@ -69,6 +78,60 @@ const EditProfile = () => {
         }).then(res => res.json()).then(data => setStates(data?.data?.states))
     }, [])
 
+    const pictureData = new FormData()
+
+    const fileInputRef = useRef(null);
+    const handleImageChange = async (e) => {
+        const file = e.target.files;
+        // setSelectedImage(file);
+        if (file) {
+            // const imageUrl = URL.createObjectURL(file[0]);
+            const imageUrl = file[0]
+            pictureData.append('profile_picture_org', imageUrl)
+            pictureData.append('organization_id', organization_id)
+            console.log(imageUrl)
+            const res = await fetch('https://school-project-production-459d.up.railway.app/v15/profile/picture/organization', {
+                method: 'post',
+                headers: {
+                    'Authorization': `${token}`
+                },
+                body: pictureData
+            })
+            console.log(res)
+            if (res.ok) {
+
+                toast.success('Picture uploaded successfuly', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                });
+            }
+
+
+
+
+        }
+    };
+
+    // Get user profile picture
+    const fetchProfilePicture = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+
+
+    };
+
+    const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`
+    const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
+
+
 
 
     const updateUser = async () => {
@@ -107,6 +170,8 @@ const EditProfile = () => {
         console.log('Heelo')
 
 
+
+
     }
 
 
@@ -142,12 +207,14 @@ const EditProfile = () => {
                 <div className='headContainer'>
                     <div className='middleProfileContainer'>
                         <div className='avatarContainer' >
-                            <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} />
+                            {data ? <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} src={data?.slice(-1).pop()?.imageUrl} /> :
+                                <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} />}
                             <input
                                 id="imageInput"
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
-
+                                onChange={handleImageChange}
+                                ref={fileInputRef}
                                 className="imageInput"
                             />
                         </div>

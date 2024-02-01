@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CompanyNav from '../../OrganizationNav/OrganizationNav';
 import './manageTenderTable.css';
 
@@ -11,6 +11,9 @@ import CancelOrder from '../tenderTable/CancelOrder';
 
 function ManageTenderTable() {
 	const [showModal, setShowModal] = useState(false);
+
+	const id = useParams()
+	console.log(id)
 
 	const navigate = useNavigate()
 

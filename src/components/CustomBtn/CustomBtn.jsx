@@ -1,9 +1,9 @@
 import React from 'react'
 import './CustomBtn.css'
 
-const CustomBtn = ({ title }) => {
+const CustomBtn = ({ children }) => {
     return (
-        <button type='submit' className='customBtnContainer' >{title}</button>
+        <button type='submit' className='customBtnContainer' >{children}</button>
     )
 }
 

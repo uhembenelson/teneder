@@ -91,3 +91,13 @@ export const registerOrganization = (userDetails) => async (dispatch) => {
         dispatch(registerFailed("An error occured"));
     }
 }
+
+export const selectTender = (data) => ({
+    type: actionTypes.ORGANIZATION_TENDER_DETAIL,
+    payload: data
+})
+
+export const setOrganizationProfilePicture = (data) => ({
+    type: actionTypes.ORGANIZATION_PROFILE_PICTURE,
+    payload: actionTypes.payload
+})

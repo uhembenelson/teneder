@@ -48,7 +48,6 @@ const OrganizationSignUp = () => {
     const {
         getValues,
         register,
-        setValue,
         handleSubmit,
         formState: { errors },
     } = useForm({

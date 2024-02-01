@@ -1,23 +1,51 @@
 import { useNavigate } from 'react-router-dom';
 import CompanyNav from '../../OrganizationNav/OrganizationNav';
 import './tenderTable.css';
-
+import useSWR from 'swr';
 import backArrow from '../../../assets/Shape.png';
 import cancel from '../../../assets/Multiplication.png';
-import approval from '../../../assets/Approval.png';
 import flag from '../../../assets/flag.png';
 import location from '../../../assets/location.png';
 import { useState } from 'react';
+import { selectTender } from '../../../Redux/Organization/Action';
 import CancelOrder from './CancelOrder';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+
 
 function TenderTable() {
 	const [showModal, setShowModal] = useState(false);
 
+	const dispatch = useDispatch()
+
 	const navigate = useNavigate()
+
+	const user = useSelector(state => state.organization.user)
+	const { token, organization_id } = user
+
+	const fetchNotification = async (url, token) => {
+		const headers = new Headers();
+
+		if (token) {
+			headers.append('Authorization', `${token}`);
+		}
+
+		const response = await fetch(url, { headers });
+		const data = await response.json();
+		return data;
+
+
+	};
+	const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/${organization_id}`
+	const { data, error } = useSWR([url, token], () => fetchNotification(url, token));
+	console.log(data)
 
 	function handleShowModal() {
 		setShowModal(!showModal);
 	}
+
+	const presentDay = new Date();
 
 	return (
 		<div>
@@ -47,126 +75,54 @@ function TenderTable() {
 							</thead>
 
 							<tbody>
-								<tr>
-									<td onClick={() => { navigate('/organization/manage-tender/table') }}>
-										1. Contractor. Procurement and construction of multistoried
-										residential finished houses for economically weaker sections
-										(ews).
-										<div className='table__inner'>
-											<span>No. 4567832</span>
-											<span>
-												<img
-													src={location}
-													alt='location'
-												/>
-												Panjim
-											</span>
+								{
+									data?.map(tender => {
+										return (
+											<tr key={tender?.tender_id} onClick={() => dispatch(selectTender(tender))} >
 
-											<span>
-												<img
-													src={flag}
-													alt='flag'
-												/>
-												India
-											</span>
-										</div>
-									</td>
-									<td>Government</td>
-									<td>
-										22 days to go <br />
-										<span className='date'>15-Feb-2024</span>
-									</td>
-									<td>
-										<button onClick={handleShowModal}>
-											<img
-												src={cancel}
-												alt='cancel'
-											/>
-										</button>
-									</td>
-								</tr>
+												<td onClick={() => { navigate(`/organization/manage-tender/${tender?.tender_id}`) }}>
+													{tender?.description_tender}
+													<div className='table__inner'>
+														<span>No. {tender?.tender_id}</span>
+														<span>
+															<img
+																src={location}
+																alt='location'
+															/>
+															{tender?.state}
+														</span>
 
-								<tr>
-									<td onClick={() => { navigate('/organization/manage-tender/table') }}>
-										2. Management Services Of An Apartment House , opp district
-										court.
-										<div className='table__inner'>
-											<span>No. 7899020 </span>
-											<span>
-												<img
-													src={location}
-													alt='location'
-												/>
-												Mapusa
-											</span>
+														<span>
+															<img
+																src={flag}
+																alt='flag'
+															/>
+															India
+														</span>
+													</div>
+												</td>
+												<td>{tender?.type_of_tender}</td>
+												<td>
+													{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} days to go <br />
+													<span className='date'>{tender?.duration_of_work
+													}</span>
+												</td>
+												<td>
+													<button onClick={handleShowModal}>
+														<img
+															src={cancel}
+															alt='cancel'
+														/>
+													</button>
+												</td>
+											</tr>
+										)
+									})
+								}
 
-											<span>
-												<img
-													src={flag}
-													alt='flag'
-												/>
-												India
-											</span>
-										</div>
-									</td>
-									<td>Government</td>
-									<td>
-										42 days to go <br />
-										<span className='date'>07-Mar-2024</span>
-									</td>
-									<td>
-										<button onClick={handleShowModal}>
-											<img
-												src={cancel}
-												alt='cancel'
-											/>
-										</button>
-									</td>
-								</tr>
-
-								<tr>
-									<td onClick={() => { navigate('/organization/manage-tender/table') }}>
-										3. Facility Management and Maintenance at the building of the
-										ministry of communications and Multimedia Pernem. Plot no.
-										234/2a/4
-										<div className='table__inner'>
-											<span>No. 48802666 </span>
-											<span>
-												<img
-													src={location}
-													alt='location'
-												/>
-												Pernem
-											</span>
-
-											<span>
-												<img
-													src={flag}
-													alt='flag'
-												/>
-												India
-											</span>
-										</div>
-									</td>
-									<td>Government</td>
-									<td className='completed'>
-										concluded <br />
-										<img
-											src={approval}
-											alt='approval'
-										/>
-									</td>
-									<td>
-										<button onClick={handleShowModal}>
-											<img
-												src={cancel}
-												alt='cancel'
-											/>
-										</button>
-									</td>
-								</tr>
 							</tbody>
 						</table>
+
 					</section>
 
 					{showModal && (

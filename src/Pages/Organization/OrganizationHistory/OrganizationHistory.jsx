@@ -17,7 +17,7 @@ const OrganizationHistory = () => {
         const headers = new Headers();
 
         if (token) {
-            headers.append('Authorization', `Bearer ${token}`);
+            headers.append('Authorization', `${token}`);
         }
 
         const response = await fetch(url, { headers });

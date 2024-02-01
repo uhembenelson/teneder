@@ -58,6 +58,7 @@
 .tender__table {
 	width: 100%;
 	border-collapse: collapse;
+	padding-bottom: 2rem;
 }
 
 /* .tender__table thead th {

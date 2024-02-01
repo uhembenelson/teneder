@@ -6,7 +6,9 @@ const initialState = {
     user: {},
     isLoading: false,
     errorMsg: '',
-    notification: []
+    selectedTender: {},
+    organizationProfilePicture: []
+
 }
 
 const organizationReducer = (state = initialState, action) => {
@@ -37,6 +39,15 @@ const organizationReducer = (state = initialState, action) => {
         case actionTypes.ORGANIZATION_REGISTER_FAILED:
             return {
                 ...state, isLoading: false, isRegistered: false
+            }
+
+        case actionTypes.ORGANIZATION_TENDER_DETAIL:
+            return {
+                ...state, selectedTender: action.payload
+            }
+        case actionTypes.ORGANIZATION_PROFILE_PICTURE:
+            return {
+                ...state, organizationProfilePicture: action.payload
             }
         default:
             return state
