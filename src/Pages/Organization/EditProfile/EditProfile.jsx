@@ -435,7 +435,7 @@ const EditProfile = () => {
                     </div>
                     <div className='confirmBtnContainer'>
 
-                        <CustomBtn title={'Confirm Changes'} />
+                        <CustomBtn>Confirm Changes</CustomBtn>
                     </div>
                 </form>
             </div>

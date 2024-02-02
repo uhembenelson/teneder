@@ -36,6 +36,7 @@ import ViewTender from './Pages/Bidder/ViewTender/ViewTender';
 import BidderNotification from './Pages/Bidder/BidderNotification/BidderNotification';
 import BidderEditProfile from './Pages/Bidder/BidderEditProfile/BidderEditProfile';
 import BidderFeedback from './Pages/Bidder/BidderFeedback/BidderFeedback';
+import OrganizationResetPassword from './Pages/Organization/OrganizationAuth/OrganizationRestPassword';
 
 const App = () => {
 	return (
@@ -136,7 +137,11 @@ const App = () => {
 						element={<OrganizationForgotPassword />}
 					/>
 					<Route
-						path='/organization/twofactor'
+						path='/organization/reset-password'
+						element={<OrganizationResetPassword />}
+					/>
+					<Route
+						path='/organization/otp'
 						element={<OrganizationTwoFactor />}
 					/>
 

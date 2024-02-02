@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginOrganization } from '../../../Redux/Organization/Action'
 import { toast } from "react-toastify";
-import { CircleLoader } from 'react-spinners'
+import { CircularProgress } from "@mui/material";
 
 
 
@@ -135,7 +135,7 @@ const OrganizationLogin = () => {
                     <p className='errorMsg' >{errors?.password?.message}</p>
 
                     <div className='loginInputContainer loginBtnBox' >
-                        <button type='submit' className='loginBtn' >{isLoading ? <CircleLoader /> : 'Proceed to my Account'}</button>
+                        <button type='submit' className='loginBtn' >{isLoading ? < CircularProgress color="primary" thickness={10} size={18} /> : 'Proceed to my Account'}</button>
                     </div>
                     <div>
                         <button onClick={() => navigate('/organization/forgot-password')} className='forgotPwd' >Forgot Password?</button>
