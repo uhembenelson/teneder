@@ -56,12 +56,12 @@ const OrganizationTwoFactor = () => {
 
 
             setIsLoading(false)
-            console.log(data.data.message)
+
 
 
 
             if (data.status === 200) {
-
+                localStorage.setItem('reset', data?.data.user?.reset_token)
                 navigate('/organization/reset-password')
                 toast.success(data.data.message, {
                     position: toast.POSITION.TOP_RIGHT,

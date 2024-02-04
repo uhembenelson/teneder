@@ -49,6 +49,8 @@ const organizationReducer = (state = initialState, action) => {
             return {
                 ...state, organizationProfilePicture: action.payload
             }
+        case actionTypes.ORGANIZATION_LOGOUT:
+            return initialState
         default:
             return state
     }

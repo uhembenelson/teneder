@@ -7,22 +7,28 @@ import arrow from '../../assets/Expand Arrow.png';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import profile from '../../assets/PROFILE.png'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutOrganization } from '../../Redux/Organization/Action';
 
 function CompanyNav() {
     const [showMenu, setShowMenu] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
     const user = useSelector(state => state.organization.user)
-
-    let style = {}
-
-
-
-
-
-
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const logout = () => {
+        dispatch(logoutOrganization())
+        navigate('/organization/login')
+    }
+
+
+
+
+
+
+
 
     function handleShowMenu() {
         setShowMenu(!showMenu);
@@ -112,7 +118,7 @@ function CompanyNav() {
 
                                     <div className='navPopUpDetails' >
 
-                                        <p className='navPopUpName settingsText'>Sign Out</p>
+                                        <p onClick={logout} className='navPopUpName settingsText'>Sign Out</p>
 
                                     </div>
                                 </div>
@@ -208,7 +214,7 @@ function CompanyNav() {
 
                                         <div className='navPopUpDetails' >
 
-                                            <p className='navPopUpName settingsText'>Sign Out</p>
+                                            <p onClick={logout} className='navPopUpName settingsText'>Sign Out</p>
 
                                         </div>
                                     </div>

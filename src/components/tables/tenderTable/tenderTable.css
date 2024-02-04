@@ -66,6 +66,17 @@
 	top: 0;
 	left: 0;
 } */
+.spinnerContainer{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	height: 10vh;
+}
+
+.emptyTenderList{
+	text-align: center;
+	margin-top: 2rem;
+}
 
 .tender__table th,
 .tender__table td {

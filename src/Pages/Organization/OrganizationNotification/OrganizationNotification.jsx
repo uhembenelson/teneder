@@ -6,6 +6,7 @@ import backArrow from '../../../assets/Shape.png';
 import Notification from '../../../components/Notification/Notification';
 import { useSelector, useDispatch } from 'react-redux';
 import useSWR from 'swr';
+import { CircularProgress } from '@mui/material';
 
 const OrganizationNotification = () => {
 
@@ -27,23 +28,28 @@ const OrganizationNotification = () => {
     const url = 'https://school-project-production-459d.up.railway.app/v8/notification/organization'
 
 
-    const { data, error } = useSWR([url, token], () => fetchNotification(url, token));
+    const { data } = useSWR([url, token], () => fetchNotification(url, token));
 
 
-    console.log(data)
 
 
-    let content = null
-    if (data?.length > 0) {
+
+    let content = <div className='spinnerContainer' >
+        <CircularProgress color="info" thickness={8} size={30} />
+    </div>
+
+    if (data?.length === 0) {
+        content = <p style={{ textAlign: 'center' }} >No new notifications</p>
+    }
+
+    else {
         content = data?.map(notification => {
             return (
                 <Notification key={notification.notification_id} notification={notification} />
             )
         })
     }
-    else {
-        content = <p style={{ textAlign: 'center' }} >No new notifications</p>
-    }
+
 
 
 

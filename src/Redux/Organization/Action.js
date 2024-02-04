@@ -99,5 +99,9 @@ export const selectTender = (data) => ({
 
 export const setOrganizationProfilePicture = (data) => ({
     type: actionTypes.ORGANIZATION_PROFILE_PICTURE,
-    payload: actionTypes.payload
+    payload: data
+})
+
+export const logoutOrganization = () => ({
+    type: actionTypes.ORGANIZATION_LOGOUT
 })

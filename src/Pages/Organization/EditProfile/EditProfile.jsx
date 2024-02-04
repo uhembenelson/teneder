@@ -17,6 +17,8 @@ const EditProfile = () => {
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.organization.user)
+    const organizationProfilePicture = useSelector(state => state.organization.organizationProfilePicture)
+
 
     const { token, organization_id } = user
 
@@ -97,9 +99,10 @@ const EditProfile = () => {
                 },
                 body: pictureData
             })
-            console.log(res)
+            const data = await res.json()
+            console.log(data)
             if (res.ok) {
-
+                dispatch(setOrganizationProfilePicture(imageUrl))
                 toast.success('Picture uploaded successfuly', {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,
