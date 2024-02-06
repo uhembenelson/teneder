@@ -4,8 +4,18 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
 
-const EvaluateTenderCard = () => {
-    const percentage = 66;
+const EvaluateTenderCard = ({ data }) => {
+    let percentage = 0;
+    if (data.status === 'completed') {
+        percentage = 100
+    }
+    else if (data.status === 'ongoing') {
+        percentage = 66
+    }
+    else {
+        percentage = 50
+    }
+
     const navigate = useNavigate()
     return (
         <div className='evaluateTenderCard' >
@@ -36,16 +46,17 @@ const EvaluateTenderCard = () => {
 
                     <CircularProgressbar
                         value={percentage}
-                        text={`${percentage}%`}
-                    // pathColor: 'rgba(168, 85, 247, 1)'
-                    // styles={buildStyles({
-                    //     // Rotation of path and trail, in number of turns (0-1)
-                    //     // rotation: 0.25,
-                    //     pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-                    //     textColor: '#f88',
-                    //     trailColor: '#d6d6d6',
-                    //     backgroundColor: '#3e98c7',
-                    // })}
+                        text={`${data.status}`}
+                        // pathColor: {'rgba(168, 85, 247, 1)'}
+                        styles={buildStyles({
+                            //     // Rotation of path and trail, in number of turns (0-1)
+                            //     // rotation: 0.25,
+                            //     pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                            textColor: data.status === 'cancelled' ? 'red' : 'blue',
+                            //     trailColor: '#d6d6d6',
+                            textSize: '15px'
+                            //     backgroundColor: '#3e98c7',
+                        })}
                     />
                 </div>
             </div>

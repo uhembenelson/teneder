@@ -9,7 +9,7 @@ import location from '../../../assets/location.png';
 import { useState } from 'react';
 import { selectTender } from '../../../Redux/Organization/Action';
 import CancelOrder from './CancelOrder';
-
+import cancelOrderImage from '../../../assets/Cancel Order.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { CircularProgress } from '@mui/material';
 
@@ -96,12 +96,22 @@ function TenderTable() {
 								}</span>
 							</td>
 							<td>
-								<button onClick={handleShowModal}>
-									<img
-										src={cancel}
-										alt='cancel'
-									/>
-								</button>
+								{
+									tender?.status === 'cancelled' ?
+										<button >
+											<img
+												src={cancelOrderImage}
+												alt='cancel'
+											/>
+										</button> :
+										<button onClick={handleShowModal}>
+											<img
+												src={cancel}
+												alt='cancel'
+											/>
+										</button>
+
+								}
 							</td>
 						</tr>
 					)

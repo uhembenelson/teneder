@@ -2,9 +2,10 @@ import './cancelOrder.css';
 import { useSelector } from 'react-redux';
 import sad from '../../../assets/Sad.png';
 import { useEffect, useState } from 'react';
-import * as yup from 'yup'
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { CircularProgress } from '@mui/material';
 
 // const schema = yup.object().shape({
 // 	reasons: yup.string().required('Reason is required')
@@ -13,10 +14,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 function CancelOrder({ handleShowModal }) {
 
+	const [isLoading, setIsLoading] = useState(false)
+
 	const selectedTender = useSelector(state => state.organization.selectedTender)
 	const user = useSelector(state => state.organization.user)
 
 	const [reasons, setReasons] = useState('others')
+
+	const token = user.token
 
 
 	const {
@@ -35,20 +40,67 @@ function CancelOrder({ handleShowModal }) {
 	useEffect(() => {
 		setValue('name_of_organization', user?.name_of_organization);
 		setValue('tender_id', selectedTender?.tender_id)
-	}, [selectedTender, user])
+	}, [selectedTender, user, setValue])
 
 
-	const submitReason = () => {
+	const submitReason = async () => {
 		const data = getValues()
 
-		console.log(data)
+		const options = {
+			status: 'cancelled',
+			reasons
+		}
+
+
+		try {
+			setIsLoading(true)
+			const res = await fetch(`https://school-project-production-459d.up.railway.app/v4/tender/tender/${data.tender_id}`,
+				{
+					method: "ut",
+					headers: {
+						Authorization: `${token}`,
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(options),
+				}
+			)
+			const response = await res.json();
+
+			setIsLoading(false)
+
+
+			if (res.ok) {
+				toast.success(response.message, {
+					position: toast.POSITION.TOP_RIGHT,
+					autoClose: 3000,
+					hideProgressBar: true,
+
+				});
+				// navigate('/organization/manage-tender')
+			}
+			else {
+				toast.error(response.message, {
+					position: toast.POSITION.TOP_RIGHT,
+					autoClose: 3000,
+					hideProgressBar: true,
+
+				});
+			}
+		}
+		catch (err) {
+			setIsLoading(false)
+			console.log(err)
+		}
+
+
+
 	}
 
 
 
 
 	return (
-		<>
+		<div className='cancel_orderContainer'>
 			<section className='cancel__order'>
 				<div className='cancel__head'>
 					<h3>Are you sure you want to cancel this tender?</h3>
@@ -78,7 +130,7 @@ function CancelOrder({ handleShowModal }) {
 					<label htmlFor='cancellation'>Cancellation reason</label>
 					<select
 						onChange={e => setReasons(e.target.value)}
-						{...register('reasons')}
+						value={reasons}
 						name='cancellation'
 						placeholder='Provide reasons'>
 						<option value={'Agreements with Public Administration (MMC) not finalized'} >
@@ -96,13 +148,13 @@ function CancelOrder({ handleShowModal }) {
 							onClick={handleShowModal}>
 							cancel
 						</button>
-						<button type='submit' className='return__btn act__btn'>Return</button>
+						<button type='submit' className='return__btn act__btn'>{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Return'}</button>
 					</div>
 				</form>
 			</section>
 
-			<div className='cancel__overlay'></div>
-		</>
+			<div className='cancel__overlay' ></div>
+		</div>
 	);
 }
 
