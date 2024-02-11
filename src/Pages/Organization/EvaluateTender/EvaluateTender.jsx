@@ -4,31 +4,14 @@ import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import EvaluateTenderCard from './EvaluateTenderCard'
 import { useSelector } from 'react-redux'
 import useSWR from 'swr';
+import { CircularProgress } from '@mui/material';
 
 
 const EvaluateTender = () => {
 
+
     const user = useSelector(state => state.organization.user)
     const { token, organization_id } = user
-
-    const fetchTenders = async (url, token) => {
-        const headers = new Headers();
-
-        if (token) {
-            headers.append('Authorization', `${token}`);
-        }
-
-        const response = await fetch(url, { headers });
-        const data = await response.json();
-        return data;
-
-
-    };
-    const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/${organization_id}`
-    const { data } = useSWR([url, token], () => fetchTenders(url, token));
-    console.log(data)
-
-
 
     const arr = [
         {
@@ -87,20 +70,52 @@ const EvaluateTender = () => {
         },
     ]
 
+    const fetchTenders = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+
+
+    };
+
+
+
+
+    const url = `https://school-project-production-459d.up.railway.app/v4/tender/evaluate/${organization_id}`
+    const { data } = useSWR([url, token], () => fetchTenders(url, token));
+    console.log(data)
+
+    let content = <div className='spinnerContainer' >
+        <CircularProgress color="info" thickness={8} size={30} />
+    </div>
+
+    if (data?.length > 0) {
+        content = data?.map(datum => {
+            return (
+                <EvaluateTenderCard key={datum.tender_id} data={datum} />
+            )
+        })
+    }
+    else if (data?.length === 0) {
+        content = <div className='spinnerContainer' ><p>No evaluated Tender found </p></div>
+    }
+
+
+
+
+
 
     return (
         <div>
             <CompanyNav />
             <div className='evaluateTender'>
-
-                {
-                    arr?.map(datum => {
-                        return (
-                            <EvaluateTenderCard key={datum.tender_id} data={datum} />
-                        )
-                    })
-                }
-
+                {content}
             </div>
 
         </div>

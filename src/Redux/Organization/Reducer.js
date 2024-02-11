@@ -7,6 +7,7 @@ const initialState = {
     isLoading: false,
     errorMsg: '',
     selectedTender: {},
+    selectedBidder: {},
     organizationProfilePicture: []
 
 }
@@ -44,6 +45,10 @@ const organizationReducer = (state = initialState, action) => {
         case actionTypes.ORGANIZATION_TENDER_DETAIL:
             return {
                 ...state, selectedTender: action.payload
+            }
+        case actionTypes.ORGANIZATION_SELECT_BIDDER:
+            return {
+                ...state, selectedBidder: action.payload
             }
         case actionTypes.ORGANIZATION_PROFILE_PICTURE:
             return {

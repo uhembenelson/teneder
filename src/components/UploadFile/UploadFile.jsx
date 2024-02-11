@@ -3,20 +3,9 @@ import { useDropzone } from "react-dropzone";
 import pdf from '../../assets/Import Pdf.png'
 import './UploadFile.css'
 
-import { useForm } from 'react-hook-form'
 
 const UploadFile = ({ name, register, setFile }) => {
 
-    const {
-
-        setValue,
-
-    } = useForm({
-
-        criteriaMode: "all",
-        reValidateMode: "onSubmit",
-        mode: "onChange",
-    });
 
 
 
@@ -40,7 +29,9 @@ const UploadFile = ({ name, register, setFile }) => {
             //     dispatch(setProofOfAddressUrl(URL.createObjectURL(acceptedFiles[0])));
             // }
             // setValue("image", acceptedFiles[0]);
+
             setFile(acceptedFiles[0])
+
 
         },
     });

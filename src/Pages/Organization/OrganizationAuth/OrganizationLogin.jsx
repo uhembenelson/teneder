@@ -63,26 +63,32 @@ const OrganizationLogin = () => {
 
     const submitForm = () => {
         const data = getValues()
-        dispatch(loginOrganization(data))
+        try {
+            dispatch(loginOrganization(data))
 
-        if (isSignedIn) {
-            toast.success('Successful', {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 3000,
-                hideProgressBar: true,
-            });
-            // navigate("/organization/home");
-        } else {
-            setErr(errorMsg)
+            if (isSignedIn) {
+                toast.success('Successful', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                });
+                // navigate("/organization/home");
+            } else {
+                setErr(errorMsg)
+
+
+                return
+                //   window.location.href = "https:tranexx.com"
+            }
+        }
+        catch {
             toast.error(err, {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 3000,
                 hideProgressBar: true,
             });
-
-            return
-            //   window.location.href = "https:tranexx.com"
         }
+
     }
 
     useEffect(() => {

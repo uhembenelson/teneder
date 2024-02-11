@@ -60,9 +60,15 @@
     margin-right: 3rem;
 }
 
-.complete{
+.complete, .cancelled, .ongoing{
     color: rgba(0, 107, 5, 1);
     font-weight: bold;
+}
+.cancelled{
+    color: red
+}
+.ongoing{
+    color: orangered
 }
 
 .evalButton{
@@ -70,10 +76,14 @@
     display: flex;
     align-items: center;
     border-radius: 1rem;
-    width: 12rem;
+    width: fit-content;
     justify-content: space-between;
     color: #fff;
     padding:1rem;
+}
+
+.evalImg{
+    height: 30px;
 }
 
 

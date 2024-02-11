@@ -1,6 +1,6 @@
 .notificationCard{
     background-color: #ccc;
-    width: 50%;
+    width: fit-content;
     margin: auto;
     border-radius: 2rem;
     padding: .5rem 0;
@@ -12,7 +12,7 @@
 }
 
 .notificationCardInner{
-    width: 95%;
+    width: 100%;
     margin: auto;
     display: flex;
     align-items: center;
@@ -28,19 +28,19 @@
 
 @media screen and (max-width: 1120px){
     .notificationCard{
-        width: 70%;
+        width: fit-content;
     }
 }
 
 @media screen and (max-width: 800px) {
     .notificationCard {
-        width: 80%;
+        width: fit-content;
     }
 }
 
 @media screen and (max-width: 800px) {
     .notificationCard {
-        width: 100%;
+        width: fit-content;
     }
     .notificationCardInner span{
         font-size: .8rem;

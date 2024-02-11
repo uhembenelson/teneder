@@ -102,6 +102,11 @@ export const setOrganizationProfilePicture = (data) => ({
     payload: data
 })
 
+export const selectBidder = (data) => ({
+    type: actionTypes.ORGANIZATION_SELECT_BIDDER,
+    payload: data
+})
+
 export const logoutOrganization = () => ({
     type: actionTypes.ORGANIZATION_LOGOUT
 })

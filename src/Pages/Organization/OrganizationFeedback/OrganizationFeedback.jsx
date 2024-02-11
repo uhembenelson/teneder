@@ -1,20 +1,104 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import img from '../../../assets/Startup life-pana 1.png'
 import './OrganizationFeedback.css'
-import CustomBtn from '../../../components/CustomBtn/CustomBtn'
+import { useNavigate } from 'react-router-dom'
+import * as yup from 'yup'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { CircularProgress } from '@mui/material'
 
 const OrganizationFeedback = () => {
     const starArray = [1, 2, 3, 4, 5]
-
     const [clickedStar, setClickedStar] = useState(0)
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const navigate = useNavigate()
+
+    const user = useSelector(state => state.organization.user)
+
+    const selectedTender = useSelector(state => state.organization.selectedTender)
+
+
+    const { token, organization_id } = user
+
+    const schema = yup.object().shape({
+        name_of_organization: yup.string().required('Company name is required'),
+        tender_id: yup.string().required('tender id is required'),
+        name_of_bidder: yup.string().required('Name of bidder is required'),
+        ethereum_value: yup.string().required('Ethurium value is required'),
+
+        comment: yup.string().required('Comment is required'),
+    })
+
+
+    const {
+        getValues,
+        register,
+        setValue,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(schema),
+        criteriaMode: "all",
+        reValidateMode: "onSubmit",
+        mode: "onChange",
+    });
+
+    useEffect(() => {
+        setValue('name_of_organization', user.name_of_organization)
+        setValue('tender_id', selectedTender.tender_id)
+        setValue('name_of_bidder', selectedTender?.name_of_company)
+    }, [setValue, user, selectedTender])
 
 
 
     const selectStar = (id) => {
         setClickedStar(id)
-        console.log(clickedStar)
+        console.log(id)
     }
+
+    const sendFeedback = async () => {
+        // e.preventDefault()
+        const formata = getValues()
+        formata.rating = clickedStar
+        try {
+            setIsLoading(true)
+            const res = await fetch('https://school-project-production-459d.up.railway.app/V5/feedback',
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `${token}`,
+                    },
+                    body: formata,
+                }
+            )
+            const data = await res.json();
+
+            setIsLoading(false)
+
+
+            if (res.ok) {
+                toast.success('Feedback sent successfully', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+                navigate('/organization/home')
+            }
+        }
+        catch (err) {
+            setIsLoading(false)
+            console.log(err)
+        }
+
+    }
+
+
 
     return (
         <div>
@@ -24,7 +108,7 @@ const OrganizationFeedback = () => {
                     <img src={img} alt='' />
                 </div>
                 <div className='rightFeedbackContainer' >
-                    <form>
+                    <form onSubmit={handleSubmit(sendFeedback)}>
                         <div>
                             <h3>Name of the Organization</h3>
                             <div className='feedbackFormInputContainer' >
@@ -33,7 +117,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input placeholder='Panjim Muncipal Corporation' type='text' />
+                                <input {...register('name_of_organization')} placeholder='Panjim Muncipal Corporation' type='text' />
                             </div>
                         </div>
                         <div>
@@ -44,7 +128,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input placeholder='345678' type='number' />
+                                <input placeholder='345678' {...register('tender_id')} type='text' />
                             </div>
                         </div>
                         <div>
@@ -55,7 +139,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input placeholder='L & T' type='text' />
+                                <input placeholder='L & T' {...register('name_of_bidder')} type='text' />
                             </div>
                         </div>
                         <div>
@@ -66,7 +150,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input placeholder='3.15' type='number' />
+                                <input placeholder='3.15' {...register('ethereum_value')} type='number' />
                             </div>
                         </div>
                         <h3 className='rateText' >Rate the overall work done by Bidder</h3>
@@ -83,12 +167,12 @@ const OrganizationFeedback = () => {
                             }
                         </div>
                         <div className='feebackTextAreaContainer'>
-                            <textarea className='feebackTextArea' placeholder='Add your comments...' ></textarea>
+                            <textarea className='feebackTextArea' {...register('comment')} placeholder='Add your comments...' ></textarea>
                         </div>
 
                         <div className='feedBackBtnContainer' >
-                            <button className='closeBtn' >Cancel</button>
-                            <button className='submitFeedbackBtn' >Submit</button>
+                            {/*<button className='closeBtn' >Cancel</button>*/}
+                            <button type='submit' className='submitFeedbackBtn' >{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Submit'}</button>
                         </div>
                     </form>
                 </div>

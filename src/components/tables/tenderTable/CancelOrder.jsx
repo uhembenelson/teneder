@@ -56,7 +56,7 @@ function CancelOrder({ handleShowModal }) {
 			setIsLoading(true)
 			const res = await fetch(`https://school-project-production-459d.up.railway.app/v4/tender/tender/${data.tender_id}`,
 				{
-					method: "ut",
+					method: "put",
 					headers: {
 						Authorization: `${token}`,
 						'Content-Type': 'application/json'

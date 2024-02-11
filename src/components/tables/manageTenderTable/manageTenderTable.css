@@ -17,6 +17,19 @@
 	font-weight: 500;
 }
 
+.optionSelect{
+	width: 10rem;
+	margin: auto;
+}
+
+.optionSelectParent{
+display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 3rem;
+	
+}
+
 .description {
 	width: 100%;
 	margin: auto;
@@ -47,13 +60,20 @@
 }
 
 .manage__btn {
-	margin: 1rem 0 1rem 76%;
+	
 	font-size: 1.2rem;
-
+	width: fit-content;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	
 	gap: 0.5rem;
+}
+
+.manage__btn__cont{
+	display: flex;
+	justify-content: flex-end;
+	margin: 1rem 0;
 }
 
 .manage__btn img {
@@ -68,7 +88,8 @@
 	}
 
 	.manage__btn {
-		margin-left: 69%;
+		
+		padding: .5rem;
 		font-size: 1rem;
 	}
 }
@@ -85,7 +106,7 @@
 	}
 
 	.manage__btn {
-		margin-left: 50%;
+		
 		font-size: 0.77rem;
 		padding: 0.5rem;
 	}

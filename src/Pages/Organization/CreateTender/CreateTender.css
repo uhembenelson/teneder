@@ -32,7 +32,10 @@
     margin-bottom: 2rem;
 }
 
-
+.fileName{
+    font-size: .8rem;
+    color: green
+}
 
 .durationBox{
     width: 46%;

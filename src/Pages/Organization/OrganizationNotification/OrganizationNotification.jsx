@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './OrganizationNotification.css'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { CircularProgress } from '@mui/material';
 
 const OrganizationNotification = () => {
 
+    const [isLoading, setIsLoading] = useState(false)
 
 
     const fetchNotification = async (url, token) => {
@@ -24,11 +25,13 @@ const OrganizationNotification = () => {
         return data;
     };
 
-    const { token } = useSelector(state => state.organization.user)
-    const url = 'https://school-project-production-459d.up.railway.app/v8/notification/organization'
+    const { token, organization_id } = useSelector(state => state.organization.user)
+    const url = `https://school-project-production-459d.up.railway.app/v8/notification/organization/${organization_id}`
 
 
     const { data } = useSWR([url, token], () => fetchNotification(url, token));
+
+
 
 
 
@@ -38,7 +41,7 @@ const OrganizationNotification = () => {
         <CircularProgress color="info" thickness={8} size={30} />
     </div>
 
-    if (data?.length === 0) {
+    if (data ?) {
         content = <p style={{ textAlign: 'center' }} >No new notifications</p>
     }
 

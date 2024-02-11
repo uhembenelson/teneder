@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
-import { Avatar } from '@mui/material'
+import { Avatar, CircularProgress } from '@mui/material'
 import UploadFile from '../../../components/UploadFile/UploadFile'
 import CustomBtn from '../../../components/CustomBtn/CustomBtn'
 import './EditProfile.css'
@@ -22,6 +22,8 @@ const EditProfile = () => {
 
     const { token, organization_id } = user
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const [contact_number, setContactNumber] = useState()
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
@@ -30,21 +32,21 @@ const EditProfile = () => {
     const [picture, setPicture] = useState(null)
 
     const schema = yup.object().shape({
-        name_of_organization: yup.string().required('Company name is required'),
-        organization_website: yup.string().required('organization_website is required'),
-        address_one: yup.string().required('Address one is required'),
-        state: yup.string().required('State is required'),
-        city: yup.string().required('City is required'),
-        first_name: yup.string().required('First Name is required'),
-        last_name: yup.string().required('Last Name is required'),
-        postal_code: yup.string().required('Postal Code is required'),
-        checked: yup.string().required(),
-        job_title: yup.string().required(),
-        email: yup.string().email().required('Email is required'),
-        confirm_email: yup.string().email().oneOf([yup.ref('email'), null]).required('Email is required'),
-        registration_number: yup.string().required('Registration number is required'),
-        public_address: yup.string().required('Public Address is required'),
-        wallet_address: yup.string().required('Wallet Address is required'),
+        // name_of_organization: yup.string().required('Company name is required'),
+        // organization_website: yup.string().required('organization_website is required'),
+        // address_one: yup.string().required('Address one is required'),
+        // state: yup.string().required('State is required'),
+        // city: yup.string().required('City is required'),
+        // first_name: yup.string().required('First Name is required'),
+        // last_name: yup.string().required('Last Name is required'),
+        // postal_code: yup.string().required('Postal Code is required'),
+        // checked: yup.string().required(),
+        // job_title: yup.string().required(),
+        // email: yup.string().email().required('Email is required'),
+        // confirm_email: yup.string().email().oneOf([yup.ref('email'), null]).required('Email is required'),
+        // registration_number: yup.string().required('Registration number is required'),
+        // public_address: yup.string().required('Public Address is required'),
+        // wallet_address: yup.string().required('Wallet Address is required'),
         // password: yup.string().min(5).required('Password must be greater than 6 characters'),
         // confirm_password: yup.string().oneOf([yup.ref('password'), null]).min(5).required('Password do not match'),
 
@@ -167,10 +169,35 @@ const EditProfile = () => {
         regFormData.append('aadhar_card', AadharCard)
         regFormData.append('pan_card', panCard)
 
-        const res = await axios.patch(`https://school-project-production-459d.up.railway.app/v1/auth/signup/update/${user.organization_id}`, regFormData)
-        console.log(res)
 
-        console.log('Heelo')
+        try {
+            setIsLoading(true)
+
+            const res = await fetch(`https://school-project-production-459d.up.railway.app/v1/auth/signup/update/${user.organization_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${token}`
+                },
+                body: regFormData
+            })
+            const data = res.json()
+            console.log(data)
+            setIsLoading(false)
+
+            if (res.ok) {
+                toast.success('Successfully updated your profile', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+
+            }
+        }
+        catch (err) {
+            setIsLoading(false)
+            console.log(err)
+        }
 
 
 
@@ -185,6 +212,8 @@ const EditProfile = () => {
         setValue('registration_number', user?.registration_number)
         setValue('no_of_employees', user?.no_of_employees)
         setValue('address_one', user?.address_one)
+        setValue('address_two', user?.address_two)
+        setValue('address_three', user?.address_three)
         setValue('organization_website', user?.organization_website)
         setValue('postal_code', user?.postal_code)
         setValue('state', user?.state)
@@ -193,6 +222,9 @@ const EditProfile = () => {
         setValue('first_name', user?.first_name)
         setValue('last_name', user?.last_name)
         setValue('email', user?.email)
+        setValue('confirm_email', user?.email)
+        setValue('password', 'admin')
+        setValue('confirm_password', 'admin')
         setValue('job_title', user?.job_title)
         setValue('contact_number', user?.contact_number)
         setValue('wallet_address', user?.wallet_address)
@@ -396,7 +428,7 @@ const EditProfile = () => {
 
                                 <label>Current Password</label>
                             </div>
-                            <input className='inputTypeInput' type='password' />
+                            <input className='inputTypeInput' type='password' {...register('password')} />
                         </div>
                     </div>
                     <div className='companyBox' >
@@ -406,14 +438,14 @@ const EditProfile = () => {
 
                                 <label>New Password</label>
                             </div>
-                            <input className='inputTypeInput' type='password' />
+                            <input className='inputTypeInput' type='password' {...register('password')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
                                 <label>Re-enter New Password</label>
                             </div>
-                            <input className='inputTypeInput' type='password' />
+                            <input className='inputTypeInput' type='password' {...register('confirm_password')} />
                         </div>
                     </div>
                     <h2 className='editProfileInfo' >DOCUMENTS</h2>
@@ -438,7 +470,7 @@ const EditProfile = () => {
                     </div>
                     <div className='confirmBtnContainer'>
 
-                        <CustomBtn>Confirm Changes</CustomBtn>
+                        <CustomBtn>{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Confirm Changes'}</CustomBtn>
                     </div>
                 </form>
             </div>

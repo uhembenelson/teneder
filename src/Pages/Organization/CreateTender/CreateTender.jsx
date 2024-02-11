@@ -29,6 +29,9 @@ const CreateTender = () => {
     })
 
     const [appendices, setFile] = useState(null)
+
+    const [err, setErr] = useState(null)
+
     const [states, setStates] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [type_of_tender, setCompanyType] = useState('Private')
@@ -75,6 +78,7 @@ const CreateTender = () => {
 
     const createTender = async () => {
 
+
         const data = getValues()
 
         formData.append('description_tender', data?.description_tender)
@@ -92,35 +96,43 @@ const CreateTender = () => {
         formData.append('appendices', appendices)
         formData.append('material_required', data?.material_required)
 
-        try {
-            setIsLoading(true)
-            const res = await fetch('https://school-project-production-459d.up.railway.app/v4/tender/tender',
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `${user?.token}`,
-                    },
-                    body: formData,
-                }
-            )
-            const data = await res.json();
-
-            setIsLoading(false)
-
-
-            if (res.ok) {
-                toast.success(data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 3000,
-                    hideProgressBar: true,
-
-                });
-                navigate('/organization/manage-tender')
-            }
+        if (!appendices) {
+            setErr('Required')
+            return
         }
-        catch (err) {
-            setIsLoading(false)
-            console.log(err)
+
+        else {
+            setErr(null)
+            try {
+                setIsLoading(true)
+                const res = await fetch('https://school-project-production-459d.up.railway.app/v4/tender/tender',
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: `${user?.token}`,
+                        },
+                        body: formData,
+                    }
+                )
+                const data = await res.json();
+
+                setIsLoading(false)
+
+
+                if (res.ok) {
+                    toast.success(data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                        hideProgressBar: true,
+
+                    });
+                    navigate('/organization/manage-tender')
+                }
+            }
+            catch (err) {
+                setIsLoading(false)
+                console.log(err)
+            }
         }
 
 
@@ -246,13 +258,18 @@ const CreateTender = () => {
                             </select>
                         </div>
                         <div className='companyTypeInputContainer2'>
+
                             <div className='typeInput' >
                                 <span>*</span>
                                 <h3>APPENDICES</h3>
                             </div>
                             <UploadFile setFile={setFile} />
+                            {appendices && <p className='fileName'>{appendices?.name}</p>}
+
                         </div>
+
                     </div>
+
                     <div className='createTenderBox' >
                         <div className='labelContainer' >
                             <span>*</span><label>Materials Required</label>
