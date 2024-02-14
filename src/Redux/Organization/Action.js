@@ -76,7 +76,7 @@ export const registerOrganization = (userDetails) => async (dispatch) => {
         const data = await res.json();
         console.log(data)
 
-        if (res.status === 200) {
+        if (res.status === 201) {
             dispatch(registerSuccess(data));
 
         }

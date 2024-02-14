@@ -47,6 +47,7 @@ function TenderTable() {
 	}
 
 	const presentDay = new Date();
+	console.log(presentDay)
 
 	let content = <div className='spinnerContainer' >
 		<CircularProgress color="info" thickness={8} size={30} />
@@ -91,7 +92,7 @@ function TenderTable() {
 							</td>
 							<td>{tender?.type_of_tender}</td>
 							<td>
-								{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} days to go <br />
+								{presentDay ? Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) : 'Concluded'} days to go <br />
 								<span className='date'>{tender?.duration_of_work
 								}</span>
 							</td>

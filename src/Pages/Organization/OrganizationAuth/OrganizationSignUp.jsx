@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { registerOrganization } from '../../../Redux/Organization/Action'
 
 const OrganizationSignUp = () => {
-    const [contact_number, setContactNumber] = useState()
+    const [contact_number, setContactNumber] = useState(null)
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
     const [panCard, setPanCard] = useState(null)

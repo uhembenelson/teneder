@@ -41,17 +41,19 @@ const OrganizationNotification = () => {
         <CircularProgress color="info" thickness={8} size={30} />
     </div>
 
-    if (data ?) {
-        content = <p style={{ textAlign: 'center' }} >No new notifications</p>
-    }
 
-    else {
-        content = data?.map(notification => {
-            return (
-                <Notification key={notification.notification_id} notification={notification} />
-            )
-        })
-    }
+
+    // if (typeof(data) === String) {
+    //     content = <p style={{ textAlign: 'center' }} >No new notifications</p>
+    // }
+
+    // else {
+    //     content = data?.map(notification => {
+    //         return (
+    //             <Notification key={notification.notification_id} notification={notification} />
+    //         )
+    //     })
+    // }
 
 
 
