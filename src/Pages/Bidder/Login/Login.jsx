@@ -2,15 +2,20 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import OrganizationLoginLeft from '../../../components/OrganizationLoginLeft/OrganizationLoginLeft'
 import './Login.css'
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { toast } from "react-toastify";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
 import { CircularProgress } from '@mui/material';
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../../../Redux/Bidder/Action';
+
 
 const Login = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
 
     const schema = yup.object().shape({
         email: yup.string().email().required('Email is required'),
@@ -57,6 +62,7 @@ const Login = () => {
                     autoClose: 3000,
                     hideProgressBar: true,
                 });
+                dispatch(loginUser(data))
                 navigate("/bidder/home");
 
             }

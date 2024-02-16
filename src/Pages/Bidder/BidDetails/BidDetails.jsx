@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './BidDetails.css'
 import backArrow from '../../../assets/Shape.png';
 import BidderNav from '../../../components/BidderNav/Nav'
@@ -6,11 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import Pdf from '../../../assets/Import Pdf.png'
 import UploadForm from '../../../components/UploadForm/UploadForm';
 
+import { useSelector } from 'react-redux';
+
 const BidDetails = () => {
+
+
 
     const navigate = useNavigate()
 
     const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const [doc, setDoc] = useState(null)
+
+    const tenderDetails = useSelector(state => state.bidder.tenderInfo)
 
     const openModal = () => {
         setIsModalOpen(true)
@@ -20,9 +28,16 @@ const BidDetails = () => {
         setIsModalOpen(false)
     }
 
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v3/download/${tenderDetails?.appendices}`)
+            .then(res => setDoc(res.url))
+    }, [tenderDetails])
+
+
+
     return (
         <div>
-            {isModalOpen && <UploadForm closeModal={closeModal} />}
+            {isModalOpen && <UploadForm tender_id={tenderDetails.tender_id} closeModal={closeModal} />}
             <BidderNav />
             <div className='bidDetailsContainer'>
                 <div className='bidDetail__heading'>
@@ -47,15 +62,15 @@ const BidDetails = () => {
                         </div>
                         <div className='tenderDetailSmall locBox' >
                             <p>T. Number  :</p>
-                            <p>4567832 </p>
+                            <p>{tenderDetails?.tender_id} </p>
                         </div>
                         <div className='tenderDetailBig' >
                             <p>Description  :</p>
-                            <p>Contractor. Procurement and construction of multistoried residential finished houses for economically weaker sections (ews).  </p>
+                            <p>{tenderDetails?.description_tender}</p>
                         </div>
                         <div className='tenderDetailBig' >
                             <p>Tender Motive :  </p>
-                            <p>Bridge tender aims to unite cities, boost commerce, enhance transportation, and foster regional growth through connectivity.</p>
+                            <p>{tenderDetails?.tender_motive}</p>
                         </div>
                     </div>
                 </div>
@@ -76,18 +91,19 @@ const BidDetails = () => {
                         </div>
                         <div className='tenderDetailBig locBox' >
                             <p>Location   :</p>
-                            <p>Panjim</p>
+                            <p>{tenderDetails?.state}</p>
                         </div>
                         <div className='tenderDetailBig locBox' >
                             <p>Type :  </p>
-                            <p>Private</p>
+                            <p>{
+                                tenderDetails?.type_of_tender}</p>
                         </div>
 
                         <div className='tenderDetailBigAttach' >
                             <p>Attachments :  </p>
                             <div className='attachmentsContainer' >
                                 <img src={Pdf} alt='' />
-                                <p className='bidderImage' >Muncipality_Tender.pdf</p>
+                                <p className='bidderImage' >{tenderDetails?.appendices}</p>
                             </div>
                         </div>
                     </div>
@@ -100,12 +116,14 @@ const BidDetails = () => {
                         <div className='tenderDocOptionsContainer' >
                             <h4>NIT : </h4>
                             <div className='tenderDocDownloadContainer' >
-                                <p>Download</p>
+                                <a href={doc} className='downloadOpt' >
+                                    Download
+                                </a>
+
                                 <p onClick={openModal} >Upload</p>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

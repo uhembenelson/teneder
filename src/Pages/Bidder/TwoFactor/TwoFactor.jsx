@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import OtpInput from "react18-input-otp";
 import { Link, useNavigate } from 'react-router-dom';
 import OrganizationLoginLeft from '../../../components/OrganizationLoginLeft/OrganizationLoginLeft';
-
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import axios from 'axios'
+import { CircularProgress } from '@mui/material';
 
 const TwoFactor = () => {
 
@@ -40,6 +43,78 @@ const TwoFactor = () => {
     };
 
 
+    const {
+        handleSubmit,
+
+    } = useForm({
+        criteriaMode: "all",
+        reValidateMode: "onSubmit",
+        mode: "onChange",
+    });
+
+    const sendOTP = async () => {
+
+        const Data = {
+            email: localStorage.getItem('email'),
+            otp: state.otp
+        }
+
+
+        try {
+            setIsLoading(true)
+            const data = await axios.post('https://school-project-production-459d.up.railway.app/v12/otp/verify/bidder', Data)
+
+            // const res = await fetch('https://school-project-production-459d.up.railway.app/v10/otp', {
+            //     method: 'POST', // or 'PUT'
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(Data),
+            // })
+            // const data = await res.json()
+
+
+            setIsLoading(false)
+
+
+
+
+            if (data.status === 200) {
+                localStorage.setItem('reset', data?.data.user?.reset_token)
+                navigate('/bidder/reset-password')
+                toast.success(data.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+
+            }
+            else {
+                toast.error(data?.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+
+            }
+        }
+        catch (err) {
+            setIsLoading(false)
+            console.log(err)
+            toast.error(err.response.data.message, {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+                hideProgressBar: true,
+
+            });
+        }
+    }
+
+
+
+
     return (
         <div className='loginContainer' >
             <OrganizationLoginLeft />
@@ -53,7 +128,7 @@ const TwoFactor = () => {
                         <Link className='loginText' to='/bidder/signup' >JOIN NOW</Link>
                     </div>
                 </div>
-                <form className='loginForm' >
+                <form onSubmit={handleSubmit(sendOTP)} className='loginForm' >
                     <h3>Verification</h3>
                     <p>Enter your 4 digits code that you received on your email.</p>
 
@@ -94,7 +169,7 @@ const TwoFactor = () => {
 
                     <p className='formattedTime'> {formatTime(time)}</p>
 
-                    <button className='loginBtn verifyBtn' >Verify</button>
+                    <button className='loginBtn verifyBtn' >{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Verify'}</button>
 
 
 

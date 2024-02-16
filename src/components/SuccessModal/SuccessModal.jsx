@@ -14,7 +14,7 @@ const SuccessModal = () => {
                     <img className='successImage' src={success} alt='success' />
                     <h3 className='successHeader' >Successful</h3>
                     <p className='successText' >Your password has been reset successfully</p>
-                    <div onClick={() => navigate('/organization/signin')} className='loginInputContainer successModalBtn loginBtnBox' >
+                    <div onClick={() => navigate(`/bidder/signin`)} className='loginInputContainer successModalBtn loginBtnBox' >
                         <button className='loginBtn' >Continue</button>
                     </div>
                 </div>

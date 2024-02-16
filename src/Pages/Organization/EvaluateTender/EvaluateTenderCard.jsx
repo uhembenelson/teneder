@@ -13,10 +13,10 @@ const EvaluateTenderCard = ({ data }) => {
     const dispatch = useDispatch()
 
     let percentage = 0;
-    if (data.status === 'completed') {
+    if (data?.status === 'completed') {
         percentage = 100
     }
-    else if (data.status === 'ongoing') {
+    else if (data?.status === 'ongoing') {
         percentage = 66
     }
     else {
