@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import userImage from '../../../assets/Ellipse 4.png'
 import { Avatar } from '@mui/material'
 import pdf from '../../../assets/Import Pdf.png'
 import { useNavigate } from 'react-router-dom'

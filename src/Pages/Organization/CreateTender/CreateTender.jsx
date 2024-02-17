@@ -225,7 +225,7 @@ const CreateTender = () => {
                                 border: errors?.duration_of_bidding ? '1px solid red' : 'none'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer' >
-                                    <span>*</span><label>DURATION OF BIDDING PERIOD</label>
+                                    <span>*</span><label>START DURATION OF BIDDING PERIOD</label>
                                 </div>
 
                                 <input type='date' {...register('duration_of_bidding')} />
@@ -234,16 +234,35 @@ const CreateTender = () => {
                                 border: errors?.duration_of_work ? '1px solid red' : 'none'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer'>
-                                    < span >*</span><label>DURATION OF WORK PERIOD</label>
+                                    < span >*</span><label>END DURATION OF BIDDING PERIOD</label>
                                 </div>
 
                                 <input type='date' {...register('duration_of_work')} />
                             </div>
                         </div>
-
-
-
                     </div >
+                    <div className='companyContainer' style={{ marginTop: '2rem' }} >
+                        <div className='companyBox' >
+                            <div style={{
+                                border: errors?.duration_of_bidding ? '1px solid red' : 'none'
+                            }} className='createTenderBox durationBox ' >
+                                <div className='labelContainer' >
+                                    <span>*</span><label>START DURATION OF WORK PERIOD</label>
+                                </div>
+
+                                <input type='date' {...register('duration_of_bidding')} />
+                            </div>
+                            <div style={{
+                                border: errors?.duration_of_work ? '1px solid red' : 'none'
+                            }} className='createTenderBox durationBox ' >
+                                <div className='labelContainer'>
+                                    < span >*</span><label>END DURATION OF WORK PERIOD</label>
+                                </div>
+
+                                <input type='date' {...register('duration_of_work')} />
+                            </div>
+                        </div>
+                    </div>
                     <div className='companyBox' >
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >

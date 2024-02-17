@@ -6,7 +6,8 @@ import cancel from '../../../assets/Multiplication.png';
 import approval from '../../../assets/Approval.png';
 import flag from '../../../assets/flag.png';
 import location from '../../../assets/location.png';
-
+import useSWR from 'swr';
+import { useSelector } from 'react-redux';
 
 import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
@@ -15,6 +16,26 @@ function ApproveTender() {
 
 
     const navigate = useNavigate()
+
+    const fetchAllBidApplicants = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+
+    };
+
+    const { token, bidder_id } = useSelector(state => state.bidder.user)
+    const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/document/${bidder_id}`
+
+
+    const { data } = useSWR([url, token], () => fetchAllBidApplicants(url, token));
+    console.log(data)
 
 
 
@@ -43,7 +64,7 @@ function ApproveTender() {
                         <thead>
                             <th>tender description</th>
                             <th>type</th>
-                            <th>organization date</th>
+                            <th>organization Name</th>
                             <th>status</th>
                         </thead>
 
@@ -90,7 +111,7 @@ function ApproveTender() {
                             </tr>
 
                             <tr>
-                                <td onClick={() => { navigate('/organization/manage-tender/table') }}>
+                                <td onClick={() => { navigate('/bidder/approval/4') }}>
                                     2. Management Services Of An Apartment House , opp district
                                     court.
                                     <div className='table__inner'>

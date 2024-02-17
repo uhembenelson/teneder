@@ -12,6 +12,8 @@ const EvaluateTenderCard = ({ data }) => {
 
     const dispatch = useDispatch()
 
+    console.log(data)
+
     let percentage = 0;
     if (data?.status === 'completed') {
         percentage = 100
@@ -76,7 +78,7 @@ const EvaluateTenderCard = ({ data }) => {
 
                 <div>
                     <div className='statusContainer' >
-                        <p className='completedBy' >COMPLETED BY:<span >  {data?.name_of_company}</span></p>
+                        <p className='completedBy' >COMPLETED BY:<span >  {data?.name_of_company || data?.names}</span></p>
                         <p>Status : <span className='complete'>  {status}</span></p>
                     </div>
                     <div className='statusContainer'><p >TIME TAKEN: <span>26/10/2023 - 24/11/2023</span></p></div>

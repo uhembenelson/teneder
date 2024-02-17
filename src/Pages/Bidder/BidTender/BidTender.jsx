@@ -14,7 +14,7 @@ import location from '../../../assets/location.png';
 
 import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
-import { getTenderIndo, getTenderInfo } from '../../../Redux/Bidder/Action';
+import { getTenderInfo } from '../../../Redux/Bidder/Action';
 
 const BidTender = () => {
     const navigate = useNavigate()

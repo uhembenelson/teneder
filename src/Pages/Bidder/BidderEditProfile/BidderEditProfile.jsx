@@ -3,8 +3,29 @@ import { Avatar } from '@mui/material'
 import UploadFile from '../../../components/UploadFile/UploadFile'
 import CustomBtn from '../../../components/CustomBtn/CustomBtn'
 import BidderNav from '../../../components/BidderNav/Nav'
+import useSWR from 'swr'
+import { useSelector } from 'react-redux'
 
 const BidderEditProfile = () => {
+    const fetchBidderDetails = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+
+    };
+
+    const { token, bidder_id } = useSelector(state => state.bidder.user)
+    const url = `https://school-project-production-459d.up.railway.app/v2/auth/view/bidder/${bidder_id}`
+
+
+    const { data } = useSWR([url, token], () => fetchBidderDetails(url, token));
+    console.log(data)
     return (
         <div>
             <BidderNav />

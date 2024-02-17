@@ -6,6 +6,7 @@ import backArrow from '../../../assets/Shape.png';
 import cancel from '../../../assets/Multiplication.png';
 import flag from '../../../assets/flag.png';
 import location from '../../../assets/location.png';
+import darkApprove from '../../../assets/Approval.png';
 import { useState } from 'react';
 import { selectTender } from '../../../Redux/Organization/Action';
 import CancelOrder from './CancelOrder';
@@ -92,9 +93,8 @@ function TenderTable() {
 							</td>
 							<td>{tender?.type_of_tender}</td>
 							<td>
-								{presentDay ? Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) : 'Concluded'} days to go <br />
-								<span className='date'>{tender?.duration_of_work
-								}</span>
+								{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <span>{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} 'days to go'</span> : 'Concluded'}
+								{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <span className='date'>{tender?.duration_of_work}</span>}
 							</td>
 							<td>
 								{
