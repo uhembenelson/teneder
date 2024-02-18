@@ -3,7 +3,8 @@ import logo from '../../assets/SYMBOL.png';
 import bell from '../../assets/Doorbell.png';
 import vector from '../../assets/Vector.png';
 import profile from '../../assets/PROFILE.png'
-import user from '../../assets/Male User.png';
+import userImg from '../../assets/Male User.png';
+import { useSelector } from 'react-redux';
 import arrow from '../../assets/Expand Arrow.png';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,6 +12,8 @@ import { Link, useNavigate } from 'react-router-dom';
 function BidderNav() {
 	const [showMenu, setShowMenu] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
+
+	const user = useSelector(state => state.bidder.user)
 
 	function handleShowMenu() {
 		setShowMenu(!showMenu);
@@ -48,7 +51,7 @@ function BidderNav() {
 					<li className='popUpContainer'>
 						grp-cp09
 						<img
-							src={user}
+							src={userImg}
 							alt='user'
 						/>
 						<img
@@ -64,7 +67,7 @@ function BidderNav() {
 											<p className='navPopUpName'>GRP-CP09</p>
 											<p className='navPopUpDept'>Company</p>
 										</div>
-										<p className='navPopUpEmail'>GRP-CP09@mail.com</p>
+										<p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>
 									</div>
 								</div>
 								<div className='navPopUpTop' onClick={() => navigate('/bidder/profile')} >
@@ -157,7 +160,7 @@ function BidderNav() {
 												<p className='navPopUpName'>GRP-CP09</p>
 												<p className='navPopUpDept'>Company</p>
 											</div>
-											<p className='navPopUpEmail'>GRP-CP09@mail.com</p>
+											<p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>
 										</div>
 									</div>
 									<div className='navPopUpTop' onClick={() => navigate('/bidder/profile')} >

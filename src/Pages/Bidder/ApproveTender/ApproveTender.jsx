@@ -8,12 +8,14 @@ import flag from '../../../assets/flag.png';
 import location from '../../../assets/location.png';
 import useSWR from 'swr';
 import { useSelector } from 'react-redux';
-
+import { getTenderInfo } from '../../../Redux/Bidder/Action';
+import { useDispatch } from 'react-redux';
 import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
 
 function ApproveTender() {
 
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -31,11 +33,56 @@ function ApproveTender() {
     };
 
     const { token, bidder_id } = useSelector(state => state.bidder.user)
-    const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/document/${bidder_id}`
+    const url = `https://school-project-production-459d.up.railway.app/v15/approval/${bidder_id}`
 
 
     const { data } = useSWR([url, token], () => fetchAllBidApplicants(url, token));
     console.log(data)
+
+    let option = <div>
+        <p>REJECTED</p>
+        <img
+            src={cancel}
+            alt='cancel'
+        />
+    </div>
+
+    data?.map(tender => {
+        if (tender?.status === 'cancelled') {
+            option = <div>
+                <p>CANCELLED</p>
+                <img
+                    src={cancel}
+                    alt='cancel'
+                />
+            </div>
+        }
+        else if (tender?.status === 'rejected') {
+            option = <div>
+                <p>CANCELLED</p>
+                <img
+                    src={cancel}
+                    alt='cancel'
+                />
+            </div>
+        }
+        else {
+            option = <div>
+                <p>SELECTED</p>
+                <img
+                    src={approval}
+                    alt='approval'
+                />
+            </div>
+        }
+    })
+
+
+
+    const select = (data) => {
+        dispatch(getTenderInfo(data))
+        navigate(`/bidder/approval/${data?.tender_id}`)
+    }
 
 
 
@@ -69,123 +116,44 @@ function ApproveTender() {
                         </thead>
 
                         <tbody>
-                            <tr onClick={() => navigate('/bidder/approval/6')} >
-                                <td >
-                                    1. Contractor. Procurement and construction of multistoried
-                                    residential finished houses for economically weaker sections
-                                    (ews).
-                                    <div className='table__inner'>
-                                        <span>No. 4567832</span>
-                                        <span>
-                                            <img
-                                                src={location}
-                                                alt='location'
-                                            />
-                                            Panjim
-                                        </span>
+                            {
+                                data?.map((tender, id) => {
+                                    return (
+                                        <tr key={id} onClick={() => select(tender)} >
+                                            <td >
+                                                {id + 1} {tender?.description_tender}
+                                                <div className='table__inner'>
+                                                    <span>No. {tender?.tender_id}</span>
+                                                    <span>
+                                                        <img
+                                                            src={location}
+                                                            alt='location'
+                                                        />
+                                                        {tender?.state}
+                                                    </span>
 
-                                        <span>
-                                            <img
-                                                src={flag}
-                                                alt='flag'
-                                            />
-                                            India
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>Private</td>
-                                <td>
-                                    Panjim Muncipal
-                                    Council
-                                </td>
-                                <td>
-                                    REJECTED
-                                    <br />
+                                                    <span>
+                                                        <img
+                                                            src={flag}
+                                                            alt='flag'
+                                                        />
+                                                        India
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>{tender?.type_of_tender}</td>
+                                            <td>
+                                                {tender?.name_of_organization}
+                                            </td>
+                                            <td>
 
-                                    <img
-                                        src={cancel}
-                                        alt='cancel'
-                                    />
+                                                {option}
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
 
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td onClick={() => { navigate('/bidder/approval/4') }}>
-                                    2. Management Services Of An Apartment House , opp district
-                                    court.
-                                    <div className='table__inner'>
-                                        <span>No. 7899020 </span>
-                                        <span>
-                                            <img
-                                                src={location}
-                                                alt='location'
-                                            />
-                                            Mapusa
-                                        </span>
-
-                                        <span>
-                                            <img
-                                                src={flag}
-                                                alt='flag'
-                                            />
-                                            India
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>Government</td>
-                                <td>Quadros Motors
-                                </td>
-                                <td>
-
-                                    REJECTED
-                                    <br />
-                                    <img
-                                        src={cancel}
-                                        alt='cancel'
-                                    />
-
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td onClick={() => { navigate('/organization/manage-tender/table') }}>
-                                    3. Facility Management and Maintenance at the building of the
-                                    ministry of communications and Multimedia Pernem. Plot no.
-                                    234/2a/4
-                                    <div className='table__inner'>
-                                        <span>No. 48802666 </span>
-                                        <span>
-                                            <img
-                                                src={location}
-                                                alt='location'
-                                            />
-                                            Pernem
-                                        </span>
-
-                                        <span>
-                                            <img
-                                                src={flag}
-                                                alt='flag'
-                                            />
-                                            India
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>Government</td>
-                                <td >
-                                    Mormugao Muncipal Council
-                                </td>
-                                <td>
-                                    SELECTED
-                                    <br />
-                                    <img
-                                        src={approval}
-                                        alt='approval'
-                                    />
-
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </section>

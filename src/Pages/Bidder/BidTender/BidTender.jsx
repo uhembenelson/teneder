@@ -11,7 +11,7 @@ import NotbidImage from '../../../assets/image 55.png';
 import flag from '../../../assets/flag.png';
 import location from '../../../assets/location.png';
 
-
+// import darkApprove from '../../../assets/Approval.png';
 import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
 import { getTenderInfo } from '../../../Redux/Bidder/Action';
@@ -41,12 +41,27 @@ const BidTender = () => {
     const { data } = useSWR([url, token], () => fetchTenders(url, token));
     console.log(data)
 
+    const presentDay = new Date();
 
     const TenderInfo = (data) => {
         dispatch(getTenderInfo(data))
+        // if (Math.ceil((new Date(data?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) < 0) {
+        //     return
+        // }
+        // else {
         navigate(`/bidder/bid-details/${data?.tender_id}`)
+        // }
+
 
     }
+
+
+
+
+    const concluded = <div>
+        <p>Concluded</p>
+        <img src={approval} alt='' />
+    </div>
 
 
     return (
@@ -108,14 +123,21 @@ const BidTender = () => {
                                             </td>
                                             <td>{tender?.type_of_tender}</td>
                                             <td>
-                                                <p>22 Days to go</p>
-                                                <p style={{ color: 'rgba(255, 122, 0, 1)' }}>15-Feb-2024</p>
+                                                {Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <span>{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} days to go</span> : concluded}
+                                                {Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <p style={{ color: 'rgba(255, 122, 0, 1)' }}>15-Feb-2024</p>}
                                             </td>
                                             <td>
-                                                <img
-                                                    src={bidImage}
-                                                    alt='cancel'
-                                                />
+                                                {
+                                                    Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <img
+                                                        src={bidImage}
+                                                        alt='cancel'
+                                                    /> :
+                                                        <img
+                                                            src={NotbidImage}
+                                                            alt='cancel'
+                                                        />
+                                                }
+
 
                                             </td>
                                         </tr>
