@@ -17,10 +17,10 @@ const HeroSection = () => {
 				</div>
 				<div className='btnContainer'>
 					<div className='btnHolder'>
-						<CustomBtn title='Get Started' />
+						<CustomBtn>Get Started</CustomBtn>
 					</div>
 
-					<CustomBtn title='Learn More' />
+					<CustomBtn>Learn More</CustomBtn>
 
 
 				</div>
