@@ -87,7 +87,7 @@ const BidderEditProfile = () => {
                 method: 'PUT',
                 headers: {
                     'Authorization': `${token}`,
-                    'Content-Type': 'applocation/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(info)
             })
