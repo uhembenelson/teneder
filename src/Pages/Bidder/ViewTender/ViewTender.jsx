@@ -35,7 +35,7 @@ const ViewTender = () => {
     if (data?.length > 0) {
         content = data?.map(datum => {
             return (
-                <EvaluateTenderCard key={datum.tender_id} data={datum} />
+                <EvaluateTenderCard user={'bidder'} key={datum.tender_id} data={datum} />
             )
         })
     }

@@ -8,7 +8,7 @@ import externalLink from '../../../assets/External Link.png'
 import { selectTender } from '../../../Redux/Organization/Action';
 import sad from '../../../assets/Sad.png'
 
-const EvaluateTenderCard = ({ data }) => {
+const EvaluateTenderCard = ({ data, user }) => {
 
     const dispatch = useDispatch()
 
@@ -45,6 +45,9 @@ const EvaluateTenderCard = ({ data }) => {
 
     const provideReasons = () => {
         dispatch(selectTender(data))
+        if (user === 'bidder') {
+            return
+        }
         navigate('/organization/cancel-tender')
 
     }

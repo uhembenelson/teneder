@@ -93,8 +93,9 @@ function TenderTable() {
 							</td>
 							<td>{tender?.type_of_tender}</td>
 							<td>
-								{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <span>{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} 'days to go'</span> : 'Concluded'}
-								{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <span className='date'>{tender?.duration_of_work}</span>}
+								{tender?.duration_of_work}
+								{/*Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <span>{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} 'days to go'</span> : 'Concluded'*/}
+								{/*Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <span className='date'>{tender?.duration_of_work}</span>*/}
 							</td>
 							<td>
 								{
