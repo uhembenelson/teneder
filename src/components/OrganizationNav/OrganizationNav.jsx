@@ -4,19 +4,25 @@ import bell from '../../assets/Doorbell.png';
 import vector from '../../assets/Vector.png';
 import userImage from '../../assets/Male User.png';
 import arrow from '../../assets/Expand Arrow.png';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import profile from '../../assets/PROFILE.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutOrganization } from '../../Redux/Organization/Action';
 
 function CompanyNav() {
-    const [showMenu, setShowMenu] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
+
 
     const user = useSelector(state => state.organization.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+
+    const [isNavOpen, setIsNavOpen] = useState(false)
+
+    const toggleNavIcon = () => {
+        setIsNavOpen(prev => !prev)
+    }
 
     const logout = () => {
         dispatch(logoutOrganization())
@@ -24,16 +30,29 @@ function CompanyNav() {
     }
 
 
+    // Auto Logout
+    const timeOut = 3480000;
+    const logoutTimer = useRef(null);
+
+    useEffect(() => {
+        const startTimeout = () => {
+            logoutTimer.current = setTimeout(() => {
+                logout()
+            }, timeOut);
+        };
+
+        const resetTimeout = () => {
+            clearTimeout(logoutTimer.current);
+            startTimeout();
+        };
 
 
+        startTimeout();
+        resetTimeout()
 
 
+    }, [timeOut]);
 
-
-    function handleShowMenu() {
-        setShowMenu(!showMenu);
-        setIsExpanded(!setIsExpanded);
-    }
 
     return (
         <nav className=' orgNav'>
@@ -132,16 +151,13 @@ function CompanyNav() {
                     </Link>
                 </ul>
 
-                <button
-                    className='toggle__btn'
-                    onClick={handleShowMenu}>
-                    {isExpanded ? 'close' : 'open'}
-                </button>
+                {!isNavOpen ? <i onClick={toggleNavIcon} className="ri-menu-line homeNavIcon2"></i> :
+                    <i onClick={toggleNavIcon} className="ri-close-line homeNavIcon2"></i>}
             </div>
 
             {/* mobile nav */}
 
-            {showMenu && (
+            {isNavOpen && (
                 <>
                     <ul className='mobile__nav'>
                         <li onClick={() => navigate('/organization/notification')}>

@@ -20,6 +20,8 @@ const bidderReducer = (state = initialState, action) => {
 
         // case actionTypes.ORGANIZATION_LOGOUT:
         //     return initialState
+        case bidderActionTypes.BIDDER_LOGOUT:
+            return initialState
         default:
             return state
     }

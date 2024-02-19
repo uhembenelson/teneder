@@ -72,6 +72,7 @@ const EditProfile = () => {
         mode: "onChange",
     });
 
+    // Get states
     useEffect(() => {
         fetch('https://countriesnow.space/api/v0.1/countries/states', {
             method: 'POST',
@@ -82,6 +83,8 @@ const EditProfile = () => {
         }).then(res => res.json()).then(data => setStates(data?.data?.states))
     }, [])
 
+
+    // Update profile picture
     const pictureData = new FormData()
 
     const fileInputRef = useRef(null);
@@ -138,47 +141,48 @@ const EditProfile = () => {
 
 
 
-
+    // Update the user profile
     const updateUser = async () => {
-        const data = getValues()
-        console.log(errors)
+        const info = getValues()
 
 
-        const regFormData = new FormData();
 
-        regFormData.append('name_of_organization', data?.name_of_organization)
-        regFormData.append('organization_website', data?.organization_website)
-        regFormData.append('address_one', data?.address_one)
-        regFormData.append('address_three', data?.address_three)
-        regFormData.append('address_two', data?.address_two)
-        regFormData.append('state', data?.state)
-        regFormData.append('city', data?.city)
-        regFormData.append('first_name', data?.first_name)
-        regFormData.append('last_name', data?.last_name)
-        regFormData.append('postal_code', data?.postal_code)
-        regFormData.append('job_title', data?.job_title)
-        regFormData.append('email', data?.email)
-        regFormData.append('confirm_email', data?.confirm_email)
-        regFormData.append('password', data?.password)
-        regFormData.append('confirm_password', data?.confirm_password)
-        regFormData.append('wallet_address', data?.wallet_address)
-        regFormData.append('public_address', data?.public_address)
-        regFormData.append('registration_number', data?.registration_number)
-        regFormData.append('contact_number', data?.contact_number)
-        regFormData.append('registration_certificate', file)
-        regFormData.append('aadhar_card', AadharCard)
-        regFormData.append('pan_card', panCard)
+        // const regFormData = new FormData();
+
+        // regFormData.append('name_of_organization', data?.name_of_organization)
+        // regFormData.append('organization_website', data?.organization_website)
+        // regFormData.append('address_one', data?.address_one)
+        // regFormData.append('address_three', data?.address_three)
+        // regFormData.append('address_two', data?.address_two)
+        // regFormData.append('state', data?.state)
+        // regFormData.append('city', data?.city)
+        // regFormData.append('first_name', data?.first_name)
+        // regFormData.append('last_name', data?.last_name)
+        // regFormData.append('postal_code', data?.postal_code)
+        // regFormData.append('job_title', data?.job_title)
+        // regFormData.append('email', data?.email)
+        // regFormData.append('confirm_email', data?.confirm_email)
+        // regFormData.append('password', data?.password)
+        // regFormData.append('confirm_password', data?.confirm_password)
+        // regFormData.append('wallet_address', data?.wallet_address)
+        // regFormData.append('public_address', data?.public_address)
+        // regFormData.append('registration_number', data?.registration_number)
+        // regFormData.append('contact_number', data?.contact_number)
+        // regFormData.append('registration_certificate', file)
+        // regFormData.append('aadhar_card', AadharCard)
+        // regFormData.append('pan_card', panCard)
 
 
         try {
             setIsLoading(true)
 
-            const res = await fetch(`https://school-project-production-459d.up.railway.app/v1/auth/signup/update/${user.organization_id}`, {
+            const res = await fetch(`https://school-project-production-459d.up.railway.app/v1/auth/update/${user.organization_id}`, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `${token}`
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
                 },
-                body: regFormData
+                body: JSON.stringify(info)
             })
             const data = res.json()
             console.log(data)
@@ -205,7 +209,7 @@ const EditProfile = () => {
     }
 
 
-
+    // Set the default values to the data in localStorage
     useEffect(() => {
         setValue('name_of_organization', user?.name_of_organization)
         setValue('organization_type', user?.organization_type)
@@ -222,9 +226,9 @@ const EditProfile = () => {
         setValue('first_name', user?.first_name)
         setValue('last_name', user?.last_name)
         setValue('email', user?.email)
-        setValue('confirm_email', user?.email)
-        setValue('password', 'admin')
-        setValue('confirm_password', 'admin')
+        // setValue('confirm_email', user?.email)
+        // setValue('password', 'admin')
+        // setValue('confirm_password', 'admin')
         setValue('job_title', user?.job_title)
         setValue('contact_number', user?.contact_number)
         setValue('wallet_address', user?.wallet_address)
@@ -278,7 +282,7 @@ const EditProfile = () => {
                                 onChange={(event) => setCompanyType(event.target.value)}
                                 value={companyType}>
                                 <option value='Private' >Private</option>
-                                <option value='Public' >Public</option>
+                                <option value='Public' >Government</option>
                             </select>
                         </div>
                     </div>
@@ -428,7 +432,7 @@ const EditProfile = () => {
 
                                 <label>Current Password</label>
                             </div>
-                            <input className='inputTypeInput' type='password' {...register('password')} />
+                            <input className='inputTypeInput' type='password' />
                         </div>
                     </div>
                     <div className='companyBox' >
@@ -438,14 +442,14 @@ const EditProfile = () => {
 
                                 <label>New Password</label>
                             </div>
-                            <input className='inputTypeInput' type='password' {...register('password')} />
+                            <input className='inputTypeInput' type='password' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
                                 <label>Re-enter New Password</label>
                             </div>
-                            <input className='inputTypeInput' type='password' {...register('confirm_password')} />
+                            <input className='inputTypeInput' type='password' />
                         </div>
                     </div>
                     <h2 className='editProfileInfo' >DOCUMENTS</h2>

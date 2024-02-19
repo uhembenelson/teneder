@@ -9,3 +9,7 @@ export const getTenderInfo = (data) => ({
     type: bidderActionTypes.TENDER_DETAILS,
     payload: data
 })
+
+export const logoutBidder = () => ({
+    type: bidderActionTypes.BIDDER_LOGOUT
+})

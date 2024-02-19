@@ -1,4 +1,5 @@
 export const bidderActionTypes = {
     USER_INFO: 'USER_INFO',
-    TENDER_DETAILS: 'TENDER_DETAILS'
+    TENDER_DETAILS: 'TENDER_DETAILS',
+    BIDDER_LOGOUT: 'BIDDER_LOGOUT'
 }

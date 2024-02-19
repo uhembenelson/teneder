@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Avatar } from '@mui/material'
 import UploadFile from '../../../components/UploadFile/UploadFile'
 import CustomBtn from '../../../components/CustomBtn/CustomBtn'
@@ -12,6 +12,13 @@ import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 const BidderEditProfile = () => {
+
+    const user = useSelector(state => state.bidder.user)
+
+    const [states, setStates] = useState([])
+
+    const { token, bidder_id } = user
+
     const fetchBidderDetails = async (url, token) => {
         const headers = new Headers();
 
@@ -25,10 +32,65 @@ const BidderEditProfile = () => {
 
     };
 
-    const [isLoading, setIsLoading] = useState(false)
 
-    const user = useSelector(state => state.bidder.user)
-    const { token, bidder_id } = user
+    // Get All states in india
+
+    useEffect(() => {
+        fetch('https://countriesnow.space/api/v0.1/countries/states', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "country": "India" })
+        }).then(res => res.json()).then(data => setStates(data?.data?.states))
+    }, [])
+
+    // Update profile picture
+    const pictureData = new FormData()
+
+    const fileInputRef = useRef(null);
+    const handleImageChange = async (e) => {
+        const file = e.target.files;
+        // setSelectedImage(file);
+        if (file) {
+            // const imageUrl = URL.createObjectURL(file[0]);
+            const imageUrl = file[0]
+            console.log(imageUrl)
+            pictureData.append('profile_picture_bidder', imageUrl)
+            pictureData.append('bidder_id', bidder_id)
+            console.log(imageUrl)
+            const res = await fetch('https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${token}`
+                },
+                body: pictureData
+            })
+            console.log(res)
+            const data = await res.json()
+            console.log(data)
+            if (res.ok) {
+                // dispatch(setOrganizationProfilePicture(imageUrl))
+                toast.success('Picture uploaded successfuly', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                });
+            }
+
+
+
+
+        }
+    };
+
+
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [profilePicture, setProfilePicture] = useState(null)
+
+
+
 
     const url = `https://school-project-production-459d.up.railway.app/v2/auth/view/bidder/${bidder_id}`
 
@@ -38,6 +100,9 @@ const BidderEditProfile = () => {
     const [file, setFile] = useState(data?.registration_certificate)
     const [AadharCard, setAadharCard] = useState(data?.aadhar_card)
     const [panCard, setPanCard] = useState(data?.pan_card)
+
+    const [companyType, setCompanyType] = useState('Private')
+    const [no_of_employees, setNo_of_employees] = useState('1')
 
     const {
         getValues,
@@ -52,33 +117,76 @@ const BidderEditProfile = () => {
         mode: "onChange",
     });
 
+
+    // Get user profile picture
+    // const fetchProfilePicture = async (url, token) => {
+    //     const headers = new Headers();
+
+    //     if (token) {
+    //         headers.append('Authorization', `${token}`);
+    //     }
+
+    //     const response = await fetch(url, { headers });
+    //     const data = await response.json();
+    //     return data;
+
+
+    // };
+
+    // const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder/${9bf00ee4}`
+    // const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
+
+
     const updateProfile = async () => {
         const info = getValues()
+        info.no_of_employees = no_of_employees
+        info.company_type = companyType
+
 
         const regFormData = new FormData();
 
-        regFormData.append('name_of_company', data?.name_of_company)
-        regFormData.append('organization_website', data?.organization_website)
-        regFormData.append('address_one', data?.address_one)
-        regFormData.append('address_three', data?.address_three)
-        regFormData.append('address_two', data?.address_two)
-        regFormData.append('state', data?.state)
-        regFormData.append('city', data?.city)
-        regFormData.append('first_name', data?.first_name)
-        regFormData.append('last_name', data?.last_name)
-        regFormData.append('postal_code', data?.postal_code)
-        regFormData.append('job_title', data?.job_title)
-        regFormData.append('email', data?.email)
-        regFormData.append('confirm_email', data?.confirm_email)
-        regFormData.append('password', data?.password)
-        regFormData.append('confirm_password', data?.confirm_password)
-        regFormData.append('wallet_address', data?.wallet_address)
-        regFormData.append('public_address', data?.public_address)
-        regFormData.append('registration_number', data?.registration_number)
-        regFormData.append('contact_number', data?.contact_number)
-        regFormData.append('registration_certificate', file)
-        regFormData.append('aadhar_card', AadharCard)
-        regFormData.append('pan_card', panCard)
+        const dataInfo = {
+            first_name: data?.first_name,
+            last_name: data?.last_name,
+            name_of_company: data?.name_of_company,
+            organization_website: data?.organization_website,
+            address_one: data?.address_one,
+            address_three: data?.address_three,
+            address_two: data?.address_two,
+            state: data?.state,
+            city: data?.city,
+            postal_address: data?.postal_code,
+            job_title: data?.job_title,
+            email: data?.email,
+            confirm_email: data?.confirm_email,
+            wallet_address: data?.wallet_address,
+            public_address: data?.public_address,
+            contact_number: data?.contact_number,
+            no_of_employees: data?.no_of_employees
+        }
+
+        // regFormData.append('name_of_company', data?.name_of_company)
+        // regFormData.append('organization_website', data?.organization_website)
+        // regFormData.append('address_one', data?.address_one)
+        // regFormData.append('address_three', data?.address_three)
+        // regFormData.append('address_two', data?.address_two)
+        // regFormData.append('state', data?.state)
+        // regFormData.append('city', data?.city)
+        // regFormData.append('first_name', data?.first_name)
+        // regFormData.append('last_name', data?.last_name)
+        // regFormData.append('postal_code', data?.postal_code)
+        // regFormData.append('job_title', data?.job_title)
+        // regFormData.append('email', data?.email)
+
+        // regFormData.append('password', data?.password)
+        // regFormData.append('confirm_password', data?.confirm_password)
+        // regFormData.append('wallet_address', data?.wallet_address)
+        // regFormData.append('public_address', data?.public_address)
+        // regFormData.append('registration_number', data?.registration_number)
+        // regFormData.append('contact_number', data?.contact_number)
+        // regFormData.append('registration_certificate', file)
+        // regFormData.append('aadhar_card', AadharCard)
+        // regFormData.append('pan_card', panCard)
 
         try {
             setIsLoading(true)
@@ -91,6 +199,7 @@ const BidderEditProfile = () => {
                 },
                 body: JSON.stringify(info)
             })
+
             const data = res.json()
             console.log(data)
             setIsLoading(false)
@@ -102,20 +211,43 @@ const BidderEditProfile = () => {
                     hideProgressBar: true,
 
                 });
+                fetch('https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder/9bf00ee4', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => res.json()).then(data => setProfilePicture(data))
 
+            }
+            else {
+                toast.error('Something went wrong', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
             }
         }
         catch (err) {
             setIsLoading(false)
             console.log(err)
+            toast.error('Something went wrong', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+                hideProgressBar: true,
+
+            });
         }
 
 
     }
 
+    console.log(profilePicture)
+
     useEffect(() => {
         setValue('name_of_company', user?.name_of_company)
-        setValue('organization_type', user?.organization_type)
+        setValue('company_type', user?.company_type)
         setValue('registration_number', user?.registration_number)
         setValue('no_of_employees', user?.no_of_employees)
         setValue('address_one', user?.address_one)
@@ -128,10 +260,9 @@ const BidderEditProfile = () => {
         setValue('public_address', user?.public_address)
         setValue('first_name', user?.first_name)
         setValue('last_name', user?.last_name)
+        // setValue()
         setValue('email', user?.email)
-        setValue('confirm_email', user?.email)
-        setValue('password', 'admin')
-        setValue('confirm_password', 'admin')
+
         setValue('job_title', user?.job_title)
         setValue('contact_number', user?.contact_number)
         setValue('wallet_address', user?.wallet_address)
@@ -149,7 +280,8 @@ const BidderEditProfile = () => {
                                 id="imageInput"
                                 type="file"
                                 accept=".png, .jpg, .jpeg"
-
+                                onChange={handleImageChange}
+                                ref={fileInputRef}
                                 className="imageInput"
                             />
                         </div>
@@ -174,8 +306,11 @@ const BidderEditProfile = () => {
 
                                 <label>Company Type</label>
                             </div>
-                            <select className='inputTypeSelect'>
-                                <option>-Please select-</option>
+                            <select className='inputTypeSelect'
+                                onChange={(event) => setCompanyType(event.target.value)}
+                                value={companyType}>
+                                <option value='Private' >Private</option>
+                                <option value='Public' >Government</option>
                             </select>
                         </div>
                     </div>
@@ -190,10 +325,18 @@ const BidderEditProfile = () => {
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
                                 <label>No. of Employees</label>
                             </div>
-                            <input className='inputTypeInput' type='text' />
+                            <select className='inputTypeSelect'
+                                onChange={e => setNo_of_employees(e.target.value)}
+                                value={no_of_employees}
+                            >
+                                <option value='1' >1</option>
+                                <option value='5'>5</option>
+                                <option value='10'>10</option>
+                                <option value='20'>20</option>
+                                <option value='50'>50</option>
+                            </select>
                         </div>
                     </div>
                     <div className='companyBox' >
@@ -238,8 +381,12 @@ const BidderEditProfile = () => {
 
                                 <label>State</label>
                             </div>
-                            <select className='inputTypeSelect'>
-                                <option>-Please select-</option>
+                            <select className='inputTypeSelect' {...register('state')}>
+                                {
+                                    states?.map((state, id) => (
+                                        <option value={state?.name} key={id} >{state?.name}</option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -250,7 +397,7 @@ const BidderEditProfile = () => {
 
                                 <label>Public Address</label>
                             </div>
-                            <input {...register('pubic_address')} className='inputTypeInput' type='text' />
+                            <input {...register('public_address')} className='inputTypeInput' type='text' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
@@ -292,7 +439,7 @@ const BidderEditProfile = () => {
 
                                 <label>Contact Info</label>
                             </div>
-                            <input {...register('contact_number')} className='inputTypeInput' type='number' />
+                            <input {...register('contact_number')} className='inputTypeInput' />
                         </div>
                     </div>
                     <div className='companyBox' >

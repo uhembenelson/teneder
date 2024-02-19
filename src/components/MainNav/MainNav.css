@@ -48,12 +48,21 @@
 .svg{
     margin-left: .5rem;
 }
-.homeNavIcon{
+.homeNavIcon, .homeNavIcon2{
     display: none;
 }
 
 .mobileNavListParent{
     display: none;
+}
+
+@media screen and (max-width: 780px) {
+    .homeNavIcon2 {
+        display: flex;
+        z-index: 4000;
+        color: #fff;
+        font-size: 2rem;
+    }
 }
 
 @media screen and (max-width: 720px){
