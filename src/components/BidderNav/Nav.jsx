@@ -26,7 +26,7 @@ function BidderNav() {
 
 	const logout = () => {
 		dispatch(logoutBidder())
-		navigate('/bidder/signin')
+		navigate('/')
 	}
 
 	// Auto Logout

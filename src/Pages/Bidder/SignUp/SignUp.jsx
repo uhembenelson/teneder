@@ -191,6 +191,7 @@ const SignUp = () => {
                                 <label>Registration Certificate</label>
                             </div>
                             <UploadFile setFile={setFile} />
+                            {file && <p className='fileName'>{file?.name}</p>}
                         </div>
                     </div>
                     <div className='companyContainer' >
@@ -390,6 +391,7 @@ const SignUp = () => {
                                 <label>Aadhar card </label>
                             </div>
                             <UploadFile setFile={setAadharCard} />
+                            {AadharCard && <p className='fileName'>{AadharCard?.name}</p>}
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
@@ -397,6 +399,7 @@ const SignUp = () => {
                                 <label>Pan Card</label>
                             </div>
                             <UploadFile setFile={setPanCard} />
+                            {panCard && <p className='fileName'>{panCard?.name}</p>}
                         </div>
                     </div>
                     <div>

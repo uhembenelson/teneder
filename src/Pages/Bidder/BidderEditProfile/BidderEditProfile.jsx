@@ -15,6 +15,8 @@ const BidderEditProfile = () => {
 
     const user = useSelector(state => state.bidder.user)
 
+    const [profilePicture, setProfilePicture] = useState(null)
+
     const [states, setStates] = useState([])
 
     const { token, bidder_id } = user
@@ -45,6 +47,18 @@ const BidderEditProfile = () => {
         }).then(res => res.json()).then(data => setStates(data?.data?.states))
     }, [])
 
+    // Get profile picture
+
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder/${bidder_id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => setProfilePicture(data))
+    }, [profilePicture])
+
     // Update profile picture
     const pictureData = new FormData()
 
@@ -58,7 +72,7 @@ const BidderEditProfile = () => {
             console.log(imageUrl)
             pictureData.append('profile_picture_bidder', imageUrl)
             pictureData.append('bidder_id', bidder_id)
-            console.log(imageUrl)
+
             const res = await fetch('https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder', {
                 method: 'POST',
                 headers: {
@@ -66,9 +80,9 @@ const BidderEditProfile = () => {
                 },
                 body: pictureData
             })
-            console.log(res)
+
             const data = await res.json()
-            console.log(data)
+
             if (res.ok) {
                 // dispatch(setOrganizationProfilePicture(imageUrl))
                 toast.success('Picture uploaded successfuly', {
@@ -76,6 +90,13 @@ const BidderEditProfile = () => {
                     autoClose: 3000,
                     hideProgressBar: true,
                 });
+                fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder/${bidder_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => res.json()).then(data => setProfilePicture(data))
             }
 
 
@@ -87,7 +108,7 @@ const BidderEditProfile = () => {
 
 
     const [isLoading, setIsLoading] = useState(false)
-    const [profilePicture, setProfilePicture] = useState(null)
+
 
 
 
@@ -145,49 +166,6 @@ const BidderEditProfile = () => {
 
         const regFormData = new FormData();
 
-        const dataInfo = {
-            first_name: data?.first_name,
-            last_name: data?.last_name,
-            name_of_company: data?.name_of_company,
-            organization_website: data?.organization_website,
-            address_one: data?.address_one,
-            address_three: data?.address_three,
-            address_two: data?.address_two,
-            state: data?.state,
-            city: data?.city,
-            postal_address: data?.postal_code,
-            job_title: data?.job_title,
-            email: data?.email,
-            confirm_email: data?.confirm_email,
-            wallet_address: data?.wallet_address,
-            public_address: data?.public_address,
-            contact_number: data?.contact_number,
-            no_of_employees: data?.no_of_employees
-        }
-
-        // regFormData.append('name_of_company', data?.name_of_company)
-        // regFormData.append('organization_website', data?.organization_website)
-        // regFormData.append('address_one', data?.address_one)
-        // regFormData.append('address_three', data?.address_three)
-        // regFormData.append('address_two', data?.address_two)
-        // regFormData.append('state', data?.state)
-        // regFormData.append('city', data?.city)
-        // regFormData.append('first_name', data?.first_name)
-        // regFormData.append('last_name', data?.last_name)
-        // regFormData.append('postal_code', data?.postal_code)
-        // regFormData.append('job_title', data?.job_title)
-        // regFormData.append('email', data?.email)
-
-        // regFormData.append('password', data?.password)
-        // regFormData.append('confirm_password', data?.confirm_password)
-        // regFormData.append('wallet_address', data?.wallet_address)
-        // regFormData.append('public_address', data?.public_address)
-        // regFormData.append('registration_number', data?.registration_number)
-        // regFormData.append('contact_number', data?.contact_number)
-        // regFormData.append('registration_certificate', file)
-        // regFormData.append('aadhar_card', AadharCard)
-        // regFormData.append('pan_card', panCard)
-
         try {
             setIsLoading(true)
 
@@ -201,7 +179,6 @@ const BidderEditProfile = () => {
             })
 
             const data = res.json()
-            console.log(data)
             setIsLoading(false)
 
             if (res.ok) {
@@ -211,13 +188,7 @@ const BidderEditProfile = () => {
                     hideProgressBar: true,
 
                 });
-                fetch('https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder/9bf00ee4', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                }).then(res => res.json()).then(data => setProfilePicture(data))
+
 
             }
             else {
@@ -275,7 +246,10 @@ const BidderEditProfile = () => {
                 <div className='headContainer'>
                     <div className='middleProfileContainer'>
                         <div className='avatarContainer' >
-                            <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} />
+                            {profilePicture ?
+                                <Avatar src={profilePicture?.slice(-1).pop()?.imageUrl} className='avatarImage' sx={{ height: "5rem", width: "5rem" }} /> :
+                                <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} />
+                            }
                             <input
                                 id="imageInput"
                                 type="file"

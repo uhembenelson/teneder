@@ -40,7 +40,7 @@ function ApproveTender() {
     console.log(data)
 
     let option = <div>
-        <p>REJECTED</p>
+        <p>ON-GOING</p>
         <img
             src={cancel}
             alt='cancel'
@@ -60,6 +60,15 @@ function ApproveTender() {
         else if (tender?.status === 'rejected') {
             option = <div>
                 <p>CANCELLED</p>
+                <img
+                    src={cancel}
+                    alt='cancel'
+                />
+            </div>
+        }
+        else if (tender?.status === 'ongoing') {
+            option = <div>
+                <p>ON-GOING</p>
                 <img
                     src={cancel}
                     alt='cancel'
@@ -147,7 +156,20 @@ function ApproveTender() {
                                             </td>
                                             <td>
 
-                                                {option}
+                                                {tender?.status === 'ongoing' ? <div>
+                                                    <p>ON-GOING</p>
+                                                    <img
+                                                        src={cancel}
+                                                        alt='cancel'
+                                                    />
+                                                </div> :
+                                                    <div>
+                                                        <p>CANCELLED</p>
+                                                        <img
+                                                            src={cancel}
+                                                            alt='cancel'
+                                                        />
+                                                    </div>}
                                             </td>
                                         </tr>
                                     )

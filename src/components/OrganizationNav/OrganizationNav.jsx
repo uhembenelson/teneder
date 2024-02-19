@@ -26,7 +26,7 @@ function CompanyNav() {
 
     const logout = () => {
         dispatch(logoutOrganization())
-        navigate('/organization/login')
+        navigate('/')
     }
 
 

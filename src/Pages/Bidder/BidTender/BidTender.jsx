@@ -15,6 +15,7 @@ import location from '../../../assets/location.png';
 import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
 import { getTenderInfo } from '../../../Redux/Bidder/Action';
+import BidTenderCard from './BidTenderCard';
 
 const BidTender = () => {
     const navigate = useNavigate()
@@ -41,7 +42,7 @@ const BidTender = () => {
     const { data } = useSWR([url, token], () => fetchTenders(url, token));
     console.log(data)
 
-    const presentDay = new Date();
+
 
     const TenderInfo = (data) => {
         dispatch(getTenderInfo(data))
@@ -97,50 +98,7 @@ const BidTender = () => {
                             {
                                 data?.map((tender, id) => {
                                     return (
-                                        <tr key={tender?.tender_id} onClick={() => TenderInfo(tender)} >
-                                            <td >
-                                                {id + 1}. {tender?.
-                                                    description_tender
-                                                }
-                                                <div className='table__inner'>
-                                                    <span>No. {tender?.tender_id}</span>
-                                                    <span>
-                                                        <img
-                                                            src={location}
-                                                            alt='location'
-                                                        />
-                                                        {tender?.state}
-                                                    </span>
-
-                                                    <span>
-                                                        <img
-                                                            src={flag}
-                                                            alt='flag'
-                                                        />
-                                                        India
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td>{tender?.type_of_tender}</td>
-                                            <td>
-                                                {Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <span>{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} days to go</span> : concluded}
-                                                {Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <p style={{ color: 'rgba(255, 122, 0, 1)' }}>15-Feb-2024</p>}
-                                            </td>
-                                            <td>
-                                                {
-                                                    Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <img
-                                                        src={bidImage}
-                                                        alt='cancel'
-                                                    /> :
-                                                        <img
-                                                            src={NotbidImage}
-                                                            alt='cancel'
-                                                        />
-                                                }
-
-
-                                            </td>
-                                        </tr>
+                                        <BidTenderCard tender={tender} id={id} key={id} />
                                     )
                                 })
                             }

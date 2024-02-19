@@ -9,6 +9,10 @@
 	display: none;
 }
 
+.bidderNavLogo{
+	width: 5rem;
+}
+
 .nav {
 	width: 100%;
 	position: relative;

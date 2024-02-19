@@ -13,6 +13,8 @@ const BidderProfile = () => {
 
     const navigate = useNavigate()
 
+    const [profilePicture, setProfilePicture] = useState(null)
+
     const [panCardLink, setPanCardLink] = useState('')
     const [registrationCertLink, setRegCertLink] = useState('')
     const [aadharCardLink, setAadharCardLink] = useState('')
@@ -56,6 +58,18 @@ const BidderProfile = () => {
 
     const fullname = `${user?.first_name} ${user?.last_name}`
 
+    // Get profile picture
+
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder/${bidder_id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => setProfilePicture(data))
+    }, [profilePicture])
+
     return (
         <div>
             <BidderNav />
@@ -74,7 +88,12 @@ const BidderProfile = () => {
                             <div className='bidderProfileInfoContainer'>
                                 <h2 className='profileUsername' >{fullname}</h2>
                                 <p className='profileUserwork' >{user?.name_of_company}</p>
-                                <Avatar className='avatarImage' sx={{ height: "12rem", width: "12rem" }} />
+                                {
+                                    profilePicture ?
+                                        <Avatar src={profilePicture?.slice(-1).pop()?.imageUrl} className='avatarImage' sx={{ height: "12rem", width: "12rem" }} /> :
+                                        <Avatar className='avatarImage' sx={{ height: "12rem", width: "12rem" }} />
+                                }
+
                                 <div className='starContainer profileRatingContainer ' >
                                     {
                                         starArray.map((star) => {

@@ -123,6 +123,7 @@ const UploadForm = ({ closeModal, tender_id }) => {
                 <p>Upload Document</p>
                 <div className="uploadFileBox"
                     {...getRootProps()}
+                    style={{ border: upload_document ? '1px solid black' : '1px solid red' }}
                 >
                     <input {...getInputProps()} />
                     <img className='arrowImage' src={Arrow} alt='pdf' />

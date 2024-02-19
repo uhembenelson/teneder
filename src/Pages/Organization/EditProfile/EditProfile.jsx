@@ -52,6 +52,7 @@ const EditProfile = () => {
 
     })
 
+    const [profilePicture, setProfilePicture] = useState(null)
 
 
     const [companyType, setCompanyType] = useState('Private')
@@ -83,6 +84,18 @@ const EditProfile = () => {
         }).then(res => res.json()).then(data => setStates(data?.data?.states))
     }, [])
 
+    // get profile picture
+
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => setProfilePicture(data))
+    }, [profilePicture])
+
 
     // Update profile picture
     const pictureData = new FormData()
@@ -96,7 +109,7 @@ const EditProfile = () => {
             const imageUrl = file[0]
             pictureData.append('profile_picture_org', imageUrl)
             pictureData.append('organization_id', organization_id)
-            console.log(imageUrl)
+
             const res = await fetch('https://school-project-production-459d.up.railway.app/v15/profile/picture/organization', {
                 method: 'post',
                 headers: {
@@ -105,7 +118,7 @@ const EditProfile = () => {
                 body: pictureData
             })
             const data = await res.json()
-            console.log(data)
+
             if (res.ok) {
                 dispatch(setOrganizationProfilePicture(imageUrl))
                 toast.success('Picture uploaded successfuly', {
@@ -113,6 +126,13 @@ const EditProfile = () => {
                     autoClose: 3000,
                     hideProgressBar: true,
                 });
+                fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => res.json()).then(data => setProfilePicture(data))
             }
 
 
@@ -122,22 +142,22 @@ const EditProfile = () => {
     };
 
     // Get user profile picture
-    const fetchProfilePicture = async (url, token) => {
-        const headers = new Headers();
+    // const fetchProfilePicture = async (url, token) => {
+    //     const headers = new Headers();
 
-        if (token) {
-            headers.append('Authorization', `${token}`);
-        }
+    //     if (token) {
+    //         headers.append('Authorization', `${token}`);
+    //     }
 
-        const response = await fetch(url, { headers });
-        const data = await response.json();
-        return data;
+    //     const response = await fetch(url, { headers });
+    //     const data = await response.json();
+    //     return data;
 
 
-    };
+    // };
 
-    const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`
-    const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
+    // const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`
+    // const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
 
 
 
@@ -246,7 +266,7 @@ const EditProfile = () => {
                 <div className='headContainer'>
                     <div className='middleProfileContainer'>
                         <div className='avatarContainer' >
-                            {data ? <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} src={data?.slice(-1).pop()?.imageUrl} /> :
+                            {profilePicture ? <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} src={profilePicture?.slice(-1).pop()?.imageUrl} /> :
                                 <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} />}
                             <input
                                 id="imageInput"
