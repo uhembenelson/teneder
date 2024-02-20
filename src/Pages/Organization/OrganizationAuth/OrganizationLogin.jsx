@@ -8,12 +8,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { loginOrganization } from '../../../Redux/Organization/Action'
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
-
+import { loginUser } from '../../../Redux/Organization/Action'
 
 
 
 const OrganizationLogin = () => {
 
+    const [isLoading, setIsLoading] = useState(false)
     // Write my schema
 
     const schema = yup.object().shape({
@@ -38,8 +39,7 @@ const OrganizationLogin = () => {
     const navigate = useNavigate()
 
     const isSignedIn = useSelector(state => state.organization.isSignedIn)
-    const errorMsg = useSelector(state => state.organization.errorMsg)
-    const isLoading = useSelector(state => state.organization.isLoading)
+
 
     const [showPassword, setShowPassword] = useState(false)
 
@@ -51,44 +51,50 @@ const OrganizationLogin = () => {
         setShowPassword(prev => !prev)
     }
 
-    console.log(errorMsg)
-
-    // UP AND USEFORM
-
-    useEffect(() => {
-        setErr(errorMsg)
-    }, [setErr, errorMsg])
 
 
 
-    const submitForm = () => {
-        const data = getValues()
+    const submitForm = async () => {
+        const loginDetails = getValues()
         try {
-            dispatch(loginOrganization(data))
-
-            if (isSignedIn) {
+            setIsLoading(true)
+            let res = await fetch(`https://school-project-production-459d.up.railway.app/v1/auth/signin`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(loginDetails),
+            })
+            setIsLoading(false)
+            const data = await res.json();
+            console.log(data)
+            if (res.status === 200) {
                 toast.success('Successful', {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,
                     hideProgressBar: true,
                 });
+                dispatch(loginUser(data))
                 navigate("/organization/home");
-            } else {
-                setErr(errorMsg)
 
+            }
+            else {
+                toast.error(data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                });
 
-                return
-                //   window.location.href = "https:tranexx.com"
             }
         }
-        catch {
-            toast.error(err, {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 3000,
-                hideProgressBar: true,
-            });
+        catch (err) {
+            console.log(err)
+            // toast.error(data, {
+            //     position: toast.POSITION.TOP_RIGHT,
+            //     autoClose: 3000,
+            //     hideProgressBar: true,
+            // });
         }
-
     }
 
 

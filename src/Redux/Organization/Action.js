@@ -3,48 +3,10 @@ import { actionTypes } from "./ActionTypes"
 
 
 // Start User SIGNIN
-const loginStart = () => ({
-    type: actionTypes.ORGANIZATION_LOGIN_START,
-})
-
-const loginSuccess = (data) => ({
-    type: actionTypes.ORGANIZATION_LOGIN_SUCCESS,
+export const loginUser = (data) => ({
+    type: actionTypes.USER_INFO,
     payload: data
 })
-
-const loginFailed = (data) => ({
-    type: actionTypes.ORGANIZATION_LOGIN_FAILED,
-    payload: data
-})
-
-export const loginOrganization = (userLoginDetails) => async (dispatch) => {
-    try {
-        dispatch(loginStart());
-        let res = await fetch(`https://school-project-production-459d.up.railway.app/v1/auth/signin`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userLoginDetails),
-        })
-        const data = await res.json();
-        console.log(data)
-
-        if (res.status === 200) {
-            dispatch(loginSuccess(data));
-
-        }
-        // if (res.status === 401) {
-        //     dispatch(loginFailed(data));
-        // }
-        else {
-            dispatch(loginFailed(data));
-        }
-
-    } catch (err) {
-        dispatch(loginFailed("An error occured"));
-    }
-}
 
 
 // register
