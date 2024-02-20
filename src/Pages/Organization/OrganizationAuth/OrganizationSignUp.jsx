@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerOrganization } from '../../../Redux/Organization/Action'
+import { CircularProgress } from '@mui/material'
 
 const OrganizationSignUp = () => {
     const [contact_number, setContactNumber] = useState(null)
@@ -38,12 +39,13 @@ const OrganizationSignUp = () => {
         // registration_certificate: yup.string().required('Registration Certificate is required'),
     })
 
-    const dispatch = useDispatch()
 
     const [companyType, setCompanyType] = useState('Private')
     const [no_of_employees, setNo_of_employees] = useState(2)
     const [states, setStates] = useState([])
     const [salutation, setSalutation] = useState('mr')
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const {
         getValues,
@@ -100,24 +102,60 @@ const OrganizationSignUp = () => {
         regFormData.append('aadhar_card', AadharCard)
         regFormData.append('pan_card', panCard)
 
-        dispatch(registerOrganization(regFormData))
+        if (!file || !panCard || !AadharCard) {
+            return
+        }
+        else {
+
+
+            try {
+                console.log(errors)
+                setIsLoading(true)
+                let res = await fetch(`https://school-project-production-459d.up.railway.app/v1/auth/signup`, {
+                    method: "POST",
+                    headers: {
+                        // "Content-Type": "application/json",
+                    },
+                    body: regFormData
+                })
+                setIsLoading(false)
+                const data = await res.json();
+                console.log(res)
+                console.log(data)
+
+                if (res.ok) {
+                    toast.success(data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                    });
+                    navigate("/organization/login");
+
+                }
+
+                else {
+                    toast.error('Something went wrong', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                    });
+                }
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
 
 
 
 
     }
 
-    const isRegistered = useSelector(state => state.organization.isRegistered)
 
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-        if (isRegistered) {
-            navigate("/organization/login");
-        }
-
-    }, [isRegistered, navigate])
     return (
         <div>
 
@@ -167,7 +205,7 @@ const OrganizationSignUp = () => {
                             </div>
                             <input className='inputTypeInput' placeholder='E.g. 201903124587' type='text' {...register('registration_number')} />
                         </div>
-                        <div className='companyTypeInputContainer2'>
+                        <div style={{ borderBottom: file ? '1px solid #ccc' : '1px solid red' }} className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
                                 <label>Registration Certificate</label>
@@ -369,7 +407,7 @@ const OrganizationSignUp = () => {
                         </div>
                     </div>
                     <div className='companyBox' >
-                        <div className='companyTypeInputContainer2'>
+                        <div style={{ borderBottom: AadharCard ? '1px solid #ccc' : '1px solid red' }} className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
                                 <label>Aadhar card </label>
@@ -377,7 +415,7 @@ const OrganizationSignUp = () => {
                             <UploadFile setFile={setAadharCard} />
                             {AadharCard && <p className='fileName'>{AadharCard?.name}</p>}
                         </div>
-                        <div className='companyTypeInputContainer2'>
+                        <div style={{ borderBottom: panCard ? '1px solid #ccc' : '1px solid red' }} className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
                                 <label>Pan Card</label>
@@ -393,7 +431,7 @@ const OrganizationSignUp = () => {
                             <label>I have read and agreed to <span id='termsOfUse' >Terms of Use</span>and <span id='termsOfUse' >Privacy Policy</span></label>
                         </div>
                     </div>
-                    <button className='registerBtn' type='submit' >Complete Registration</button>
+                    <button className='registerBtn' type='submit' >{isLoading ? < CircularProgress color="primary" thickness={10} size={18} /> : 'Complete Registration'}</button>
                 </form>
             </div>
         </div>

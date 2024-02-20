@@ -35,7 +35,7 @@ const SignUp = () => {
         wallet_address: yup.string().required('Wallet Address is required'),
         password: yup.string().min(5).required('Password must be greater than 6 characters'),
         confirm_password: yup.string().oneOf([yup.ref('password'), null]).min(5).required('Password do not match'),
-        // registration_certificate: yup.string().required('Registration Certificate is required'),
+
     })
 
 
@@ -93,44 +93,51 @@ const SignUp = () => {
         regFormData.append('aadhar_card', AadharCard)
         regFormData.append('pan_card', panCard)
 
-        try {
-            console.log(errors)
-            setIsLoading(true)
-            let res = await fetch(`https://school-project-production-459d.up.railway.app/v2/auth/signup`, {
-                method: "POST",
-                headers: {
-                    // "Content-Type": "application/json",
-                },
-                body: regFormData
-            })
-            setIsLoading(false)
-            const data = await res.json();
-            console.log(res)
-            console.log(data)
+        if (!file || !panCard || !AadharCard) {
+            return
+        }
+        else {
 
-            // localStorage.setItem('email', data?.email)
-            // localStorage.setItem('reset', data?.reset)
 
-            if (res.ok) {
-                toast.success(data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                });
-                navigate("/bidder/signin");
+            try {
+                console.log(errors)
+                setIsLoading(true)
+                let res = await fetch(`https://school-project-production-459d.up.railway.app/v2/auth/signup`, {
+                    method: "POST",
+                    headers: {
+                        // "Content-Type": "application/json",
+                    },
+                    body: regFormData
+                })
+                setIsLoading(false)
+                const data = await res.json();
+                console.log(res)
+                console.log(data)
 
+                // localStorage.setItem('email', data?.email)
+                // localStorage.setItem('reset', data?.reset)
+
+                if (res.ok) {
+                    toast.success(data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                    });
+                    navigate("/bidder/signin");
+
+                }
+
+                else {
+                    toast.error('Something went wrong', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                    });
+                }
+
+            } catch (err) {
+                console.log(err)
             }
-
-            else {
-                toast.error('Something went wrong', {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                });
-            }
-
-        } catch (err) {
-            console.log(err)
         }
 
 
@@ -185,7 +192,7 @@ const SignUp = () => {
                             </div>
                             <input {...register('registration_number')} className='inputTypeInput' placeholder='E.g. 201903124587' type='text' />
                         </div>
-                        <div className='companyTypeInputContainer2'>
+                        <div style={{ borderBottom: file ? '1px solid #ccc' : '1px solid red' }} className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
                                 <label>Registration Certificate</label>
@@ -385,7 +392,7 @@ const SignUp = () => {
                         </div>
                     </div>
                     <div className='companyBox' >
-                        <div className='companyTypeInputContainer2'>
+                        <div style={{ borderBottom: AadharCard ? '1px solid #ccc' : '1px solid red' }} className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
                                 <label>Aadhar card </label>
@@ -393,7 +400,7 @@ const SignUp = () => {
                             <UploadFile setFile={setAadharCard} />
                             {AadharCard && <p className='fileName'>{AadharCard?.name}</p>}
                         </div>
-                        <div className='companyTypeInputContainer2'>
+                        <div style={{ borderBottom: panCard ? '1px solid #ccc' : '1px solid red' }} className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
                                 <label>Pan Card</label>
