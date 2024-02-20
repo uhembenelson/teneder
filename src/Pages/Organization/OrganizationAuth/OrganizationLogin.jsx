@@ -72,7 +72,7 @@ const OrganizationLogin = () => {
                     autoClose: 3000,
                     hideProgressBar: true,
                 });
-                // navigate("/organization/home");
+                navigate("/organization/home");
             } else {
                 setErr(errorMsg)
 
@@ -91,12 +91,6 @@ const OrganizationLogin = () => {
 
     }
 
-    useEffect(() => {
-        if (isSignedIn) {
-            navigate("/organization/home");
-        }
-
-    }, [isSignedIn, navigate])
 
 
 
