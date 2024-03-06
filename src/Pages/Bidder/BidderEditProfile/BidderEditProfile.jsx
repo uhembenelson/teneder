@@ -57,7 +57,7 @@ const BidderEditProfile = () => {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(data => setProfilePicture(data))
-    }, [profilePicture])
+    }, [])
 
     // Update profile picture
     const pictureData = new FormData()
@@ -116,7 +116,7 @@ const BidderEditProfile = () => {
     const url = `https://school-project-production-459d.up.railway.app/v2/auth/view/bidder/${bidder_id}`
 
     const { data } = useSWR([url, token], () => fetchBidderDetails(url, token));
-    console.log(data)
+
 
     const [file, setFile] = useState(data?.registration_certificate)
     const [AadharCard, setAadharCard] = useState(data?.aadhar_card)
@@ -178,7 +178,8 @@ const BidderEditProfile = () => {
                 body: JSON.stringify(info)
             })
 
-            const data = res.json()
+            const data = await res.json()
+
             setIsLoading(false)
 
             if (res.ok) {
@@ -188,8 +189,9 @@ const BidderEditProfile = () => {
                     hideProgressBar: true,
 
                 });
+                console.log(data)
 
-
+                fetchBidderDetails(url, token)
             }
             else {
                 toast.error('Something went wrong', {
@@ -213,8 +215,6 @@ const BidderEditProfile = () => {
 
 
     }
-
-    console.log(profilePicture)
 
     useEffect(() => {
         setValue('name_of_company', user?.name_of_company)

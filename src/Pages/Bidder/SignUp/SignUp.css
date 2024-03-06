@@ -80,6 +80,23 @@
         padding-bottom: 1rem;
 }
 
+.reasonBox{
+    width: 100%;
+    background-color: #ccc;
+    padding: .7rem .2rem;
+    display: flex;
+}
+
+.reasonBox p{
+    font-weight: bolder;
+    font-size: 16px;
+    margin-right: 1rem;
+}
+
+.reason{
+    color: #777;
+}
+
 .registerBtn{
     margin-top: 3rem;
     width: 100%;

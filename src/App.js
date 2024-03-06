@@ -37,6 +37,7 @@ import BidderNotification from './Pages/Bidder/BidderNotification/BidderNotifica
 import BidderEditProfile from './Pages/Bidder/BidderEditProfile/BidderEditProfile';
 import BidderFeedback from './Pages/Bidder/BidderFeedback/BidderFeedback';
 import OrganizationResetPassword from './Pages/Organization/OrganizationAuth/OrganizationRestPassword';
+import CancelReason from './Pages/Bidder/CancelReason/CancelReason';
 
 const App = () => {
 	return (
@@ -116,6 +117,11 @@ const App = () => {
 						path='/bidder/feedback'
 						element={<BidderFeedback />}
 					/>
+					<Route
+						path='/bidder/view-tender/:id'
+						element={<CancelReason />}
+					/>
+
 					{/*// Organization*/}
 					<Route
 						path='/organization/signup'

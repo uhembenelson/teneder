@@ -55,7 +55,7 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
             {isNavOpen && <div className='mobileNavListParent'>
 
                 <i onClick={toggleNavIcon} className="ri-close-line closeHomeIcon homeNavIcon"></i>
-                <ul  >
+                <ul className='mobileListParent' >
 
                     <Link to='/' >
                         <li>HOME</li>

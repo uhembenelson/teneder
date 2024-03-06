@@ -41,7 +41,7 @@ const OrganizationSignUp = () => {
 
 
     const [companyType, setCompanyType] = useState('Private')
-    const [no_of_employees, setNo_of_employees] = useState(2)
+    const [no_of_employees, setNo_of_employees] = useState(20)
     const [states, setStates] = useState([])
     const [salutation, setSalutation] = useState('mr')
 
@@ -60,13 +60,14 @@ const OrganizationSignUp = () => {
     });
 
     useEffect(() => {
-        fetch('https://countriesnow.space/api/v0.1/countries/states', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "country": "India" })
-        }).then(res => res.json()).then(data => setStates(data?.data?.states))
+        //     fetch('https://countriesnow.space/api/v0.1/countries/states', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ "country": "India" })
+        //     }).then(res => res.json()).then(data => setStates(data?.data?.states))
+        fetch('https://countriesnow.space/api/v0.1/countries/').then(res => res.json()).then(data => setStates(data.data))
     }, [])
 
 
@@ -225,11 +226,11 @@ const OrganizationSignUp = () => {
                                 <select className='inputTypeSelect'
                                     onChange={(event) => setNo_of_employees(event.target.value)}
                                     value={no_of_employees}>
-                                    <option value='1' >1</option>
-                                    <option value='5'>5</option>
-                                    <option value='10'>10</option>
-                                    <option value='20'>20</option>
+                                    <option value='20' >20</option>
                                     <option value='50'>50</option>
+                                    <option value='100'>100</option>
+                                    <option value='500'>500</option>
+                                    <option value='1000'>1000</option>
                                 </select>
                             </div>
                             <div className='companyTypeInputContainer2'>
@@ -286,7 +287,7 @@ const OrganizationSignUp = () => {
                                 <select className='inputTypeSelect' {...register('state')}>
                                     {
                                         states?.map((state, id) => (
-                                            <option value={state?.name} key={id} >{state?.name}</option>
+                                            <option value={state?.country} key={id} >{state?.country}</option>
                                         ))
                                     }
                                 </select>
@@ -322,7 +323,7 @@ const OrganizationSignUp = () => {
                     <div className='companyBox' >
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>First Name</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('first_name')} />
@@ -396,14 +397,14 @@ const OrganizationSignUp = () => {
                                 <span>*</span>
                                 <label>Public Address</label>
                             </div>
-                            <input className='inputTypeInput' type='text' {...register('public_address')} />
+                            <input className='inputTypeInput' type='text' {...register('public_address')} maxLength={16} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
                                 <label>Wallet Address</label>
                             </div>
-                            <input className='inputTypeInput' type='text' {...register('wallet_address')} />
+                            <input className='inputTypeInput' type='text' {...register('wallet_address')} maxLength={16} />
                         </div>
                     </div>
                     <div className='companyBox' >

@@ -1,8 +1,8 @@
 :root {
 	--btn-bg: linear-gradient(to right, #f77f7c, #ff3268);
 	/* --nav-bg: linear-gradient(to right, #8a79cd, #737aff, #050a6c); */
-	--bidder-nav-bg: linear-gradient(to bottom, #1557d4, #031650);
-	--mob-bg: linear-gradient(to bottom right, #8a79cd, #050a6c);
+	--bidder-nav-bg: linear-gradient(to bottom, #1e6ac0, #14497f);
+	--mob-bg: linear-gradient(to bottom right, #2577ab, #050a6c);
 }
 
 .toggle__btn {

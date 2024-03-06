@@ -15,6 +15,7 @@ const EvaluateTenderCard = ({ data, user }) => {
     console.log(data)
 
     let percentage = 0;
+    let color = 'rgb(62, 152, 199)'
     if (data?.status === 'completed') {
         percentage = 100
     }
@@ -22,7 +23,8 @@ const EvaluateTenderCard = ({ data, user }) => {
         percentage = 66
     }
     else {
-        percentage = 50
+        percentage = 100;
+        color = 'red'
     }
 
     let status = <span className='complete'>  COMPLETE</span>
@@ -46,9 +48,14 @@ const EvaluateTenderCard = ({ data, user }) => {
     const provideReasons = () => {
         dispatch(selectTender(data))
         if (user === 'bidder') {
+            navigate(`/bidder/view-tender/${data?.tender_id}`)
             return
         }
-        navigate('/organization/cancel-tender')
+        else {
+
+            navigate('/organization/cancel-tender')
+        }
+
 
     }
 
@@ -63,7 +70,7 @@ const EvaluateTenderCard = ({ data, user }) => {
     }
 
     else if (data?.status === 'cancelled') {
-        button = <button onClick={provideReasons} className='evalButton' > PROVIDE REASONS <img className='evalImg' src={sad} alt='' />
+        button = <button onClick={provideReasons} className='evalButton' > {user ? 'SEE REASONS' : 'PROVIDE REASONS'} <img className='evalImg' src={sad} alt='' />
         </button>
     }
 
@@ -75,16 +82,16 @@ const EvaluateTenderCard = ({ data, user }) => {
                     <p>Tender Description : </p>
                     <span>{data?.description_tender}</span>
                 </div>
-                <p className='refNo' >N0. {data?.tender_id}</p>
+                <p className='refNo' >NO. {data?.tender_id}</p>
             </div>
             <div className='evalCardBottomContainer' >
 
                 <div>
                     <div className='statusContainer' >
-                        <p className='completedBy' >COMPLETED BY:<span >  {data?.name_of_company || data?.names}</span></p>
+                        <p className='completedBy' >{user ? 'PUBLISHED' : 'COMPLETED'} BY:<span >  {user ? data?.name_of_organization : data?.names}</span></p>
                         <p>Status : <span className='complete'>  {status}</span></p>
                     </div>
-                    <div className='statusContainer'><p >TIME TAKEN: <span>26/10/2023 - 24/11/2023</span></p></div>
+                    <div className='statusContainer'><p >TIME TAKEN: {user ? 'NA' : <span>26/10/2023 - 24/11/2023</span>}</p></div>
 
                     {button}
                 </div>
@@ -99,6 +106,7 @@ const EvaluateTenderCard = ({ data, user }) => {
                             //     // Rotation of path and trail, in number of turns (0-1)
                             //     // rotation: 0.25,
                             //     pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                            pathColor: `${color}`,
                             textColor: data.status === 'cancelled' ? 'red' : 'blue',
                             //     trailColor: '#d6d6d6',
                             textSize: '15px'

@@ -23,7 +23,8 @@ const Welcome = () => {
 			{showSignUpModal && (
 				<SignUpMode setShowSignUpModal={setShowSignUpModal} />
 			)}
-			<HeroSection />
+			<HeroSection
+				setShowLoginModal={setShowLoginModal} />
 			<WhyUs />
 			<Clients />
 			<Dummy />

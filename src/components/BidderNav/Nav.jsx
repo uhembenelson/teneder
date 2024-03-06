@@ -1,5 +1,5 @@
 import './nav.css';
-import logo from '../../assets/SYMBOL.png';
+import logo from '../../assets/Bidder_logo.jpg';
 import bell from '../../assets/Doorbell.png';
 import vector from '../../assets/Vector.png';
 import profile from '../../assets/PROFILE.png'
@@ -83,7 +83,7 @@ function BidderNav() {
 						/>
 					</li>
 					<li className='popUpContainer'>
-						grp-cp09
+						{user?.first_name}
 						<img
 							src={userImg}
 							alt='user'
@@ -98,7 +98,7 @@ function BidderNav() {
 									<img src={profile} alt='' />
 									<div className='navPopUpDetails' >
 										<div className='navPopNameType'>
-											<p className='navPopUpName'>GRP-CP09</p>
+											<p className='navPopUpName'>{user?.first_name}</p>
 											<p className='navPopUpDept'>Company</p>
 										</div>
 										<p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>

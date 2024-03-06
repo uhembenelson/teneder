@@ -2,9 +2,10 @@ import React from 'react';
 import './HeroSection.css';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import HeroImage from '../../assets/heroImage.png';
+import pdf from '../../assets/The Redeemed Campus (3).pdf'
 
 
-const HeroSection = () => {
+const HeroSection = ({ setShowLoginModal }) => {
 	return (
 		<div className='heroSectionContainer'>
 			<div className='herotextbox' >
@@ -17,10 +18,12 @@ const HeroSection = () => {
 				</div>
 				<div className='btnContainer'>
 					<div className='btnHolder'>
-						<CustomBtn>Get Started</CustomBtn>
+						<CustomBtn onClick={setShowLoginModal}>Get Started</CustomBtn>
 					</div>
 
-					<CustomBtn>Learn More</CustomBtn>
+					<a href={pdf} download >
+						<CustomBtn>Learn More</CustomBtn>
+					</a>
 
 
 				</div>

@@ -63,10 +63,10 @@ const BidderNotification = () => {
                 </div>
                 <div className='mark' >
                     <div className='markAll'>
-                        <p >{data?.length} Unread</p>
+                        <p >{data?.length} notifications</p>
 
                     </div>
-                    <p className='markAsRead' >Mark As Read</p>
+                    <p className='markAsRead' >Clear Notifications</p>
                 </div>
             </div>
             {

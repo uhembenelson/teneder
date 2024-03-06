@@ -1,9 +1,9 @@
 import React from 'react'
 import './CustomBtn.css'
 
-const CustomBtn = ({ children }) => {
+const CustomBtn = ({ children, onClick }) => {
     return (
-        <button type='submit' className='customBtnContainer' >{children}</button>
+        <button onClick={onClick} type='submit' className='customBtnContainer' >{children}</button>
     )
 }
 
