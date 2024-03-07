@@ -39,6 +39,10 @@ const ApprovalCheck = () => {
                                 <p className='textHeader' >Status :</p>
                                 <p className='textDescApproved' >{tender?.status}</p>
                             </div>
+                            <div className='textHeaderContainer' >
+                                <p className='textHeader' >Reason :</p>
+                                <p className='textDescApproved' >{tender?.reasons}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

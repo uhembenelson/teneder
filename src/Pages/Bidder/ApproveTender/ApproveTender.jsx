@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-
+import checked from '../../../assets/Checked Checkbox.png'
 import backArrow from '../../../assets/Shape.png';
 import cancel from '../../../assets/Multiplication.png';
 import approval from '../../../assets/Approval.png';
@@ -70,7 +70,7 @@ function ApproveTender() {
             option = <div>
                 <p>ON-GOING</p>
                 <img
-                    src={cancel}
+                    src={checked}
                     alt='cancel'
                 />
             </div>
@@ -159,7 +159,7 @@ function ApproveTender() {
                                                 {tender?.status === 'ongoing' ? <div>
                                                     <p>ON-GOING</p>
                                                     <img
-                                                        src={cancel}
+                                                        src={checked}
                                                         alt='cancel'
                                                     />
                                                 </div> :

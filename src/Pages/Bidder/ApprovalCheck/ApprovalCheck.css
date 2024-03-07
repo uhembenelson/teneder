@@ -13,7 +13,9 @@
     margin: auto;
     margin-top: 2rem;
     background: linear-gradient(45deg, #24069a, #020645);
-    height: 60vh;
+    height: fit-content;
+        padding-bottom: 1rem;
+    
 }
 
 .approvalCheckContentTop{

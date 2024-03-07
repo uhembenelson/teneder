@@ -30,6 +30,7 @@ const BidderEditProfile = () => {
 
         const response = await fetch(url, { headers });
         const data = await response.json();
+        console.log('I am the data', data)
         return data;
 
     };
@@ -38,13 +39,14 @@ const BidderEditProfile = () => {
     // Get All states in india
 
     useEffect(() => {
-        fetch('https://countriesnow.space/api/v0.1/countries/states', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "country": "India" })
-        }).then(res => res.json()).then(data => setStates(data?.data?.states))
+        // fetch('https://countriesnow.space/api/v0.1/countries/states', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({ "country": "India" })
+        // }).then(res => res.json()).then(data => setStates(data?.data?.states))
+        fetch('https://countriesnow.space/api/v0.1/countries/').then(res => res.json()).then(data => setStates(data.data))
     }, [])
 
     // Get profile picture
@@ -123,7 +125,7 @@ const BidderEditProfile = () => {
     const [panCard, setPanCard] = useState(data?.pan_card)
 
     const [companyType, setCompanyType] = useState('Private')
-    const [no_of_employees, setNo_of_employees] = useState('1')
+    const [no_of_employees, setNo_of_employees] = useState(20)
 
     const {
         getValues,
@@ -305,11 +307,11 @@ const BidderEditProfile = () => {
                                 onChange={e => setNo_of_employees(e.target.value)}
                                 value={no_of_employees}
                             >
-                                <option value='1' >1</option>
-                                <option value='5'>5</option>
-                                <option value='10'>10</option>
-                                <option value='20'>20</option>
+                                <option value='20' >20</option>
                                 <option value='50'>50</option>
+                                <option value='100'>100</option>
+                                <option value='500'>500</option>
+                                <option value='1000'>1000</option>
                             </select>
                         </div>
                     </div>
@@ -358,7 +360,7 @@ const BidderEditProfile = () => {
                             <select className='inputTypeSelect' {...register('state')}>
                                 {
                                     states?.map((state, id) => (
-                                        <option value={state?.name} key={id} >{state?.name}</option>
+                                        <option value={state?.country} key={id} >{state?.country}</option>
                                     ))
                                 }
                             </select>
@@ -371,14 +373,14 @@ const BidderEditProfile = () => {
 
                                 <label>Public Address</label>
                             </div>
-                            <input {...register('public_address')} className='inputTypeInput' type='text' />
+                            <input {...register('public_address')} className='inputTypeInput' type='text' maxLength={16} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
                                 <label> Wallet Address</label>
                             </div>
-                            <input {...register('wallet_address')} className='inputTypeInput' type='text' />
+                            <input {...register('wallet_address')} className='inputTypeInput' type='text' maxLength={16} />
                         </div>
                     </div>
                     <h2 className='editProfileInfo' >ACCOUNT HANDLER INFO </h2>
