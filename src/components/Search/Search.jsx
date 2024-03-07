@@ -2,20 +2,30 @@ import React from 'react'
 import './Search.css'
 import search from '../../assets/search.png'
 
-const Search = () => {
+const Search = ({ setSearchTerm, setSearchType, seachType, searchTenders, searchTerm }) => {
+
+    const submitForm = (e) => {
+        e.preventDefault()
+        searchTenders()
+
+    }
+
     return (
-        <div className='searchContainer' >
-            <select placeholder='Keyword Search' >
-                <option>Select Keyword</option>
+        <form onSubmit={submitForm} className='searchContainer' >
+            <select placeholder='Keyword Search'
+                onChange={e => setSearchType(e.target.value)}
+                value={seachType}
+            >
+                <option value='keyword' >Select Keyword</option>
                 <option>T-Number</option>
-                <option>Due Date</option>
-                <option>Type</option>
+                <option value='date'>Due Date</option>
+                <option value='type'>Type</option>
             </select>
             <div className='searchInputBox' >
-                <input placeholder='Type keyword eg-VALUE, DUE DATE etc.' />
-                <img src={search} alt='' />
+                <input value={searchTerm} onChange={e => setSearchTerm(e.target.value)} placeholder='Type keyword eg-VALUE, DUE DATE etc.' />
+                <button ><img src={search} alt='' /></button>
             </div>
-        </div>
+        </form>
     )
 }
 

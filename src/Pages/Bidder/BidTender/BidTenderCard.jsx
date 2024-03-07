@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const BidTenderCard = ({ tender, id }) => {
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -45,6 +46,8 @@ const BidTenderCard = ({ tender, id }) => {
 
 
 
+    const dateParts = tender?.duration_of_work
+    const convertedDateString = dateParts.replace(/-/g, '/')
 
 
     return (
@@ -74,7 +77,7 @@ const BidTenderCard = ({ tender, id }) => {
             </td>
             <td>{tender?.type_of_tender}</td>
             <td>
-                {tender?.duration_of_work}
+                {convertedDateString}
                 {/*daysRemaining > 0 ? <p>{daysRemaining} <span> days to go</span></p> : concluded*/}
                 {/*Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <p style={{ color: 'rgba(255, 122, 0, 1)' }}>15-Feb-2024</p>*/}
             </td>

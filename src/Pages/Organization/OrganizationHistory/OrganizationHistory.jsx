@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 import checked from '../../../assets/Checked Checkbox.png'
 import cancel from '../../../assets/Cancel Order.png'
 import multiplication from '../../../assets/Multiplication.png'
-import BidderNav from '../../../components/BidderNav/Nav'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 
 const OrganizationHistory = () => {

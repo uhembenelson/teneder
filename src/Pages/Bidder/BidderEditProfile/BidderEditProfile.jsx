@@ -17,6 +17,10 @@ const BidderEditProfile = () => {
 
     const [profilePicture, setProfilePicture] = useState(null)
 
+    // USER PROFILE STATE
+
+    const [userDetails, setUserDetails] = useState(user)
+
     const [states, setStates] = useState([])
 
     const { token, bidder_id } = user
@@ -30,7 +34,8 @@ const BidderEditProfile = () => {
 
         const response = await fetch(url, { headers });
         const data = await response.json();
-        console.log('I am the data', data)
+        setUserDetails(data)
+
         return data;
 
     };
@@ -39,14 +44,9 @@ const BidderEditProfile = () => {
     // Get All states in india
 
     useEffect(() => {
-        // fetch('https://countriesnow.space/api/v0.1/countries/states', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ "country": "India" })
-        // }).then(res => res.json()).then(data => setStates(data?.data?.states))
-        fetch('https://countriesnow.space/api/v0.1/countries/').then(res => res.json()).then(data => setStates(data.data))
+        fetch('https://countriesnow.space/api/v0.1/countries/')
+            .then(res => res.json()).
+            then(data => setStates(data.data))
     }, [])
 
     // Get profile picture
@@ -100,10 +100,6 @@ const BidderEditProfile = () => {
                     }
                 }).then(res => res.json()).then(data => setProfilePicture(data))
             }
-
-
-
-
         }
     };
 
@@ -219,27 +215,27 @@ const BidderEditProfile = () => {
     }
 
     useEffect(() => {
-        setValue('name_of_company', user?.name_of_company)
-        setValue('company_type', user?.company_type)
-        setValue('registration_number', user?.registration_number)
-        setValue('no_of_employees', user?.no_of_employees)
-        setValue('address_one', user?.address_one)
-        setValue('address_two', user?.address_two)
-        setValue('address_three', user?.address_three)
-        setValue('organization_website', user?.organization_website)
-        setValue('postal_code', user?.postal_code)
-        setValue('state', user?.state)
-        setValue('city', user?.city)
-        setValue('public_address', user?.public_address)
-        setValue('first_name', user?.first_name)
-        setValue('last_name', user?.last_name)
+        setValue('name_of_company', userDetails?.name_of_company)
+        setValue('company_type', userDetails?.company_type)
+        setValue('registration_number', userDetails?.registration_number)
+        setValue('no_of_employees', userDetails?.no_of_employees)
+        setValue('address_one', userDetails?.address_one)
+        setValue('address_two', userDetails?.address_two)
+        setValue('address_three', userDetails?.address_three)
+        setValue('organization_website', userDetails?.organization_website)
+        setValue('postal_code', userDetails?.postal_code)
+        setValue('state', userDetails?.state)
+        setValue('city', userDetails?.city)
+        setValue('public_address', userDetails?.public_address)
+        setValue('first_name', userDetails?.first_name)
+        setValue('last_name', userDetails?.last_name)
         // setValue()
-        setValue('email', user?.email)
+        setValue('email', userDetails?.email)
 
-        setValue('job_title', user?.job_title)
-        setValue('contact_number', user?.contact_number)
-        setValue('wallet_address', user?.wallet_address)
-    }, [setValue, user])
+        setValue('job_title', userDetails?.job_title)
+        setValue('contact_number', userDetails?.contact_number)
+        setValue('wallet_address', userDetails?.wallet_address)
+    }, [setValue, userDetails])
 
     return (
         <div>

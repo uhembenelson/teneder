@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import useSWR from 'swr';
@@ -16,9 +16,17 @@ import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
 import { getTenderInfo } from '../../../Redux/Bidder/Action';
 import BidTenderCard from './BidTenderCard';
+import { CircularProgress } from '@mui/material';
 
 const BidTender = () => {
     const navigate = useNavigate()
+
+    // Search functionality
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const [filteredTenders, setFilteredTenders] = useState([])
+
+    const [searchType, setSearchType] = useState('keyword')
 
     const dispatch = useDispatch()
 
@@ -34,13 +42,44 @@ const BidTender = () => {
 
         const response = await fetch(url, { headers });
         const data = await response.json();
+        setFilteredTenders(data)
         return data;
 
 
     };
     const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender`
     const { data } = useSWR([url, token], () => fetchTenders(url, token));
-    console.log(data)
+
+
+    const searchTenders = () => {
+
+        let filteredTender = []
+        if (searchType === 'keyword') {
+            filteredTender = data?.filter(datum =>
+                datum?.description_tender.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
+        else if (searchType === 'type') {
+            filteredTender = data?.filter(datum =>
+                datum?.type_of_tender.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
+        else if (searchType === 'date') {
+            filteredTender = data?.filter(datum =>
+                datum?.duration_of_work.replace(/-/g, '/')?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
+        setFilteredTenders(filteredTender)
+
+    }
+
+    let content = <div className='spinnerContainer' >
+        <CircularProgress color="info" thickness={8} size={30} />
+    </div>
+
 
 
 
@@ -71,21 +110,23 @@ const BidTender = () => {
 
             {/* still giving them same class name as other table names to avoid too much styling */}
             <div className='table__container manage__container'>
-                <div className='table__heading'>
-                    <div className='arrowBack' onClick={() => navigate(-1)}>
-                        <img
-                            src={backArrow}
-                            alt='backArrow'
-                        />
-                        <span>return</span>
-                    </div>
-                    <h2>BID TENDER</h2>
-                </div>
+
+                <h2 style={{
+                    textAlign: 'center',
+                    fontSize: '2rem',
+                    marginBottom: '1rem'
+                }} >BID TENDER</h2>
 
 
 
-                <section className='table__body'>
-                    <Search />
+
+                < section className='table__body' >
+                    <Search
+                        setSearchType={setSearchType}
+                        searchType={searchType}
+                        searchTenders={searchTenders}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm} />
                     <table className='tender__table'>
                         <thead>
                             <th>tender description</th>
@@ -96,7 +137,7 @@ const BidTender = () => {
 
                         <tbody>
                             {
-                                data?.map((tender, id) => {
+                                filteredTenders?.map((tender, id) => {
                                     return (
                                         <BidTenderCard tender={tender} id={id} key={id} />
                                     )
@@ -107,8 +148,8 @@ const BidTender = () => {
                         </tbody>
                     </table>
                 </section>
-            </div>
-        </section>
+            </div >
+        </section >
     )
 }
 

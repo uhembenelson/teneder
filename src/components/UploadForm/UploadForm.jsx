@@ -130,6 +130,7 @@ const UploadForm = ({ closeModal, tender_id }) => {
                     <p className='dropFilesText' >You can drag and drop files here to add them.</p>
 
                 </div>
+                {upload_document && <p style={{ marginBottom: '.5rem' }} className='fileName' >{upload_document?.name}</p>}
                 <div className='uploadBtnContainer' >
                     <button type='submit' className=' evalButton uploadFormBtn'>{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Submit'}</button>
                     <button onClick={closeModal} className='evalButton uploadFormBtn'>Cancel</button>
