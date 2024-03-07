@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
 import checked from '../../../assets/Checked Checkbox.png'
 import backArrow from '../../../assets/Shape.png';
 import cancel from '../../../assets/Multiplication.png';
@@ -15,6 +15,16 @@ import Search from '../../../components/Search/Search'
 
 function ApproveTender() {
 
+    // Search functionality
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const [filteredTenders, setFilteredTenders] = useState([])
+
+    const [searchType, setSearchType] = useState('keyword')
+
+
+
+
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
@@ -28,6 +38,7 @@ function ApproveTender() {
 
         const response = await fetch(url, { headers });
         const data = await response.json();
+        setFilteredTenders(data)
         return data;
 
     };
@@ -38,6 +49,37 @@ function ApproveTender() {
 
     const { data } = useSWR([url, token], () => fetchAllBidApplicants(url, token));
     console.log(data)
+
+    const searchTenders = () => {
+
+        let filteredTender = []
+        if (searchType === 'keyword') {
+            filteredTender = data?.filter(datum =>
+                datum?.description_tender.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
+        else if (searchType === 'type') {
+            filteredTender = data?.filter(datum =>
+                datum?.type_of_tender.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
+        else if (searchType === 'status') {
+            filteredTender = data?.filter(datum =>
+                datum?.status.replace(/-/g, '/')?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+        else if (searchType === 'orgName') {
+            filteredTender = data?.filter(datum =>
+                datum?.name_of_organization.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
+
+        setFilteredTenders(filteredTender)
+
+    }
 
     let option = <div>
         <p>ON-GOING</p>
@@ -115,7 +157,14 @@ function ApproveTender() {
 
 
                 <section className='table__body'>
-                    <Search />
+                    <Search
+                        approve={true}
+                        setSearchType={setSearchType}
+                        searchType={searchType}
+                        searchTenders={searchTenders}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                    />
                     <table className='tender__table'>
                         <thead>
                             <th>tender description</th>
@@ -126,7 +175,7 @@ function ApproveTender() {
 
                         <tbody>
                             {
-                                data?.map((tender, id) => {
+                                filteredTenders?.map((tender, id) => {
                                     return (
                                         <tr key={id} onClick={() => select(tender)} >
                                             <td >
