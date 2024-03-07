@@ -16,21 +16,21 @@ const Search = ({ setSearchTerm, approve, setSearchType, seachType, searchTender
                 onChange={e => setSearchType(e.target.value)}
                 value={seachType}
             >
-                <option value='keyword' >Select Keyword</option>
-                <option>T-Number</option>
-                <option value='orgName'>Organization</option>
-                <option value='type'>Type</option>
-                <option value='status'>Status</option>
+                <option className='optionsSearch' value='keyword' >Select Keyword</option>
+                {/*<option className='optionsSearch'>T-Number</option>*/}
+                <option className='optionsSearch' value='orgName'>Organization</option>
+                <option className='optionsSearch' value='type'>Type</option>
+                <option className='optionsSearch' value='status'>Status</option>
 
             </select> :
                 <select placeholder='Keyword Search'
                     onChange={e => setSearchType(e.target.value)}
                     value={seachType}
                 >
-                    <option value='keyword' >Select Keyword</option>
-                    <option>T-Number</option>
-                    <option value='date'>Due Date</option>
-                    <option value='type'>Type</option>
+                    <option className='optionsSearch' value='keyword' >Select Keyword</option>
+                    {/*<option className='optionsSearch'>T-Number</option>*/}
+                    <option className='optionsSearch' value='date'>Due Date</option>
+                    <option className='optionsSearch' value='type'>Type</option>
 
                 </select>}
             <div className='searchInputBox' >
