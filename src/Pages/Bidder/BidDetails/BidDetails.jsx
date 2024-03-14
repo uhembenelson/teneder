@@ -5,7 +5,7 @@ import BidderNav from '../../../components/BidderNav/Nav'
 import { useNavigate } from 'react-router-dom';
 import Pdf from '../../../assets/Import Pdf.png'
 import UploadForm from '../../../components/UploadForm/UploadForm';
-
+import { formatDate } from '../../../utilities/dateFormatter';
 import { useSelector } from 'react-redux';
 
 const BidDetails = () => {
@@ -34,6 +34,8 @@ const BidDetails = () => {
     }, [tenderDetails])
 
 
+    formatDate(tenderDetails?.duration_of_bidding_end)
+
 
     return (
         <div>
@@ -58,7 +60,7 @@ const BidDetails = () => {
 
                         <div className='tenderDetailSmall' >
                             <p>Organization : </p>
-                            <p>YTL Corporation LTD.</p>
+                            <p>{tenderDetails?.name_of_organization}</p>
                         </div>
                         <div className='tenderDetailSmall locBox' >
                             <p>T. Number  :</p>
@@ -83,11 +85,11 @@ const BidDetails = () => {
 
                         <div className='tenderDetailSmall' >
                             <p>Bidding Period  : </p>
-                            <p>21/03/2022 - 21/04/2022</p>
+                            <p>{formatDate(tenderDetails?.duration_of_bidding_start)} - {formatDate(tenderDetails?.duration_of_bidding_end)}</p>
                         </div>
                         <div className='tenderDetailSmall' >
                             <p>Work Period :</p>
-                            <p>31/04/2022 - 31/07/2022 </p>
+                            <p>{formatDate(tenderDetails?.duration_of_work_start)} - {formatDate(tenderDetails?.duration_of_work_end)} </p>
                         </div>
                         <div className='tenderDetailBig locBox' >
                             <p>Location   :</p>

@@ -22,8 +22,10 @@ const CreateTender = () => {
         address_one: yup.string().required('Address one is required'),
         state: yup.string().required('State is required'),
         city: yup.string().required('City is required'),
-        duration_of_bidding: yup.string().required('City is required'),
-        duration_of_work: yup.string().required('City is required'),
+        duration_of_bidding_start: yup.string().required('City is required'),
+        duration_of_bidding_end: yup.string().required('City is required'),
+        duration_of_work_start: yup.string().required('City is required'),
+        duration_of_work_end: yup.string().required('City is required'),
         postal_code: yup.string().required('Postal Code is required'),
         material_required: yup.string().required('Materials is required')
     })
@@ -35,6 +37,8 @@ const CreateTender = () => {
     const [states, setStates] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [type_of_tender, setCompanyType] = useState('Private')
+
+    const [hasFileBeenSelected, setHasFileBeenSelected] = useState(false)
 
     const {
         getValues,
@@ -50,13 +54,9 @@ const CreateTender = () => {
     });
 
     useEffect(() => {
-        fetch('https://countriesnow.space/api/v0.1/countries/states', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "country": "India" })
-        }).then(res => res.json()).then(data => setStates(data?.data?.states))
+        fetch('https://countriesnow.space/api/v0.1/countries/')
+            .then(res => res.json()).
+            then(data => setStates(data.data))
     }, [])
 
     const user = useSelector(state => state.organization.user)
@@ -90,19 +90,23 @@ const CreateTender = () => {
         formData.append('state', data?.state)
         formData.append('city', data?.city)
         formData.append('postal_code', data?.postal_code)
-        formData.append('duration_of_bidding', data?.duration_of_bidding)
-        formData.append('duration_of_work', data?.duration_of_work)
+        formData.append('duration_of_bidding_start', data?.duration_of_bidding_start)
+        formData.append('duration_of_bidding_end', data?.duration_of_bidding_end)
+        formData.append('duration_of_work_start', data?.duration_of_work_start)
+        formData.append('duration_of_work_end', data?.duration_of_work_end)
         formData.append('type_of_tender', type_of_tender)
         formData.append('appendices', appendices)
         formData.append('material_required', data?.material_required)
 
         if (!appendices) {
             setErr('Required')
+            setHasFileBeenSelected(true)
             return
         }
 
         else {
             setErr(null)
+            setHasFileBeenSelected(false)
             try {
                 setIsLoading(true)
                 const res = await fetch('https://school-project-production-459d.up.railway.app/v4/tender/tender',
@@ -203,7 +207,7 @@ const CreateTender = () => {
                                 <select className='inputTypeSelect' {...register('state')}>
                                     {
                                         states?.map((state, id) => (
-                                            <option value={state?.name} key={id} >{state?.name}</option>
+                                            <option value={state?.country} key={id} >{state?.country}</option>
                                         ))
                                     }
                                 </select>
@@ -222,44 +226,44 @@ const CreateTender = () => {
                     <div className='companyContainer' >
                         <div className='companyBox' >
                             <div style={{
-                                border: errors?.duration_of_bidding ? '1px solid red' : 'none'
+                                border: errors?.duration_of_bidding_start ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer' >
                                     <span>*</span><label>START DURATION OF BIDDING PERIOD</label>
                                 </div>
 
-                                <input type='date' {...register('duration_of_bidding')} />
+                                <input type='date' {...register('duration_of_bidding_start')} />
                             </div>
                             <div style={{
-                                border: errors?.duration_of_work ? '1px solid red' : 'none'
+                                border: errors?.duration_of_bidding_end ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer'>
                                     < span >*</span><label>END DURATION OF BIDDING PERIOD</label>
                                 </div>
 
-                                <input type='date' {...register('duration_of_work')} />
+                                <input type='date' {...register('duration_of_bidding_end')} />
                             </div>
                         </div>
                     </div >
                     <div className='companyContainer' style={{ marginTop: '2rem' }} >
                         <div className='companyBox' >
                             <div style={{
-                                border: errors?.duration_of_bidding ? '1px solid red' : 'none'
+                                border: errors?.duration_of_work_start ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer' >
                                     <span>*</span><label>START DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                <input type='date' {...register('duration_of_bidding')} />
+                                <input type='date' {...register('duration_of_work_start')} />
                             </div>
                             <div style={{
-                                border: errors?.duration_of_work ? '1px solid red' : 'none'
+                                border: errors?.duration_of_work_end ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer'>
                                     < span >*</span><label>END DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                <input type='date' {...register('duration_of_work')} />
+                                <input type='date' {...register('duration_of_work_end')} />
                             </div>
                         </div>
                     </div>
@@ -273,13 +277,15 @@ const CreateTender = () => {
                                 onChange={(event) => setCompanyType(event.target.value)}
                                 {...register('type_of_tender')}>
                                 <option value='Private' >Private</option>
-                                <option value='Public' >Public</option>
+                                <option value='Government' >Government</option>
                             </select>
                         </div>
-                        <div className='companyTypeInputContainer2'>
+                        <div style={{
+                            border: hasFileBeenSelected && '1px solid red'
+                        }} className='companyTypeInputContainer2'>
 
-                            <div className='typeInput' >
-                                <span>*</span>
+                            <div className='typeInput'>
+                                < span >*</span>
                                 <h3>APPENDICES</h3>
                             </div>
                             <UploadFile setFile={setFile} />
@@ -287,7 +293,7 @@ const CreateTender = () => {
 
                         </div>
 
-                    </div>
+                    </div >
 
                     <div className='createTenderBox' >
                         <div className='labelContainer' >

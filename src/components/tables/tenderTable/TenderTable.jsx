@@ -13,7 +13,7 @@ import CancelOrder from './CancelOrder';
 import cancelOrderImage from '../../../assets/Cancel Order.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { CircularProgress } from '@mui/material';
-
+import { formatDate } from '../../../utilities/dateFormatter';
 
 
 function TenderTable() {
@@ -46,9 +46,8 @@ function TenderTable() {
 	function handleShowModal() {
 		setShowModal(!showModal);
 	}
+	// Edit date format
 
-	const presentDay = new Date();
-	console.log(presentDay)
 
 	let content = <div className='spinnerContainer' >
 		<CircularProgress color="info" thickness={8} size={30} />
@@ -93,7 +92,7 @@ function TenderTable() {
 							</td>
 							<td>{tender?.type_of_tender}</td>
 							<td>
-								{tender?.duration_of_work}
+								{formatDate(tender?.duration_of_bidding_end)}
 								{/*Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 ? <span>{Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24))} 'days to go'</span> : 'Concluded'*/}
 								{/*Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <span className='date'>{tender?.duration_of_work}</span>*/}
 							</td>

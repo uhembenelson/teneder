@@ -49,6 +49,7 @@ const BidTender = () => {
     };
     const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender`
     const { data } = useSWR([url, token], () => fetchTenders(url, token));
+    console.log(data)
 
 
     const searchTenders = () => {
