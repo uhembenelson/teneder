@@ -31,20 +31,26 @@ const BidderHistory = () => {
     const cancelledUrl = `https://school-project-production-459d.up.railway.app/V7/organization/cancelled/${bidder_id}`
     const ongoingUrl = `https://school-project-production-459d.up.railway.app/V7/organization/ongoing/${bidder_id}`
 
-    const { data: allHistory } = useSWR([url, token], () => fetchHistory(url, token));
-    const { data: completedHistory } = useSWR([completedUrl, token], () => fetchHistory(completedUrl, token));
-    const { data: ongoingHistory } = useSWR([ongoingUrl, token], () => fetchHistory(ongoingUrl, token));
-    const { data: cancelledHistory } = useSWR([cancelledUrl, token], () => fetchHistory(cancelledUrl, token));
+    // const { data: allHistory } = useSWR([url, token], () => fetchHistory(url, token));
+    // const { data: completedHistory } = useSWR([completedUrl, token], () => fetchHistory(completedUrl, token));
+    // const { data: ongoingHistory } = useSWR([ongoingUrl, token], () => fetchHistory(ongoingUrl, token));
+    // const { data: cancelledHistory } = useSWR([cancelledUrl, token], () => fetchHistory(cancelledUrl, token));
 
 
     // For each of the options in the select replace their respective table with it..
 
-    console.log(allHistory)
-    console.log(cancelledHistory)
-    console.log(ongoingHistory)
-    console.log(completedHistory)
+    // console.log(allHistory)
+    // console.log(cancelledHistory)
+    // console.log(ongoingHistory)
+    // console.log(completedHistory)
 
-    let content = null
+    const allHistory = []
+    const completedHistory = []
+    const ongoingHistory = []
+    const cancelledHistory = []
+
+
+    let content = []
 
     if (option === 'all') {
         content = allHistory?.map(data => {

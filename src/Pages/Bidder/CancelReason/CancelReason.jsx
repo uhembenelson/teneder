@@ -1,10 +1,34 @@
 import React from 'react'
 import BidderNav from '../../../components/BidderNav/Nav';
 import { useSelector } from 'react-redux';
+import useSWR from 'swr';
+import { formatDate } from '../../../utilities/dateFormatter';
 
 const CancelReason = () => {
 
-    const selectedTender = useSelector(state => state.organization.selectedTender)
+
+
+
+    const { token } = useSelector(state => state.bidder.user)
+    const selectedTender = useSelector(state => state.bidder.tenderInfo)
+
+    const fetchTenderDetails = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+    };
+
+
+    const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/cancelled/${selectedTender?.tender_id}`
+
+    const { data: tenderDetails } = useSWR([url, token], () => fetchTenderDetails(url, token));
+
 
     return (
         <section className='cancellation'>
@@ -20,34 +44,34 @@ const CancelReason = () => {
                     <div className='cancellation__inner'>
                         <ul>
                             <li>
-                                <b>Name of the Organization:</b> <span>{selectedTender?.name_of_organization}</span>
+                                <b>Name of the Organization:</b> <span>{tenderDetails[0]?.name_of_organization}</span>
                             </li>
                             <li>
                                 <b>GST Number:</b> 035468276265
                             </li>
                             <li>
-                                <b>Tender ID:</b> {selectedTender?.tender_id}
+                                <b>Tender ID:</b> {tenderDetails[0]?.tender_id}
                             </li>
-                            <li>
-                                <b>Name of Bidder:</b> {selectedTender?.names}
-                            </li>
+                            {/*<li>
+                                <b>Name of Bidder:</b> {tenderDetails[0]?.names}
+    </li>*/}
                             <li>
                                 <b>Amount:</b> <span>0.90 ETH</span>
                             </li>
                             <li>
-                                <b>Duration:</b> 26/10/2023 - 29/11/2023
+                                <b>Duration:</b> {formatDate(tenderDetails[0]?.duration_of_work_start)} - {formatDate(tenderDetails[0]?.duration_of_work_end)}
                             </li>
                             <li>
                                 <b>Status:</b>{' '}
                                 <span>
-                                    <b>Cancelled</b>
+                                    <b>{tenderDetails[0]?.status}</b>
                                 </span>
                             </li>
 
                         </ul>
                         <div className='reasonBox' >
                             <p>Reason: </p>
-                            <p className='reason' >{selectedTender?.reasons}</p>
+                            <p className='reason' >{tenderDetails[0]?.reasons}</p>
                         </div>
 
 

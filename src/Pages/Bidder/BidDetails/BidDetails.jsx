@@ -34,7 +34,7 @@ const BidDetails = () => {
     }, [tenderDetails])
 
 
-    formatDate(tenderDetails?.duration_of_bidding_end)
+
 
 
     return (

@@ -177,7 +177,7 @@ function BidderNav() {
 							<li className='popUpContainer'>
 								{user?.first_name}
 								<img
-									src={user}
+									src={userImg}
 									alt='user'
 								/>
 								<img

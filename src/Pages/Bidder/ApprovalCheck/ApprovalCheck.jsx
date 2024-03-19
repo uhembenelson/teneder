@@ -2,10 +2,47 @@ import React from 'react'
 import './ApprovalCheck.css'
 import BidderNav from '../../../components/BidderNav/Nav'
 import { useSelector } from 'react-redux'
+import useSWR from 'swr'
 
 const ApprovalCheck = () => {
 
+
+
+    const { token } = useSelector(state => state.bidder.user)
     const tender = useSelector(state => state.bidder.tenderInfo)
+
+    const fetchTenderDetails = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data;
+    };
+
+
+    const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/cancelled/${tender?.tender_id}`
+
+    const { data: tenderDetails, isLoading } = useSWR([url, token], () => fetchTenderDetails(url, token));
+
+    let content = null
+
+    if (isLoading === false) {
+        content = <div className='textHeaderContainer' >
+            <p className='textHeader' >Reason :</p>
+            <p className='textDescApproved' >{tenderDetails[0]?.reasons}</p>
+        </div>
+
+    }
+    if (isLoading === false && tenderDetails?.length === 0) {
+        content = null
+    }
+
+
+
     return (
         <div>
             <BidderNav />
@@ -39,10 +76,7 @@ const ApprovalCheck = () => {
                                 <p className='textHeader' >Status :</p>
                                 <p className='textDescApproved' >{tender?.status}</p>
                             </div>
-                            <div className='textHeaderContainer' >
-                                <p className='textHeader' >Reason :</p>
-                                <p className='textDescApproved' >{tender?.reasons}</p>
-                            </div>
+                            {content}
                         </div>
                     </div>
                 </div>

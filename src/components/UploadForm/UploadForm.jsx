@@ -96,6 +96,13 @@ const UploadForm = ({ closeModal, tender_id }) => {
                     closeModal()
 
                 }
+                else {
+                    toast.error(data, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                    })
+                }
             }
             catch (err) {
                 setIsLoading(false)
