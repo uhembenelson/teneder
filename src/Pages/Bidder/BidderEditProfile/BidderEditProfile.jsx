@@ -71,7 +71,6 @@ const BidderEditProfile = () => {
         if (file) {
             // const imageUrl = URL.createObjectURL(file[0]);
             const imageUrl = file[0]
-            console.log(imageUrl)
             pictureData.append('profile_picture_bidder', imageUrl)
             pictureData.append('bidder_id', bidder_id)
 
@@ -187,7 +186,7 @@ const BidderEditProfile = () => {
                     hideProgressBar: true,
 
                 });
-                console.log(data)
+
 
                 fetchBidderDetails(url, token)
             }
@@ -258,7 +257,7 @@ const BidderEditProfile = () => {
                             />
                         </div>
 
-                        <p className='editProfileName' >{`${user?.first_name} ${user?.last_name}`}</p>
+                        <p className='editProfileName' >{`${userDetails?.first_name} ${userDetails?.last_name}`}</p>
                         <p className='editProfileName'>{user?.name_of_company}</p>
                     </div>
                 </div>

@@ -24,25 +24,25 @@ const BidderHistory = () => {
         return data;
     };
 
-    const { token, bidder_id } = useSelector(state => state.organization.user)
+    const { token, bidder_id } = useSelector(state => state.bidder.user)
 
-    const url = `https://school-project-production-459d.up.railway.app/V7/organization/history/${bidder_id}`
+    const url = `https://school-project-production-459d.up.railway.app/V6/history/${bidder_id}`
     const completedUrl = `https://school-project-production-459d.up.railway.app/V7/organization/complete/${bidder_id}`
-    const cancelledUrl = `https://school-project-production-459d.up.railway.app/V7/organization/cancelled/${bidder_id}`
+    const cancelledUrl = `https://school-project-production-459d.up.railway.app/v6/history/cancelled/${bidder_id}`
     const ongoingUrl = `https://school-project-production-459d.up.railway.app/V7/organization/ongoing/${bidder_id}`
 
-    // const { data: allHistory } = useSWR([url, token], () => fetchHistory(url, token));
-    // const { data: completedHistory } = useSWR([completedUrl, token], () => fetchHistory(completedUrl, token));
-    // const { data: ongoingHistory } = useSWR([ongoingUrl, token], () => fetchHistory(ongoingUrl, token));
-    // const { data: cancelledHistory } = useSWR([cancelledUrl, token], () => fetchHistory(cancelledUrl, token));
+    const { data: allHistor } = useSWR([url, token], () => fetchHistory(url, token));
+    // const { data: completedHistor } = useSWR([completedUrl, token], () => fetchHistory(completedUrl, token));
+    // const { data: ongoingHistor } = useSWR([ongoingUrl, token], () => fetchHistory(ongoingUrl, token));
+    const { data: cancelledHistor } = useSWR([cancelledUrl, token], () => fetchHistory(cancelledUrl, token));
 
 
     // For each of the options in the select replace their respective table with it..
 
-    // console.log(allHistory)
-    // console.log(cancelledHistory)
-    // console.log(ongoingHistory)
-    // console.log(completedHistory)
+    console.log(allHistor)
+    console.log(cancelledHistor)
+    // console.log(ongoingHistor)
+    // console.log(completedHistor)
 
     const allHistory = []
     const completedHistory = []

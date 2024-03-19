@@ -57,12 +57,14 @@
 .profileUsername{
     color: rgba(164, 76, 233, 1);
     margin: 0;
+    text-align: center;
     margin-top: 1rem
 }
 
 .profileUserwork{
     color:  rgba(20, 20, 20, 1);
     margin: .5rem;
+    text-align: center;
 }
 
 .profileRatingContainer{

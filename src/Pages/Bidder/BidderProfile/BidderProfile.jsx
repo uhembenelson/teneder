@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import BidderNav from '../../../components/BidderNav/Nav'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-// import useSWR from 'swr'
+import useSWR from 'swr'
 
 const BidderProfile = () => {
 
@@ -21,7 +21,30 @@ const BidderProfile = () => {
 
     const user = useSelector(state => state.bidder.user)
 
+    const [userDetails, setUserDetails] = useState(user)
+
+    const fetchBidderDetails = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        setUserDetails(data)
+        return data;
+
+    };
+
     const { token, bidder_id } = user
+
+    const url = `https://school-project-production-459d.up.railway.app/v2/auth/view/bidder/${bidder_id}`
+
+    const { data } = useSWR([url, token], () => fetchBidderDetails(url, token));
+
+
+
 
     const {
         setValue,
@@ -42,21 +65,21 @@ const BidderProfile = () => {
     }, [setPanCardLink, setRegCertLink, setAadharCardLink])
 
     useEffect(() => {
-        setValue('name_of_company', user?.name_of_company)
-        setValue('company_type', user?.company_type)
-        setValue('registration_number', user?.registration_number)
-        setValue('no_of_employees', user?.no_of_employees)
-        setValue('address_one', user?.address_one)
-        setValue('organization_website', user?.organization_website)
-        setValue('postal_code', user?.postal_code)
-        setValue('state', user?.state)
-        setValue('public_address', user?.public_address)
-        setValue('wallet_address', user?.wallet_address)
-    }, [setValue, user])
+        setValue('name_of_company', userDetails?.name_of_company)
+        setValue('company_type', userDetails?.company_type)
+        setValue('registration_number', userDetails?.registration_number)
+        setValue('no_of_employees', userDetails?.no_of_employees)
+        setValue('address_one', userDetails?.address_one)
+        setValue('organization_website', userDetails?.organization_website)
+        setValue('postal_code', userDetails?.postal_code)
+        setValue('state', userDetails?.state)
+        setValue('public_address', userDetails?.public_address)
+        setValue('wallet_address', userDetails?.wallet_address)
+    }, [setValue, userDetails])
 
     const starArray = [0, 1, 2, 3, 4]
 
-    const fullname = `${user?.first_name} ${user?.last_name}`
+    const fullname = `${userDetails?.first_name} ${userDetails?.last_name}`
 
     // Get profile picture
 
@@ -87,7 +110,7 @@ const BidderProfile = () => {
                         <div className='bidderProfileLeft' >
                             <div className='bidderProfileInfoContainer'>
                                 <h2 className='profileUsername' >{fullname}</h2>
-                                <p className='profileUserwork' >{user?.name_of_company}</p>
+                                <p className='profileUserwork' >{userDetails?.name_of_company}</p>
                                 {
                                     profilePicture ?
                                         <Avatar src={profilePicture?.slice(-1).pop()?.imageUrl} className='avatarImage' sx={{ height: "12rem", width: "12rem" }} /> :
@@ -109,11 +132,11 @@ const BidderProfile = () => {
 
                             </div>
                             <div className='profileDetailsContainer' >
-                                <p><span>First Name :</span><span> {user?.first_name}</span></p>
-                                <p><span>Last Name :</span><span> {user?.last_name}</span></p>
-                                <p><span>Contact Number :</span><span> {user?.contact_number}</span></p>
-                                <p><span>Job Title  :</span><span> {user?.job_title}</span></p>
-                                <p><span>Email :</span><span> {user?.email}</span></p>
+                                <p><span>First Name :</span><span> {userDetails?.first_name}</span></p>
+                                <p><span>Last Name :</span><span> {userDetails?.last_name}</span></p>
+                                <p><span>Contact Number :</span><span> {userDetails?.contact_number}</span></p>
+                                <p><span>Job Title  :</span><span> {userDetails?.job_title}</span></p>
+                                <p><span>Email :</span><span> {userDetails?.email}</span></p>
                             </div>
                         </div>
                         <div className='bidderProfileRight' >
