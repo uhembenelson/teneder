@@ -46,6 +46,8 @@ th {
 
 .pdfTable{
     height: 20px;
+    display: block;
+    margin: auto;
 }
 
 .tableDataImg{

@@ -26,28 +26,24 @@ const BidderHistory = () => {
 
     const { token, bidder_id } = useSelector(state => state.bidder.user)
 
-    const url = `https://school-project-production-459d.up.railway.app/V6/history/${bidder_id}`
-    const completedUrl = `https://school-project-production-459d.up.railway.app/V7/organization/complete/${bidder_id}`
-    const cancelledUrl = `https://school-project-production-459d.up.railway.app/v6/history/cancelled/${bidder_id}`
-    const ongoingUrl = `https://school-project-production-459d.up.railway.app/V7/organization/ongoing/${bidder_id}`
 
-    const { data: allHistor } = useSWR([url, token], () => fetchHistory(url, token));
-    // const { data: completedHistor } = useSWR([completedUrl, token], () => fetchHistory(completedUrl, token));
-    // const { data: ongoingHistor } = useSWR([ongoingUrl, token], () => fetchHistory(ongoingUrl, token));
-    const { data: cancelledHistor } = useSWR([cancelledUrl, token], () => fetchHistory(cancelledUrl, token));
+
+    const url = `https://school-project-production-459d.up.railway.app/V6/history/${bidder_id}`
+    const completedUrl = `https://school-project-production-459d.up.railway.app/V6/history/complete/${bidder_id}`
+    const cancelledUrl = `https://school-project-production-459d.up.railway.app/v6/history/cancelled/${bidder_id}`
+    const ongoingUrl = `https://school-project-production-459d.up.railway.app/V6/history/ongoing/bidder/${bidder_id}`
+
+    const { data: allHistory } = useSWR([url, token], () => fetchHistory(url, token));
+    const { data: completedHistory } = useSWR([completedUrl, token], () => fetchHistory(completedUrl, token));
+    const { data: ongoingHistory } = useSWR([ongoingUrl, token], () => fetchHistory(ongoingUrl, token));
+    const { data: cancelledHistory } = useSWR([cancelledUrl, token], () => fetchHistory(cancelledUrl, token));
 
 
     // For each of the options in the select replace their respective table with it..
 
-    console.log(allHistor)
-    console.log(cancelledHistor)
-    // console.log(ongoingHistor)
-    // console.log(completedHistor)
 
-    const allHistory = []
-    const completedHistory = []
-    const ongoingHistory = []
-    const cancelledHistory = []
+
+
 
 
     let content = []
@@ -56,16 +52,16 @@ const BidderHistory = () => {
         content = allHistory?.map(data => {
             return (
                 <tr>
-                    <td>{data.tenderId}</td>
+                    <td>{data.tender_id}</td>
                     <td>
-                        {data.hasDoc && <img className='pdfTable' src={pdf} alt='pdf' />}
+                        {data.upload_document && <img className='pdfTable' src={pdf} alt='pdf' />}
                     </td>
-                    <td>{data.company}</td>
+                    <td>{data.name_of_company}</td>
                     <td>{data.ethVal}</td>
-                    <td  >{data.reason} {
-                        (data.reason === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
-                        || data.reason === 'Rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
-                        || (data.reason === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    <td  >{data.status} {
+                        (data.status === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data.status === 'ongoing' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data.status === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
                     }</td>
                 </tr>
 
@@ -78,16 +74,16 @@ const BidderHistory = () => {
         content = completedHistory?.map(data => {
             return (
                 <tr>
-                    <td>{data.tenderId}</td>
+                    <td>{data.tender_id}</td>
                     <td>
-                        {data.hasDoc && <img className='pdfTable' src={pdf} alt='pdf' />}
+                        {data.upload_document && <img className='pdfTable' src={pdf} alt='pdf' />}
                     </td>
-                    <td>{data.company}</td>
+                    <td>{data.name_of_company}</td>
                     <td>{data.ethVal}</td>
-                    <td  >{data.reason} {
-                        (data.reason === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
-                        || data.reason === 'Rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
-                        || (data.reason === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    <td  >{data.status} {
+                        (data.status === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data.status === 'ongoing' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data.status === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
                     }</td>
                 </tr>
 
@@ -99,16 +95,37 @@ const BidderHistory = () => {
         content = cancelledHistory.map(data => {
             return (
                 <tr>
-                    <td>{data.tenderId}</td>
+                    <td>{data.tender_id}</td>
                     <td>
-                        {data.hasDoc && <img className='pdfTable' src={pdf} alt='pdf' />}
+                        {data.upload_document && <img className='pdfTable' src={pdf} alt='pdf' />}
                     </td>
-                    <td>{data.company}</td>
+                    <td>{data.name_of_company}</td>
                     <td>{data.ethVal}</td>
-                    <td  >{data.reason} {
-                        (data.reason === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
-                        || data.reason === 'Rejected' && (<img className='tableDataImg ' src={cancel} alt='can' />)
-                        || (data.reason === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    <td  >{data.status} {
+                        (data.status === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data.status === 'ongoing' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data.status === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
+                    }</td>
+                </tr>
+
+            )
+        })
+    }
+
+    if (option === 'ongoing') {
+        content = ongoingHistory.map(data => {
+            return (
+                <tr>
+                    <td>{data.tender_id}</td>
+                    <td>
+                        {data.upload_document && <img className='pdfTable' src={pdf} alt='pdf' />}
+                    </td>
+                    <td>{data.name_of_company}</td>
+                    <td>{data.ethVal}</td>
+                    <td  >{data.status} {
+                        (data.status === 'Completed' && <img className='tableDataImg' src={checked} alt='pdf' />)
+                        || data.status === 'ongoing' && (<img className='tableDataImg ' src={cancel} alt='can' />)
+                        || (data.status === 'Cancelled' && <img className='tableDataImg ' src={multiplication} alt='can' />)
                     }</td>
                 </tr>
 
@@ -128,7 +145,7 @@ const BidderHistory = () => {
                         onChange={(event) => setOption(event.target.value)}
                         value={option}
                     >
-                        <option value='all' >Search Filters</option>
+                        <option value='all' >All</option>
                         <option value='cancelled' >Cancelled </option>
                         <option value='ongoing'>On-Going</option>
                         <option value='completed'>Completed </option>
