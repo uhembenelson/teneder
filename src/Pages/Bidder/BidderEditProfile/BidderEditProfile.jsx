@@ -410,7 +410,8 @@ const BidderEditProfile = () => {
 
                                 <label>GST Number</label>
                             </div>
-                            <input {...register('contact_number')} className='inputTypeInput' />
+
+                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='number' {...register('contact_number')} />
                         </div>
                     </div>
                     <div className='companyBox' >
