@@ -95,6 +95,8 @@ const SignUp = () => {
         regFormData.append('aadhar_card', AadharCard)
         regFormData.append('pan_card', panCard)
 
+
+
         if (!file || !panCard || !AadharCard) {
             return
         }
