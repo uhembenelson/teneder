@@ -423,7 +423,7 @@ const EditProfile = () => {
 
                                 <label>Contact Info</label>
                             </div>
-                            <input className='inputTypeInput' type='number' {...register('contact_number')} />
+                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='number' {...register('contact_number')} />
                         </div>
                     </div>
                     <div className='companyBox' >

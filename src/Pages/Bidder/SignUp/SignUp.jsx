@@ -330,15 +330,8 @@ const SignUp = () => {
                                 <span>*</span>
                                 <label>GST Number</label>
                             </div>
-                            {/*<PhoneInput
-                                placeholder="Enter phone number"
-                                value={contact_number}
-                                defaultCountry="IN"
-                                style={{ border: 'none', outline: 'none' }}
-                                onChange={setContactNumber}
-                                {...register('contact_number')}
-                                />*/}
-                            <input placeholder="Enter GST Number" className='inputTypeInput' type='number' {...register('contact_number')} />
+
+                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='number' {...register('contact_number')} />
 
                         </div>
                         <div style={{ borderColor: errors?.job_title?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
