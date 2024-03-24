@@ -408,7 +408,7 @@ const BidderEditProfile = () => {
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
-                                <label>Contact Info</label>
+                                <label>GST Number</label>
                             </div>
                             <input {...register('contact_number')} className='inputTypeInput' />
                         </div>

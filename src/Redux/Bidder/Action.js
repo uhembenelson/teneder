@@ -13,3 +13,8 @@ export const getTenderInfo = (data) => ({
 export const logoutBidder = () => ({
     type: bidderActionTypes.BIDDER_LOGOUT
 })
+
+export const selectTender = (data) => ({
+    type: bidderActionTypes.SELECT_TENDER,
+    payload: data
+})

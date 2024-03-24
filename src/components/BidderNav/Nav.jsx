@@ -1,5 +1,5 @@
 import './nav.css';
-import logo from '../../assets/Bidder_logo.jpg';
+import logo from '../../assets/logo2.png';
 import bell from '../../assets/Doorbell.png';
 import vector from '../../assets/Vector.png';
 import profile from '../../assets/PROFILE.png'

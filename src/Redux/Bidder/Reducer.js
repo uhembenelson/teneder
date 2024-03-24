@@ -3,7 +3,8 @@ import { bidderActionTypes } from "./ActionTypes"
 const initialState = {
     user: {},
     isLoggedIn: false,
-    tenderInfo: {}
+    tenderInfo: {},
+    selectedInfo: {}
 
 }
 
@@ -17,6 +18,11 @@ const bidderReducer = (state = initialState, action) => {
             return {
                 ...state, tenderInfo: action.payload
             }
+        case bidderActionTypes.SELECT_TENDER:
+            return {
+                ...state, selectedInfo: action.payload
+            }
+
 
         // case actionTypes.ORGANIZATION_LOGOUT:
         //     return initialState

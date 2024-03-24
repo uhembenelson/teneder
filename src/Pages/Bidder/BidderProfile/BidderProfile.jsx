@@ -134,7 +134,7 @@ const BidderProfile = () => {
                             <div className='profileDetailsContainer' >
                                 <p><span>First Name :</span><span> {userDetails?.first_name}</span></p>
                                 <p><span>Last Name :</span><span> {userDetails?.last_name}</span></p>
-                                <p><span>Contact Number :</span><span> {userDetails?.contact_number}</span></p>
+                                <p><span>GST Number :</span><span> {userDetails?.contact_number}</span></p>
                                 <p><span>Job Title  :</span><span> {userDetails?.job_title}</span></p>
                                 <p><span>Email :</span><span> {userDetails?.email}</span></p>
                             </div>

@@ -54,7 +54,6 @@ const Login = () => {
             })
             setIsLoading(false)
             const data = await res.json();
-            console.log(data)
 
             if (res.status === 200) {
                 toast.success('Successful', {
@@ -113,8 +112,8 @@ const Login = () => {
 
                             <input {...register('password')} className='loginInput' type={showPassword ? 'text' : 'password'} />
                         </div>
-                        {showPassword ? <span className='loginSpan' onClick={togglePassword} >HIDE</span> :
-                            <span className='loginSpan' onClick={togglePassword} >SHOW</span>}
+                        {showPassword ? <span className='loginSpan' onClick={togglePassword} ><i className="ri-eye-off-fill"></i></span> :
+                            <span className='loginSpan' onClick={togglePassword} ><i className="ri-eye-fill"></i></span>}
 
                     </div>
                     <div className='loginInputContainer loginBtnBox' >

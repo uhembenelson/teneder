@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import externalLink from '../../../assets/External Link.png'
-import { selectTender } from '../../../Redux/Organization/Action';
+import { selectTender } from '../../../Redux/Bidder/Action';
 import sad from '../../../assets/Sad.png'
 
 const EvaluateTenderCard = ({ data, user }) => {

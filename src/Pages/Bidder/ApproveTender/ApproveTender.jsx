@@ -190,13 +190,13 @@ function ApproveTender() {
                                                         {tender?.state}
                                                     </span>
 
-                                                    <span>
+                                                    {/*<span>
                                                         <img
                                                             src={flag}
                                                             alt='flag'
                                                         />
                                                         India
-                                                    </span>
+                                                    </span>*/}
                                                 </div>
                                             </td>
                                             <td>{tender?.type_of_tender}</td>
