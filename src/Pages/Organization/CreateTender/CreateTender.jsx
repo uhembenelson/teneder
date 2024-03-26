@@ -76,6 +76,8 @@ const CreateTender = () => {
 
     const formData = new FormData();
 
+    console.log(type_of_tender)
+
     const createTender = async () => {
 
 

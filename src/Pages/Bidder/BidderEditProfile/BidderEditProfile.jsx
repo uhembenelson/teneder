@@ -136,24 +136,6 @@ const BidderEditProfile = () => {
     });
 
 
-    // Get user profile picture
-    // const fetchProfilePicture = async (url, token) => {
-    //     const headers = new Headers();
-
-    //     if (token) {
-    //         headers.append('Authorization', `${token}`);
-    //     }
-
-    //     const response = await fetch(url, { headers });
-    //     const data = await response.json();
-    //     return data;
-
-
-    // };
-
-    // const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/bidder/${9bf00ee4}`
-    // const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
-
 
     const updateProfile = async () => {
         const info = getValues()
