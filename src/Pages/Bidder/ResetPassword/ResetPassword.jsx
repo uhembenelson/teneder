@@ -124,8 +124,8 @@ const ResetPassword = () => {
 
                                 <input {...register('password')} placeholder='8 symbls at least' className='loginInput' type={showPassword ? 'text' : 'password'} />
                             </div>
-                            {showPassword ? <span className='loginSpan' onClick={togglePassword} >HIDE</span> :
-                                <span className='loginSpan' onClick={togglePassword} >SHOW</span>}
+                            {showPassword ? <span className='loginSpan' onClick={togglePassword} ><i className="ri-eye-off-fill"></i></span> :
+                                <span className='loginSpan' onClick={togglePassword} ><i className="ri-eye-fill"></i></span>}
 
                         </div>
                     </div>
@@ -140,8 +140,8 @@ const ResetPassword = () => {
 
                                 <input {...register('confirm_password')} placeholder='8 symbls at least' className='loginInput' type={showConPassword ? 'text' : 'password'} />
                             </div>
-                            {showConPassword ? <span className='loginSpan' onClick={toggleConPassword} >HIDE</span> :
-                                <span className='loginSpan' onClick={toggleConPassword} >SHOW</span>}
+                            {showPassword ? <span className='loginSpan' onClick={toggleConPassword} ><i className="ri-eye-off-fill"></i></span> :
+                                <span className='loginSpan' onClick={toggleConPassword} ><i className="ri-eye-fill"></i></span>}
 
                         </div>
                     </div>

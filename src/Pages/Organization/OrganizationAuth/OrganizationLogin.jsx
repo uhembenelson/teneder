@@ -134,8 +134,8 @@ const OrganizationLogin = () => {
 
                             <input className='loginInput' type={showPassword ? 'text' : 'password'} {...register('password')} />
                         </div>
-                        {showPassword ? <span className='loginSpan' onClick={togglePassword} >HIDE</span> :
-                            <span className='loginSpan' onClick={togglePassword} >SHOW</span>}
+                        {showPassword ? <span className='loginSpan' onClick={togglePassword} ><i className="ri-eye-off-fill"></i></span> :
+                            <span className='loginSpan' onClick={togglePassword} ><i className="ri-eye-fill"></i></span>}
 
                     </div>
                     <p className='errorMsg' >{errors?.password?.message}</p>
