@@ -5,10 +5,7 @@ import UploadFile from '../../../components/UploadFile/UploadFile'
 import CustomBtn from '../../../components/CustomBtn/CustomBtn'
 import './EditProfile.css'
 import { useSelector, useDispatch } from 'react-redux'
-import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import useSWR from 'swr'
 import { setOrganizationProfilePicture } from '../../../Redux/Organization/Action'
@@ -17,47 +14,56 @@ const EditProfile = () => {
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.organization.user)
-    const organizationProfilePicture = useSelector(state => state.organization.organizationProfilePicture)
 
+    const [userDetails, setUserDetails] = useState(user)
 
     const { token, organization_id } = user
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const [contact_number, setContactNumber] = useState()
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
     const [panCard, setPanCard] = useState(null)
 
-    const [picture, setPicture] = useState(null)
-
-    const schema = yup.object().shape({
-        // name_of_organization: yup.string().required('Company name is required'),
-        // organization_website: yup.string().required('organization_website is required'),
-        // address_one: yup.string().required('Address one is required'),
-        // state: yup.string().required('State is required'),
-        // city: yup.string().required('City is required'),
-        // first_name: yup.string().required('First Name is required'),
-        // last_name: yup.string().required('Last Name is required'),
-        // postal_code: yup.string().required('Postal Code is required'),
-        // checked: yup.string().required(),
-        // job_title: yup.string().required(),
-        // email: yup.string().email().required('Email is required'),
-        // confirm_email: yup.string().email().oneOf([yup.ref('email'), null]).required('Email is required'),
-        // registration_number: yup.string().required('Registration number is required'),
-        // public_address: yup.string().required('Public Address is required'),
-        // wallet_address: yup.string().required('Wallet Address is required'),
-        // password: yup.string().min(5).required('Password must be greater than 6 characters'),
-        // confirm_password: yup.string().oneOf([yup.ref('password'), null]).min(5).required('Password do not match'),
-
-    })
 
     const [profilePicture, setProfilePicture] = useState(null)
 
 
-    const [companyType, setCompanyType] = useState('Private')
-    const [no_of_employees, setNo_of_employees] = useState(2)
+    const [organization_type, setOrganizationType] = useState(userDetails?.organization_type)
+    const [no_of_employees, setNo_of_employees] = useState(userDetails?.no_of_employees)
     const [states, setStates] = useState([])
+
+    const fetchOrgDetails = async (url, token) => {
+        const headers = new Headers();
+
+        if (token) {
+            headers.append('Authorization', `${token}`);
+        }
+
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        setUserDetails(data)
+
+        return data;
+
+    };
+
+    useEffect(() => {
+        fetch('https://countriesnow.space/api/v0.1/countries/')
+            .then(res => res.json()).
+            then(data => setStates(data.data))
+    }, [])
+
+    // get profile picture
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => setProfilePicture(data))
+    }, [organization_id, token])
 
 
     const {
@@ -67,7 +73,7 @@ const EditProfile = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+
         criteriaMode: "all",
         reValidateMode: "onSubmit",
         mode: "onChange",
@@ -84,17 +90,8 @@ const EditProfile = () => {
         }).then(res => res.json()).then(data => setStates(data?.data?.states))
     }, [])
 
-    // get profile picture
 
-    useEffect(() => {
-        fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `${token}`,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json()).then(data => setProfilePicture(data))
-    }, [profilePicture])
+
 
 
     // Update profile picture
@@ -135,36 +132,20 @@ const EditProfile = () => {
                 }).then(res => res.json()).then(data => setProfilePicture(data))
             }
 
-
-
-
         }
     };
 
-    // Get user profile picture
-    // const fetchProfilePicture = async (url, token) => {
-    //     const headers = new Headers();
 
-    //     if (token) {
-    //         headers.append('Authorization', `${token}`);
-    //     }
+    const url = `https://school-project-production-459d.up.railway.app/v1/auth/view/organization/${organization_id}`
 
-    //     const response = await fetch(url, { headers });
-    //     const data = await response.json();
-    //     return data;
-
-
-    // };
-
-    // const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`
-    // const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
-
+    const { data } = useSWR([url, token], () => fetchOrgDetails(url, token));
 
 
     // Update the user profile
     const updateUser = async () => {
         const info = getValues()
-
+        info.no_of_employees = no_of_employees
+        info.organization_type = organization_type
 
 
         // const regFormData = new FormData();
@@ -204,7 +185,7 @@ const EditProfile = () => {
                 },
                 body: JSON.stringify(info)
             })
-            const data = res.json()
+            const data = await res.json()
             console.log(data)
             setIsLoading(false)
 
@@ -216,6 +197,14 @@ const EditProfile = () => {
 
                 });
 
+            }
+            else {
+                toast.error('Something went wrong', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
             }
         }
         catch (err) {
@@ -231,28 +220,28 @@ const EditProfile = () => {
 
     // Set the default values to the data in localStorage
     useEffect(() => {
-        setValue('name_of_organization', user?.name_of_organization)
-        setValue('organization_type', user?.organization_type)
-        setValue('registration_number', user?.registration_number)
-        setValue('no_of_employees', user?.no_of_employees)
-        setValue('address_one', user?.address_one)
-        setValue('address_two', user?.address_two)
-        setValue('address_three', user?.address_three)
-        setValue('organization_website', user?.organization_website)
-        setValue('postal_code', user?.postal_code)
-        setValue('state', user?.state)
-        setValue('city', user?.city)
-        setValue('public_address', user?.public_address)
-        setValue('first_name', user?.first_name)
-        setValue('last_name', user?.last_name)
-        setValue('email', user?.email)
-        // setValue('confirm_email', user?.email)
+        setValue('name_of_organization', userDetails?.name_of_organization)
+        setValue('organization_type', userDetails?.organization_type)
+        setValue('registration_number', userDetails?.registration_number)
+        setValue('no_of_employees', userDetails?.no_of_employees)
+        setValue('address_one', userDetails?.address_one)
+        setValue('address_two', userDetails?.address_two)
+        setValue('address_three', userDetails?.address_three)
+        setValue('organization_website', userDetails?.organization_website)
+        setValue('postal_code', userDetails?.postal_code)
+        setValue('state', userDetails?.state)
+        setValue('city', userDetails?.city)
+        setValue('public_address', userDetails?.public_address)
+        setValue('first_name', userDetails?.first_name)
+        setValue('last_name', userDetails?.last_name)
+        setValue('email', userDetails?.email)
+        // setValue('confirm_email', userDetails?.email)
         // setValue('password', 'admin')
         // setValue('confirm_password', 'admin')
-        setValue('job_title', user?.job_title)
-        setValue('contact_number', user?.contact_number)
-        setValue('wallet_address', user?.wallet_address)
-    }, [setValue, user])
+        setValue('job_title', userDetails?.job_title)
+        setValue('contact_number', userDetails?.contact_number)
+        setValue('wallet_address', userDetails?.wallet_address)
+    }, [setValue, userDetails])
 
 
 
@@ -278,7 +267,7 @@ const EditProfile = () => {
                             />
                         </div>
 
-                        <p className='editProfileName' >Organization name</p>
+                        <p className='editProfileName' >{userDetails?.name_of_organization}</p>
                         <p className='editProfileName'>Organization Tag</p>
                     </div>
                 </div>
@@ -289,7 +278,7 @@ const EditProfile = () => {
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
-                                <label>Name of Organization</label>
+                                <label>{userDetails?.name_of_organization}</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('name_of_organization')} />
                         </div>
@@ -299,10 +288,10 @@ const EditProfile = () => {
                                 <label>Organization Type</label>
                             </div>
                             <select className='inputTypeSelect'
-                                onChange={(event) => setCompanyType(event.target.value)}
-                                value={companyType}>
+                                onChange={(event) => setOrganizationType(event.target.value)}
+                                value={organization_type}>
                                 <option value='Private' >Private</option>
-                                <option value='Public' >Government</option>
+                                <option value='Government' >Government</option>
                             </select>
                         </div>
                     </div>
@@ -324,11 +313,11 @@ const EditProfile = () => {
                                 onChange={e => setNo_of_employees(e.target.value)}
                                 value={no_of_employees}
                             >
-                                <option value='1' >1</option>
-                                <option value='5'>5</option>
-                                <option value='10'>10</option>
-                                <option value='20'>20</option>
+                                <option value='20' >20</option>
                                 <option value='50'>50</option>
+                                <option value='100'>100</option>
+                                <option value='500'>500</option>
+                                <option value='1000'>1000</option>
                             </select>
                         </div>
                     </div>
@@ -380,14 +369,14 @@ const EditProfile = () => {
 
                                 <label>Public Address</label>
                             </div>
-                            <input className='inputTypeInput' type='text' {...register('public_address')} />
+                            <input className='inputTypeInput' type='text' maxLength={16} {...register('public_address')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
                                 <label> Wallet Address</label>
                             </div>
-                            <input className='inputTypeInput' type='text' {...register('wallet_address')} />
+                            <input className='inputTypeInput' type='text' maxLength={16} {...register('wallet_address')} />
 
                         </div>
                     </div>
@@ -421,9 +410,9 @@ const EditProfile = () => {
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
-                                <label>Contact Info</label>
+                                <label>GST Number</label>
                             </div>
-                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='number' {...register('contact_number')} />
+                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text'{...register('contact_number')} />
                         </div>
                     </div>
                     <div className='companyBox' >

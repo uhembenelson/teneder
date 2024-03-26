@@ -30,7 +30,7 @@ const OrganizationNotification = () => {
 
 
     const { data } = useSWR([url, token], () => fetchNotification(url, token));
-
+    console.log(typeof (data))
 
 
 
@@ -43,17 +43,26 @@ const OrganizationNotification = () => {
 
 
 
-    // if (typeof(data) === String) {
-    //     content = <p style={{ textAlign: 'center' }} >No new notifications</p>
-    // }
+    if (typeof (data) === 'string') {
+        content = <p style={{ textAlign: 'center' }} >No new notifications</p>
+    }
 
-    // else {
-    //     content = data?.map(notification => {
-    //         return (
-    //             <Notification key={notification.notification_id} notification={notification} />
-    //         )
-    //     })
-    // }
+    else if (typeof (data) === 'object') {
+        content = data?.map(notification => {
+            return (
+                <Notification key={notification.notification_id} notification={notification} />
+            )
+        })
+    }
+
+    let noOFNotifications = 0
+
+    if (typeof (data) === 'string') {
+        noOFNotifications = 0
+    }
+    else if (typeof (data) === 'object') {
+        noOFNotifications = data?.length
+    }
 
 
 
@@ -77,7 +86,7 @@ const OrganizationNotification = () => {
                 </div>
                 <div className='mark' >
                     <div className='markAll'>
-                        <p >{data?.length} notifications</p>
+                        <p >{noOFNotifications} notifications</p>
 
                     </div>
                     <p className='markAsRead' >Clear notifications</p>

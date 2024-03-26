@@ -1,5 +1,5 @@
 import './OrganizationNav.css';
-import logo from '../../assets/SYMBOL.png';
+import logo from '../../assets/orgLogo.png';
 import bell from '../../assets/Doorbell.png';
 import vector from '../../assets/Vector.png';
 import userImage from '../../assets/Male User.png';
@@ -16,6 +16,8 @@ function CompanyNav() {
     const user = useSelector(state => state.organization.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const orgName = user?.name_of_organization[0]
 
 
     const [isNavOpen, setIsNavOpen] = useState(false)
@@ -82,7 +84,7 @@ function CompanyNav() {
                         />
                     </li>
                     <li className='popUpContainer' >
-                        grp-cp09
+                        {user?.first_name}
                         <img
                             src={userImage}
                             alt='user'
@@ -97,7 +99,7 @@ function CompanyNav() {
                                     <img src={profile} alt='' />
                                     <div className='navPopUpDetails' >
                                         <div className='navPopNameType'>
-                                            <p className='navPopUpName'>GRP-CP09</p>
+                                            <p className='navPopUpName'>{user?.first_name}</p>
                                             <p className='navPopUpDept'>{user?.roles}</p>
                                         </div>
                                         <p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>
@@ -175,7 +177,7 @@ function CompanyNav() {
                             />
                         </li>
                         <li className='popUpContainer' >
-                            grp-cp09
+                            {user?.first_name}
                             <img
                                 src={userImage}
                                 alt='user'
@@ -190,7 +192,7 @@ function CompanyNav() {
                                         <img src={profile} alt='' />
                                         <div className='navPopUpDetails' >
                                             <div className='navPopNameType'>
-                                                <p className='navPopUpName'>GRP-CP09</p>
+                                                <p className='navPopUpName'>{user?.first_name}</p>
                                                 <p className='navPopUpDept'>{user?.roles}</p>
                                             </div>
                                             <p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>

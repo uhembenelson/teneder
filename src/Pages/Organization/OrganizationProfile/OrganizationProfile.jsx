@@ -13,16 +13,20 @@ import useSWR from 'swr'
 
 const OrganizationProfile = () => {
 
+    const [profilePicture, setProfilePicture] = useState(null)
+
     const [panCardLink, setPanCardLink] = useState('')
     const [registrationCertLink, setRegCertLink] = useState('')
     const [aadharCardLink, setAadharCardLink] = useState('')
 
     const user = useSelector(state => state.organization.user)
 
+    const [userDetails, setUserDetails] = useState(user)
+
     const { token, organization_id } = user
 
-    // Get user profile picture
-    const fetchProfilePicture = async (url, token) => {
+
+    const fetchBidderDetails = async (url, token) => {
         const headers = new Headers();
 
         if (token) {
@@ -31,13 +35,17 @@ const OrganizationProfile = () => {
 
         const response = await fetch(url, { headers });
         const data = await response.json();
+        setUserDetails(data)
         return data;
-
 
     };
 
-    const url = `https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`
-    const { data } = useSWR([url, token], () => fetchProfilePicture(url, token));
+
+
+
+    const url = `https://school-project-production-459d.up.railway.app/v1/auth/view/organization/${organization_id}`
+
+    const { data } = useSWR([url, token], () => fetchBidderDetails(url, token));
 
     const {
         setValue,
@@ -56,23 +64,35 @@ const OrganizationProfile = () => {
             .then(res => setAadharCardLink(res.url))
         fetch(`https://school-project-production-459d.up.railway.app/v3/download/${user?.registration_certificate}`)
             .then(res => setRegCertLink(res.url))
-    }, [setPanCardLink, setRegCertLink, setAadharCardLink])
+    }, [setPanCardLink, setRegCertLink, setAadharCardLink, user?.pan_card, user?.aadhar_card, user?.registration_certificate])
 
 
     useEffect(() => {
-        setValue('name_of_organization', user?.name_of_organization)
-        setValue('organization_type', user?.organization_type)
-        setValue('registration_number', user?.registration_number)
-        setValue('no_of_employees', user?.no_of_employees)
-        setValue('address_one', user?.address_one)
-        setValue('organization_website', user?.organization_website)
-        setValue('postal_code', user?.postal_code)
-        setValue('state', user?.state)
-        setValue('public_address', user?.public_address)
-        setValue('wallet_address', user?.wallet_address)
-    }, [setValue, user])
+        setValue('name_of_organization', userDetails?.name_of_organization)
+        setValue('organization_type', userDetails?.organization_type)
+        setValue('registration_number', userDetails?.registration_number)
+        setValue('no_of_employees', userDetails?.no_of_employees)
+        setValue('address_one', userDetails?.address_one)
+        setValue('organization_website', userDetails?.organization_website)
+        setValue('postal_code', userDetails?.postal_code)
+        setValue('state', userDetails?.state)
+        setValue('public_address', userDetails?.public_address)
+        setValue('wallet_address', userDetails?.wallet_address)
+    }, [setValue, userDetails])
 
     const navigate = useNavigate()
+
+    // Get profile picture
+
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v15/profile/picture/organization/${organization_id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => setProfilePicture(data))
+    }, [profilePicture])
 
     const starArray = [0, 1, 2, 3, 4]
     return (
@@ -93,11 +113,11 @@ const OrganizationProfile = () => {
                         <div className='profileBox' >
                             <div className='bidderProfileLeft' >
                                 <div className='bidderProfileInfoContainer'>
-                                    <h2 className='profileUsername' >{user?.name_of_organization}</h2>
+                                    <h2 className='profileUsername' >{userDetails?.name_of_organization}</h2>
                                     <p className='profileUserwork' >Promise for the future</p>
 
 
-                                    {data ? <Avatar className='avatarImage' sx={{ height: "12rem", width: "12rem" }} src={data?.slice(-1).pop()?.imageUrl} /> :
+                                    {profilePicture ? <Avatar className='avatarImage' sx={{ height: "12rem", width: "12rem" }} src={profilePicture?.slice(-1).pop()?.imageUrl} /> :
                                         <Avatar className='avatarImage' sx={{ height: "12rem", width: "12rem" }} />}
 
                                     <div className='starContainer profileRatingContainer ' >
@@ -115,11 +135,11 @@ const OrganizationProfile = () => {
 
                                 </div>
                                 <div className='profileDetailsContainer' >
-                                    <p><span>First Name :</span><span>{user?.first_name}</span></p>
-                                    <p><span>Last Name :</span><span>{user?.last_name}</span></p>
-                                    <p><span>Contact Number :</span><span>{user?.contact_number}</span></p>
-                                    <p><span>Job Title  :</span><span></span>{user?.job_title}</p>
-                                    <p><span>Email :</span><span>{user?.email}</span></p>
+                                    <p><span>First Name :</span><span>{userDetails?.first_name}</span></p>
+                                    <p><span>Last Name :</span><span>{userDetails?.last_name}</span></p>
+                                    <p><span>Contact Number :</span><span>{userDetails?.contact_number}</span></p>
+                                    <p><span>Job Title  :</span><span></span>{userDetails?.job_title}</p>
+                                    <p><span>Email :</span><span>{userDetails?.email}</span></p>
                                 </div>
                             </div>
                             <div className='bidderProfileRight' >

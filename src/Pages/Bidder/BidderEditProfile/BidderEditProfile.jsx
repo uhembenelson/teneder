@@ -59,7 +59,7 @@ const BidderEditProfile = () => {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(data => setProfilePicture(data))
-    }, [])
+    }, [token, bidder_id])
 
     // Update profile picture
     const pictureData = new FormData()
@@ -119,8 +119,8 @@ const BidderEditProfile = () => {
     const [AadharCard, setAadharCard] = useState(data?.aadhar_card)
     const [panCard, setPanCard] = useState(data?.pan_card)
 
-    const [companyType, setCompanyType] = useState('Private')
-    const [no_of_employees, setNo_of_employees] = useState(20)
+    const [companyType, setCompanyType] = useState(userDetails?.company_type)
+    const [no_of_employees, setNo_of_employees] = useState(userDetails?.no_of_employees)
 
     const {
         getValues,
@@ -258,7 +258,7 @@ const BidderEditProfile = () => {
                         </div>
 
                         <p className='editProfileName' >{`${userDetails?.first_name} ${userDetails?.last_name}`}</p>
-                        <p className='editProfileName'>{user?.name_of_company}</p>
+                        <p className='editProfileName'>{userDetails?.name_of_company}</p>
                     </div>
                 </div>
                 <h2 className='editProfileInfo' >COMPANY INFO</h2>
@@ -281,7 +281,7 @@ const BidderEditProfile = () => {
                                 onChange={(event) => setCompanyType(event.target.value)}
                                 value={companyType}>
                                 <option value='Private' >Private</option>
-                                <option value='Public' >Government</option>
+                                <option value='Government' >Government</option>
                             </select>
                         </div>
                     </div>

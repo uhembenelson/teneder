@@ -6,13 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import './SignUp.css'
 import { Link, useNavigate } from 'react-router-dom'
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 import UploadFile from '../../../components/UploadFile/UploadFile'
 import BidderHomeNavBar from '../../../components/BidderHomeNavBar/BidderHomeNavBar'
 import { CircularProgress } from '@mui/material';
 
 const SignUp = () => {
-    const [contact_number, setContactNumber] = useState(null)
+
     const [isLoading, setIsLoading] = useState(false)
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
@@ -26,8 +25,9 @@ const SignUp = () => {
         first_name: yup.string().required('First Name is required'),
         last_name: yup.string().required('Last Name is required'),
         postal_code: yup.string().required('Postal Code is required'),
-        checked: yup.string().required(),
+        // checked: yup.string().required(),
         job_title: yup.string().required(),
+        contact_number: yup.string().required(),
         email: yup.string().email().required('Email is required'),
         confirm_email: yup.string().email().oneOf([yup.ref('email'), null]).required('Email is required'),
         registration_number: yup.string().required('Registration number is required'),
@@ -410,7 +410,7 @@ const SignUp = () => {
                     </div>
                     <div>
                         <div className='typeInput' >
-                            <input type='checkbox' {...register('checked')} />
+                            <input type='checkbox' />
                             <span>*</span>
                             <label>I have read and agreed to <span id='termsOfUse' >Terms of Use</span>and <span id='termsOfUse' >Privacy Policy</span></label>
                         </div>
