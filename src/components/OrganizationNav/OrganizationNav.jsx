@@ -17,7 +17,21 @@ function CompanyNav() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const orgName = user?.name_of_organization[0]
+    const { token, organization_id } = user
+    const [userDetails, setUserDetails] = useState(user)
+
+    useEffect(() => {
+        fetch(`https://school-project-production-459d.up.railway.app/v1/auth/view/organization/${organization_id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => setUserDetails(data))
+    }, [userDetails])
+
+
+    // const orgName = user?.name_of_organization[0]
 
 
     const [isNavOpen, setIsNavOpen] = useState(false)
@@ -84,7 +98,7 @@ function CompanyNav() {
                         />
                     </li>
                     <li className='popUpContainer' >
-                        {user?.first_name}
+                        {userDetails?.first_name}
                         <img
                             src={userImage}
                             alt='user'
@@ -99,7 +113,7 @@ function CompanyNav() {
                                     <img src={profile} alt='' />
                                     <div className='navPopUpDetails' >
                                         <div className='navPopNameType'>
-                                            <p className='navPopUpName'>{user?.first_name}</p>
+                                            <p className='navPopUpName'>{userDetails?.first_name}</p>
                                             <p className='navPopUpDept'>{user?.roles}</p>
                                         </div>
                                         <p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>
@@ -177,7 +191,7 @@ function CompanyNav() {
                             />
                         </li>
                         <li className='popUpContainer' >
-                            {user?.first_name}
+                            {userDetails?.first_name}
                             <img
                                 src={userImage}
                                 alt='user'
@@ -192,7 +206,7 @@ function CompanyNav() {
                                         <img src={profile} alt='' />
                                         <div className='navPopUpDetails' >
                                             <div className='navPopNameType'>
-                                                <p className='navPopUpName'>{user?.first_name}</p>
+                                                <p className='navPopUpName'>{userDetails?.first_name}</p>
                                                 <p className='navPopUpDept'>{user?.roles}</p>
                                             </div>
                                             <p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>

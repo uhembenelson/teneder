@@ -9,7 +9,7 @@ import copyright from '../../assets/copyright.png'
 
 const Footer = () => {
     return (
-        <div className='footerContainer' >
+        <div className='footerContainer' id='footer' >
             <div className='footerBox'>
                 <img className='footerLogo' src={logo} alt='logo' />
                 <div className='footerBody'>

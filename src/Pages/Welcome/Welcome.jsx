@@ -7,14 +7,15 @@ import Footer from '../../components/Footer/Footer';
 import MainNav from '../../components/MainNav/MainNav';
 import LoginMode from '../../components/LoginMode/LoginMode';
 import SignUpMode from '../../components/SignUpMode/SignUpMode';
-
+import SubscribePopUp from '../../components/SubscribePopUp/SubscribePopUp';
+import './Welcome.css'
 import ProceedTable from '../../components/tables/proceedTable/ProceedTable';
 
 const Welcome = () => {
 	const [showLoginModal, setShowLoginModal] = useState(false);
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	return (
-		<div>
+		<div >
 			<MainNav
 				setShowLoginModal={setShowLoginModal}
 				setShowSignUpModal={setShowSignUpModal}
@@ -23,6 +24,7 @@ const Welcome = () => {
 			{showSignUpModal && (
 				<SignUpMode setShowSignUpModal={setShowSignUpModal} />
 			)}
+			{/*<SubscribePopUp />*/}
 			<HeroSection
 				setShowLoginModal={setShowLoginModal} />
 			<WhyUs />

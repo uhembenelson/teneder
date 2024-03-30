@@ -17,8 +17,12 @@ function BidderNav() {
 
 	const dispatch = useDispatch()
 
+	const { token, bidder_id } = user
+
 
 	const [isNavOpen, setIsNavOpen] = useState(false)
+
+	const [userDetails, setUserDetails] = useState(user)
 
 	const toggleNavIcon = () => {
 		setIsNavOpen(prev => !prev)
@@ -52,6 +56,16 @@ function BidderNav() {
 
 	}, [timeOut]);
 
+	useEffect(() => {
+		fetch(`https://school-project-production-459d.up.railway.app/v2/auth/view/bidder/${bidder_id}`, {
+			method: 'GET',
+			headers: {
+				'Authorization': `${token}`,
+				'Content-Type': 'application/json'
+			}
+		}).then(res => res.json()).then(data => setUserDetails(data))
+	}, [userDetails])
+
 
 
 	const navigate = useNavigate()
@@ -83,7 +97,7 @@ function BidderNav() {
 						/>
 					</li>
 					<li className='popUpContainer'>
-						{user?.first_name}
+						{userDetails?.first_name}
 						<img
 							src={userImg}
 							alt='user'
@@ -98,7 +112,7 @@ function BidderNav() {
 									<img src={profile} alt='' />
 									<div className='navPopUpDetails' >
 										<div className='navPopNameType'>
-											<p className='navPopUpName'>{user?.first_name}</p>
+											<p className='navPopUpName'>{userDetails?.first_name}</p>
 											<p className='navPopUpDept'>Company</p>
 										</div>
 										<p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>
@@ -175,7 +189,7 @@ function BidderNav() {
 								/>
 							</li>
 							<li className='popUpContainer'>
-								{user?.first_name}
+								{userDetails?.first_name}
 								<img
 									src={userImg}
 									alt='user'
@@ -190,7 +204,7 @@ function BidderNav() {
 											<img src={profile} alt='' />
 											<div className='navPopUpDetails' >
 												<div className='navPopNameType'>
-													<p className='navPopUpName'>{user?.first_name}</p>
+													<p className='navPopUpName'>{userDetails?.first_name}</p>
 													<p className='navPopUpDept'>Company</p>
 												</div>
 												<p style={{ fontSize: '0.5rem' }} className='navPopUpEmail'>{user?.email}</p>

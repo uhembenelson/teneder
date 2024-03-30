@@ -26,12 +26,14 @@ const EditProfile = () => {
     const [panCard, setPanCard] = useState(null)
 
 
+
+
     const [profilePicture, setProfilePicture] = useState(null)
 
 
     const [organization_type, setOrganizationType] = useState(userDetails?.organization_type)
     const [no_of_employees, setNo_of_employees] = useState(userDetails?.no_of_employees)
-    const [states, setStates] = useState([])
+    const [states, setCountries] = useState([])
 
     const fetchOrgDetails = async (url, token) => {
         const headers = new Headers();
@@ -51,8 +53,9 @@ const EditProfile = () => {
     useEffect(() => {
         fetch('https://countriesnow.space/api/v0.1/countries/')
             .then(res => res.json()).
-            then(data => setStates(data.data))
+            then(data => setCountries(data.data))
     }, [])
+
 
     // get profile picture
     useEffect(() => {
@@ -80,15 +83,6 @@ const EditProfile = () => {
     });
 
     // Get states
-    useEffect(() => {
-        fetch('https://countriesnow.space/api/v0.1/countries/states', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "country": "India" })
-        }).then(res => res.json()).then(data => setStates(data?.data?.states))
-    }, [])
 
 
 
@@ -299,14 +293,14 @@ const EditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Registration No.</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('registration_number')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>No. of Employees</label>
                             </div>
                             <select className='inputTypeSelect'
@@ -325,55 +319,83 @@ const EditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
-                                <label>Postal Code</label>
+                                <span>*</span>
+                                <label> Company Address</label>
                             </div>
-                            <input className='inputTypeInput' type='text' {...register('postal_code')} />
+                            <input {...register('address_one')} className='inputTypeInput' type='text' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label> Organization Website</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('organization_website')} />
                         </div>
                     </div>
-
                     <div className='companyBox' >
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
-                                <label>City</label>
+                                <label> Address 2</label>
                             </div>
-                            <input className='inputTypeInput' type='text' {...register('city')} />
+                            <input {...register('address_two')} className='inputTypeInput' type='text' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
-                                <label>State</label>
+                                <label> Address 3</label>
                             </div>
-                            <select className='inputTypeSelect' {...register('state')}>
-                                {
-                                    states?.map((state, id) => (
-                                        <option value={state?.name} key={id} >{state?.name}</option>
-                                    ))
-                                }
-                            </select>
+                            <input {...register('address_three')} className='inputTypeInput' type='text' />
                         </div>
                     </div>
                     <div className='companyBox' >
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
+                                <span>*</span>
+                                <label>Postal Code</label>
+                            </div>
+                            <input {...register('postal_code')} className='inputTypeInput' type='text' />
+                        </div>
 
+                    </div>
+                    <div className='companyBox' >
+
+
+                        <div className='companyTypeInputContainer2'>
+                            <div className='typeInput' >
+                                <span>*</span>
+                                <label>Country</label>
+                            </div>
+                            <select className='inputTypeSelect' {...register('state')}>
+                                {
+                                    states?.map((state, id) => (
+                                        <option value={state?.country} key={id} >{state?.country}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className='companyTypeInputContainer2'>
+                            <div className='typeInput' >
+                                <span>*</span>
+                                <label>City</label>
+                            </div>
+                            <input className='inputTypeInput' type='text' {...register('city')} />
+                        </div>
+                    </div>
+                    <div className='companyBox' >
+
+                        <div className='companyTypeInputContainer2'>
+                            <div className='typeInput' >
+                                <span>*</span>
                                 <label>Public Address</label>
                             </div>
                             <input className='inputTypeInput' type='text' maxLength={16} {...register('public_address')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label> Wallet Address</label>
                             </div>
                             <input className='inputTypeInput' type='text' maxLength={16} {...register('wallet_address')} />
@@ -385,14 +407,14 @@ const EditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>First Name</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('first_name')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Last Name</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('last_name')} />
@@ -402,14 +424,14 @@ const EditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Email</label>
                             </div>
                             <input className='inputTypeInput' type='email' {...register('email')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>GST Number</label>
                             </div>
                             <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text'{...register('contact_number')} />
@@ -419,64 +441,30 @@ const EditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Job Title</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('job_title')} />
                         </div>
 
                     </div>
-                    <h2 className='editProfileInfo' >CHANGE PASSWORD </h2>
-                    <div className='companyBox' >
 
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Email</label>
-                            </div>
-                            <input className='inputTypeInput' type='email' {...register('email')} />
-                        </div>
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Current Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' />
-                        </div>
-                    </div>
-                    <div className='companyBox' >
-
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>New Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' />
-                        </div>
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Re-enter New Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' />
-                        </div>
-                    </div>
                     <h2 className='editProfileInfo' >DOCUMENTS</h2>
                     <div className='companyBox' >
 
                         <div className='companyTypeInputContainer2'>
-                            <UploadFile name={'Aadhar card'} setFile={setAadharCard} />
+                            <UploadFile name={userDetails?.aadhar_card} setFile={setAadharCard} />
 
                         </div>
                         <div className='companyTypeInputContainer2'>
 
-                            <UploadFile name={'Pan card'} setFile={setPanCard} />
+                            <UploadFile name={userDetails?.pan_card} setFile={setPanCard} />
                         </div>
                     </div>
                     <div className='companyBox' >
 
                         <div className='companyTypeInputContainer2'>
-                            <UploadFile name={'Registration card'} setFile={setFile} />
+                            <UploadFile name={userDetails?.registration_certificate} setFile={setFile} />
 
                         </div>
 

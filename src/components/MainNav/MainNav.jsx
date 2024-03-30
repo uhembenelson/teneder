@@ -11,6 +11,13 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
         setIsNavOpen(prev => !prev)
     }
 
+    const scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <header className='mainHeader' >
             <nav className='mainNav' >
@@ -24,12 +31,13 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
                     <Link to='/' >
                         <li>HOME</li>
                     </Link>
-                    <Link to='/about' >
-                        <li>ABOUT</li>
-                    </Link>
-                    <Link to='/contact' >
+                    {/*<Link to='/about' >*/}
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('footer')}>ABOUT</li>
+                    {/*</Link>*/}
+                    {/*<Link to='/contact' >
                         <li>CONTACT US</li>
-                    </Link>
+    </Link>*/}
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('footer')}>CONTACT US</li>
 
                     <button onClick={() => setShowLoginModal(true)} className='HomeBtn' >
                         Login

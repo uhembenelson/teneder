@@ -222,17 +222,17 @@ const OrganizationProfile = () => {
                                     <div className='documentList' >
                                         <a href={aadharCardLink} className='docContainer'>
                                             <img className='pdfImage' src={pdf} alt='pdf' />
-                                            <p className='docName' >Aadhar card</p>
+                                            <p className='docName' >{userDetails?.aadhar_card}</p>
 
                                         </a>
                                         <a href={panCardLink} className='docContainer' >
                                             <img className='pdfImage' src={pdf} alt='pdf' />
-                                            <p className='docName' >Pan card</p>
+                                            <p className='docName' >{userDetails?.pan_card}</p>
 
                                         </a>
                                         <a href={registrationCertLink} className='docContainer' >
                                             <img className='pdfImage' src={pdf} alt='pdf' />
-                                            <p className='docName' >Registration Certificate</p>
+                                            <p className='docName' >{userDetails?.registration_certificate}</p>
 
                                         </a>
                                     </div>

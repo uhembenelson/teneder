@@ -249,14 +249,14 @@ const BidderEditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Full Name of Company</label>
                             </div>
                             <input {...register('name_of_company')} className='inputTypeInput' type='text' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Company Type</label>
                             </div>
                             <select className='inputTypeSelect'
@@ -271,7 +271,7 @@ const BidderEditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Registration No.</label>
                             </div>
                             <input {...register('registration_number')} className='inputTypeInput' type='text' />
@@ -296,14 +296,14 @@ const BidderEditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Company Website</label>
                             </div>
                             <input {...register('organization_website')} className='inputTypeInput' type='text' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label> Company Address</label>
                             </div>
                             <input {...register('address_one')} className='inputTypeInput' type='text' />
@@ -314,6 +314,23 @@ const BidderEditProfile = () => {
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
+                                <label> Address 2</label>
+                            </div>
+                            <input {...register('address_two')} className='inputTypeInput' type='text' />
+                        </div>
+                        <div className='companyTypeInputContainer2'>
+                            <div className='typeInput' >
+
+                                <label> Address 3</label>
+                            </div>
+                            <input {...register('address_three')} className='inputTypeInput' type='text' />
+                        </div>
+                    </div>
+                    <div className='companyBox' >
+
+                        <div className='companyTypeInputContainer2'>
+                            <div className='typeInput' >
+                                <span>*</span>
                                 <label>Postal Code</label>
                             </div>
                             <input {...register('postal_code')} className='inputTypeInput' type='text' />
@@ -321,18 +338,10 @@ const BidderEditProfile = () => {
 
                     </div>
                     <div className='companyBox' >
-
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
-                                <label>City</label>
-                            </div>
-                            <input {...register('city')} className='inputTypeInput' type='text' />
-                        </div>
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>State</label>
+                                <span>*</span>
+                                <label>Country</label>
                             </div>
                             <select className='inputTypeSelect' {...register('state')}>
                                 {
@@ -342,19 +351,28 @@ const BidderEditProfile = () => {
                                 }
                             </select>
                         </div>
+
+                        <div className='companyTypeInputContainer2'>
+                            <div className='typeInput' >
+                                <span>*</span>
+                                <label>City</label>
+                            </div>
+                            <input {...register('city')} className='inputTypeInput' type='text' />
+                        </div>
+
                     </div>
                     <div className='companyBox' >
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Public Address</label>
                             </div>
                             <input {...register('public_address')} className='inputTypeInput' type='text' maxLength={16} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label> Wallet Address</label>
                             </div>
                             <input {...register('wallet_address')} className='inputTypeInput' type='text' maxLength={16} />
@@ -365,14 +383,14 @@ const BidderEditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>First Name</label>
                             </div>
                             <input {...register('first_name')} className='inputTypeInput' type='text' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Last Name</label>
                             </div>
                             <input {...register('last_name')} className='inputTypeInput' type='text' />
@@ -382,14 +400,14 @@ const BidderEditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Email</label>
                             </div>
                             <input {...register('email')} className='inputTypeInput' type='email' />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>GST Number</label>
                             </div>
 
@@ -400,64 +418,30 @@ const BidderEditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
+                                <span>*</span>
                                 <label>Job Title</label>
                             </div>
                             <input {...register('job_title')} className='inputTypeInput' type='text' />
                         </div>
 
                     </div>
-                    <h2 className='editProfileInfo' >CHANGE PASSWORD </h2>
-                    <div className='companyBox' >
 
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Email</label>
-                            </div>
-                            <input {...register('email')} className='inputTypeInput' type='email' />
-                        </div>
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Current Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' />
-                        </div>
-                    </div>
-                    <div className='companyBox' >
-
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>New Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' />
-                        </div>
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Re-enter New Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' />
-                        </div>
-                    </div>
                     <h2 className='editProfileInfo' >DOCUMENTS</h2>
                     <div className='companyBox' >
 
                         <div className='companyTypeInputContainer2'>
-                            <UploadFile name={'Aadhar card'} setFile={setAadharCard} />
+                            <UploadFile name={userDetails?.aadhar_card} setFile={setAadharCard} />
 
                         </div>
                         <div className='companyTypeInputContainer2'>
 
-                            <UploadFile name={'Pan card'} setFile={setPanCard} />
+                            <UploadFile name={userDetails?.pan_card} setFile={setPanCard} />
                         </div>
                     </div>
                     <div className='companyBox' >
 
                         <div className='companyTypeInputContainer2'>
-                            <UploadFile name={'Registration card'} setFile={setFile} />
+                            <UploadFile name={userDetails?.registration_certificate} setFile={setFile} />
 
                         </div>
 
