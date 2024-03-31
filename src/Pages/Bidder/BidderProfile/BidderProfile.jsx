@@ -77,7 +77,10 @@ const BidderProfile = () => {
         setValue('wallet_address', userDetails?.wallet_address)
     }, [setValue, userDetails])
 
-    const starArray = [0, 1, 2, 3, 4]
+    // to loop over and show the stars
+    // const starArray = [0, 1, 2, 3, 4]
+
+    const starArray = []
 
     const fullname = `${userDetails?.first_name} ${userDetails?.last_name}`
 

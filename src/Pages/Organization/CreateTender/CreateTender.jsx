@@ -145,6 +145,17 @@ const CreateTender = () => {
 
     }
 
+    // Handle hiding of previous date
+
+    const [minDate, setMinDate] = useState('');
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+
+    // Handler function to update the minimum selectable date
+    const handleDateChange = (event) => {
+        setMinDate(event.target.value);
+    }
 
 
     return (
@@ -204,7 +215,7 @@ const CreateTender = () => {
                             <div className='companyTypeInputContainer2'>
                                 <div className='typeInput' >
                                     <span>*</span>
-                                    <label>State</label>
+                                    <label>Country</label>
                                 </div>
                                 <select className='inputTypeSelect' {...register('state')}>
                                     {
@@ -227,15 +238,7 @@ const CreateTender = () => {
                     </div>
                     <div className='companyContainer' >
                         <div className='companyBox' >
-                            <div style={{
-                                border: errors?.duration_of_bidding_start ? '1px solid red' : '1px solid #ccc'
-                            }} className='createTenderBox durationBox ' >
-                                <div className='labelContainer' >
-                                    <span>*</span><label>START DURATION OF BIDDING PERIOD</label>
-                                </div>
 
-                                <input type='date' {...register('duration_of_bidding_start')} />
-                            </div>
                             <div style={{
                                 border: errors?.duration_of_bidding_end ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
@@ -243,21 +246,34 @@ const CreateTender = () => {
                                     < span >*</span><label>END DURATION OF BIDDING PERIOD</label>
                                 </div>
 
-                                <input type='date' {...register('duration_of_bidding_end')} />
+                                <input type='date' {...register('duration_of_bidding_end')}
+
+                                    id="date"
+                                    name="date"
+                                    min={minDate || today}  // Set min attribute dynamically
+                                    onChange={handleDateChange}
+                                />
+                            </div>
+                            <div style={{
+                                border: errors?.duration_of_bidding_start ? '1px solid red' : '1px solid #ccc'
+                            }} className='createTenderBox durationBox ' >
+                                <div className='labelContainer' >
+                                    <span>*</span><label>START DURATION OF BIDDING PERIOD</label>
+                                </div>
+
+                                <input {...register('duration_of_bidding_start')}
+                                    type="date"
+                                    id="date"
+                                    name="date"
+                                    min={minDate || today}  // Set min attribute dynamically
+                                    onChange={handleDateChange}
+                                />
                             </div>
                         </div>
                     </div >
                     <div className='companyContainer' style={{ marginTop: '2rem' }} >
                         <div className='companyBox' >
-                            <div style={{
-                                border: errors?.duration_of_work_start ? '1px solid red' : '1px solid #ccc'
-                            }} className='createTenderBox durationBox ' >
-                                <div className='labelContainer' >
-                                    <span>*</span><label>START DURATION OF WORK PERIOD</label>
-                                </div>
 
-                                <input type='date' {...register('duration_of_work_start')} />
-                            </div>
                             <div style={{
                                 border: errors?.duration_of_work_end ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
@@ -265,7 +281,28 @@ const CreateTender = () => {
                                     < span >*</span><label>END DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                <input type='date' {...register('duration_of_work_end')} />
+                                <input  {...register('duration_of_work_end')}
+                                    type="date"
+                                    id="date"
+                                    name="date"
+                                    min={minDate || today}  // Set min attribute dynamically
+                                    onChange={handleDateChange}
+                                />
+                            </div>
+                            <div style={{
+                                border: errors?.duration_of_work_start ? '1px solid red' : '1px solid #ccc'
+                            }} className='createTenderBox durationBox ' >
+                                <div className='labelContainer' >
+                                    <span>*</span><label>START DURATION OF WORK PERIOD</label>
+                                </div>
+
+                                <input  {...register('duration_of_work_start')}
+                                    type="date"
+                                    id="date"
+                                    name="date"
+                                    min={minDate || today}  // Set min attribute dynamically
+                                    onChange={handleDateChange}
+                                />
                             </div>
                         </div>
                     </div>

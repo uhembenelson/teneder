@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './Dummy.css'
-import useSWR from 'swr'
 import millify from "millify";
 
 const Dummy = () => {

@@ -13,6 +13,8 @@ import useSWR from 'swr'
 
 const OrganizationProfile = () => {
 
+
+
     const [profilePicture, setProfilePicture] = useState(null)
 
     const [panCardLink, setPanCardLink] = useState('')
@@ -94,7 +96,12 @@ const OrganizationProfile = () => {
         }).then(res => res.json()).then(data => setProfilePicture(data))
     }, [profilePicture])
 
-    const starArray = [0, 1, 2, 3, 4]
+    // to loop over and show the stars
+    // const starArray = [0, 1, 2, 3, 4]
+
+    const starArray = []
+
+
     return (
         <div>
             <div>

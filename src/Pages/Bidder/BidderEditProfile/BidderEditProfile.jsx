@@ -10,10 +10,13 @@ import { useForm } from 'react-hook-form'
 
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const BidderEditProfile = () => {
 
     const user = useSelector(state => state.bidder.user)
+
+    const navigate = useNavigate()
 
     const [profilePicture, setProfilePicture] = useState(null)
 
@@ -223,6 +226,7 @@ const BidderEditProfile = () => {
             <BidderNav />
             <div className='editProfileContainer'>
                 <div className='headContainer'>
+                    <p onClick={() => navigate(-1)} className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
                     <div className='middleProfileContainer'>
                         <div className='avatarContainer' >
                             {profilePicture ?

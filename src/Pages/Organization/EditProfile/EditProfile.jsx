@@ -9,9 +9,12 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import useSWR from 'swr'
 import { setOrganizationProfilePicture } from '../../../Redux/Organization/Action'
+import { useNavigate } from 'react-router-dom'
 
 const EditProfile = () => {
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     const user = useSelector(state => state.organization.user)
 
@@ -247,6 +250,7 @@ const EditProfile = () => {
             <CompanyNav />
             <div className='editProfileContainer'>
                 <div className='headContainer'>
+                    <p onClick={() => navigate(-1)} className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
                     <div className='middleProfileContainer'>
                         <div className='avatarContainer' >
                             {profilePicture ? <Avatar className='avatarImage' sx={{ height: "5rem", width: "5rem" }} src={profilePicture?.slice(-1).pop()?.imageUrl} /> :

@@ -53,6 +53,11 @@
     justify-content: flex-end;
     
 }
+
+.createTenderBox label {
+    font-weight: 500;
+}
+
 @media screen and (max-width: 780px) {
 
     .companyBox {

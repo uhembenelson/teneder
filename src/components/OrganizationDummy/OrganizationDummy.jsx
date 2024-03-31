@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import millify from "millify";
 import './OrganizationDummy.css'
 
 const OrganizationDummy = () => {
+
+    const [totalBidders, setTotalBidders] = useState(0)
+    const [totalOrg, setTotalOrgs] = useState(0)
+
+    const url = `https://school-project-production-459d.up.railway.app/v2/auth/view/bidder`
+    const orgurl = `https://school-project-production-459d.up.railway.app/v1/auth/view/organization`
+
+    useEffect(() => {
+        fetch(url).then(res => res.json()).then(data => setTotalBidders(data.length))
+        fetch(orgurl).then(res => res.json()).then(data => setTotalOrgs(data.length))
+    }, [])
+
     return (
         <div>
             <div className='dummyBoxHolder bidderBoxDummy'   >
@@ -9,7 +22,7 @@ const OrganizationDummy = () => {
                     <div className='bidderdummyBox' >
                         <div>
                             <p className='bidders' >Bidders</p>
-                            <p className='dummyBoxAmount'>2,2 mil</p>
+                            <p className='dummyBoxAmount'>{millify(totalBidders)}</p>
                             <div>
                                 <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.0805 3.9234L7.38865 1.23153C6.88806 0.753832 6.2227 0.487305 5.53076 0.487305C4.83882 0.487305 4.17346 0.753832 3.67287 1.23153L0.981003 3.9234C0.76987 4.13464 0.651297 4.42109 0.651367 4.71975C0.651438 5.0184 0.770146 5.3048 0.981378 5.51593C1.19261 5.72706 1.47906 5.84564 1.77772 5.84557C2.07638 5.8455 2.36277 5.72679 2.57391 5.51556L4.40477 3.68469V11.0359C4.40477 11.3346 4.5234 11.621 4.73456 11.8321C4.94573 12.0433 5.23213 12.1619 5.53076 12.1619C5.82939 12.1619 6.11579 12.0433 6.32696 11.8321C6.53812 11.621 6.65675 11.3346 6.65675 11.0359V3.68469L8.48761 5.51556C8.59216 5.62015 8.71628 5.70312 8.85289 5.75975C8.9895 5.81637 9.13592 5.84553 9.2838 5.84557C9.43168 5.8456 9.57812 5.81651 9.71476 5.75995C9.85139 5.70339 9.97555 5.62047 10.0801 5.51593C10.1847 5.41139 10.2677 5.28727 10.3243 5.15066C10.381 5.01405 10.4101 4.86763 10.4102 4.71975C10.4102 4.57187 10.3811 4.42543 10.3245 4.28879C10.268 4.15215 10.1851 4.028 10.0805 3.9234Z" fill="#82FFB7" />
@@ -30,7 +43,7 @@ const OrganizationDummy = () => {
                     <div className='bidderdummyBox' >
                         <div>
                             <p className='bidders '>Organization</p>
-                            <p className='dummyBoxAmount'>1,6 mil</p>
+                            <p className='dummyBoxAmount'>{millify(totalOrg)}</p>
                             <div>
                                 <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.0805 3.9234L7.38865 1.23153C6.88806 0.753832 6.2227 0.487305 5.53076 0.487305C4.83882 0.487305 4.17346 0.753832 3.67287 1.23153L0.981003 3.9234C0.76987 4.13464 0.651297 4.42109 0.651367 4.71975C0.651438 5.0184 0.770146 5.3048 0.981378 5.51593C1.19261 5.72706 1.47906 5.84564 1.77772 5.84557C2.07638 5.8455 2.36277 5.72679 2.57391 5.51556L4.40477 3.68469V11.0359C4.40477 11.3346 4.5234 11.621 4.73456 11.8321C4.94573 12.0433 5.23213 12.1619 5.53076 12.1619C5.82939 12.1619 6.11579 12.0433 6.32696 11.8321C6.53812 11.621 6.65675 11.3346 6.65675 11.0359V3.68469L8.48761 5.51556C8.59216 5.62015 8.71628 5.70312 8.85289 5.75975C8.9895 5.81637 9.13592 5.84553 9.2838 5.84557C9.43168 5.8456 9.57812 5.81651 9.71476 5.75995C9.85139 5.70339 9.97555 5.62047 10.0801 5.51593C10.1847 5.41139 10.2677 5.28727 10.3243 5.15066C10.381 5.01405 10.4101 4.86763 10.4102 4.71975C10.4102 4.57187 10.3811 4.42543 10.3245 4.28879C10.268 4.15215 10.1851 4.028 10.0805 3.9234Z" fill="#82FFB7" />
