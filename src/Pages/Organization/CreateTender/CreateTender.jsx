@@ -203,7 +203,7 @@ const CreateTender = () => {
                             <input className='inputTypeInput' type='text' {...register('address_three')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
+                            <div className='typeInput labelContainer' >
                                 <span>*</span>
                                 <label>City</label>
                             </div>
@@ -213,7 +213,7 @@ const CreateTender = () => {
                     <div className='companyContainer' >
                         <div className='companyBox' >
                             <div className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
+                                <div className='typeInput labelContainer' >
                                     <span>*</span>
                                     <label>Country</label>
                                 </div>
@@ -227,7 +227,7 @@ const CreateTender = () => {
 
                             </div>
                             <div className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
+                                <div className=' labelContainer'  >
                                     <span>*</span>
                                     <label>Postal Code</label>
                                 </div>

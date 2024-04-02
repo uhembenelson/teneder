@@ -3,6 +3,7 @@ import './BidderProfile.css'
 import { Avatar } from '@mui/material'
 import pdf from '../../../assets/Import Pdf.png'
 import userRegImage from '../../../assets/Registration.png'
+import passwordReset from '../../../assets/Password Reset.png'
 import { useNavigate } from 'react-router-dom'
 import BidderNav from '../../../components/BidderNav/Nav'
 import { useSelector } from 'react-redux'
@@ -103,11 +104,19 @@ const BidderProfile = () => {
                 <div className='bidderProfileContainer' >
                     <div className='bidderProfileNav' >
                         <p onClick={() => navigate(-1)} className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
-                        <button className='editProfileBtn' onClick={() => navigate('/bidder/edit-profile')} >
+                        <div className='profileActionContainer' >
+                            <button className='editProfileBtn' onClick={() => navigate('/bidder/edit-profile')} >
 
-                            Edit Profile
-                            <img src={userRegImage} alt='' />
-                        </button>
+                                Edit Profile
+                                <img src={userRegImage} alt='' />
+                            </button>
+                            <button className='editProfileBtn' onClick={() => navigate('/bidder/change-password')} >
+
+                                Change Password
+                                <img src={passwordReset} alt='' />
+                            </button>
+                        </div>
+
                     </div>
                     <div className='profileBox' >
                         <div className='bidderProfileLeft' >

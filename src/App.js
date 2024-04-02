@@ -38,6 +38,7 @@ import BidderEditProfile from './Pages/Bidder/BidderEditProfile/BidderEditProfil
 import BidderFeedback from './Pages/Bidder/BidderFeedback/BidderFeedback';
 import OrganizationResetPassword from './Pages/Organization/OrganizationAuth/OrganizationRestPassword';
 import CancelReason from './Pages/Bidder/CancelReason/CancelReason';
+import ChangePassword from './Pages/Bidder/ChangePassword/ChangePassword';
 
 const App = () => {
 	return (
@@ -88,6 +89,10 @@ const App = () => {
 					<Route
 						path='/bidder/profile'
 						element={<BidderProfile />}
+					/>
+					<Route
+						path='/bidder/change-password'
+						element={<ChangePassword />}
 					/>
 					<Route
 						path='/bidder/edit-profile'
