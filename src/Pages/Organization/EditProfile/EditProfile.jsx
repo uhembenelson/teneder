@@ -275,8 +275,8 @@ const EditProfile = () => {
 
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
-
-                                <label>{userDetails?.name_of_organization}</label>
+                                <span>*</span>
+                                <label> Organization Name</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('name_of_organization')} />
                         </div>

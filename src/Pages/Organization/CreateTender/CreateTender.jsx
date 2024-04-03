@@ -13,6 +13,18 @@ import { CircularProgress } from "@mui/material";
 
 const CreateTender = () => {
 
+    const [duration_of_bidding_start, setDuration_of_bidding_start] = useState(null)
+    const [duration_of_bidding_end, setDuration_of_bidding_end] = useState(null)
+
+    const [duration_of_work_start, setDuration_of_work_start] = useState(null)
+    const [duration_of_work_end, setDuration_of_work_end] = useState(null)
+
+    const [bidStartErr, setBidStartErr] = useState(false)
+    const [bidEndErr, setBidEndErr] = useState(false)
+    const [workStartErr, setWorkStartErr] = useState(false)
+    const [workEndErr, setWorkEndErr] = useState(false)
+
+
     const navigate = useNavigate()
 
     // Schema for creating request
@@ -22,10 +34,10 @@ const CreateTender = () => {
         address_one: yup.string().required('Address one is required'),
         state: yup.string().required('State is required'),
         city: yup.string().required('City is required'),
-        duration_of_bidding_start: yup.string().required('City is required'),
-        duration_of_bidding_end: yup.string().required('City is required'),
-        duration_of_work_start: yup.string().required('City is required'),
-        duration_of_work_end: yup.string().required('City is required'),
+        // duration_of_bidding_start: yup.string().required('Duration of bidding start is required'),
+        // duration_of_bidding_end: yup.string().required('Duration of bidding end is required'),
+        // duration_of_work_start: yup.string().required('Duration of work start is required'),
+        // duration_of_work_end: yup.string().required('Duration of work end is required'),
         postal_code: yup.string().required('Postal Code is required'),
         material_required: yup.string().required('Materials is required')
     })
@@ -76,12 +88,11 @@ const CreateTender = () => {
 
     const formData = new FormData();
 
-    console.log(type_of_tender)
-
     const createTender = async () => {
 
-
         const data = getValues()
+
+        console.log(data)
 
         formData.append('description_tender', data?.description_tender)
         formData.append('tender_motive', data?.tender_motive)
@@ -92,23 +103,33 @@ const CreateTender = () => {
         formData.append('state', data?.state)
         formData.append('city', data?.city)
         formData.append('postal_code', data?.postal_code)
-        formData.append('duration_of_bidding_start', data?.duration_of_bidding_start)
-        formData.append('duration_of_bidding_end', data?.duration_of_bidding_end)
-        formData.append('duration_of_work_start', data?.duration_of_work_start)
-        formData.append('duration_of_work_end', data?.duration_of_work_end)
+        formData.append('duration_of_bidding_start', duration_of_bidding_start)
+        formData.append('duration_of_bidding_end', duration_of_bidding_end)
+        formData.append('duration_of_work_start', duration_of_work_start)
+        formData.append('duration_of_work_end', duration_of_work_end)
         formData.append('type_of_tender', type_of_tender)
         formData.append('appendices', appendices)
         formData.append('material_required', data?.material_required)
 
-        if (!appendices) {
+        if (!appendices || !duration_of_bidding_start || !duration_of_bidding_end || !duration_of_work_start || !duration_of_work_end) {
             setErr('Required')
             setHasFileBeenSelected(true)
+            setBidStartErr(true)
+            setBidEndErr(true)
+            setWorkStartErr(true)
+            setWorkEndErr(true)
             return
         }
+
+
 
         else {
             setErr(null)
             setHasFileBeenSelected(false)
+            setBidStartErr(false)
+            setBidEndErr(false)
+            setWorkStartErr(false)
+            setWorkEndErr(false)
             try {
                 setIsLoading(true)
                 const res = await fetch('https://school-project-production-459d.up.railway.app/v4/tender/tender',
@@ -145,17 +166,6 @@ const CreateTender = () => {
 
     }
 
-    // Handle hiding of previous date
-
-    const [minDate, setMinDate] = useState('');
-
-    // Get today's date in YYYY-MM-DD format
-    const today = new Date().toISOString().split('T')[0];
-
-    // Handler function to update the minimum selectable date
-    const handleDateChange = (event) => {
-        setMinDate(event.target.value);
-    }
 
 
     return (
@@ -180,16 +190,16 @@ const CreateTender = () => {
                     </div>
                     <div className='companyBox' >
                         <div className='companyTypeInputContainer2' style={{ borderBottomColor: errors?.address_one?.message ? 'red' : '#ccc' }}>
-                            <div className='typeInput' >
+                            <div className='typeInput ' >
                                 <span>*</span>
-                                <label>Address Line 1</label>
+                                <label className='address' >Address Line 1</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('address_one')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
-                                <label>Address Line 2</label>
+                                <label className='address'>Address Line 2</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('address_two')} />
                         </div>
@@ -198,14 +208,14 @@ const CreateTender = () => {
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
 
-                                <label>Address Line 3</label>
+                                <label className='address'>Address Line 3</label>
                             </div>
                             <input className='inputTypeInput' type='text' {...register('address_three')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput labelContainer' >
                                 <span>*</span>
-                                <label>City</label>
+                                <label className='address'>City</label>
                             </div>
                             <input className='inputTypeInput' type='text'{...register('city')} />
                         </div>
@@ -215,7 +225,7 @@ const CreateTender = () => {
                             <div className='companyTypeInputContainer2'>
                                 <div className='typeInput labelContainer' >
                                     <span>*</span>
-                                    <label>Country</label>
+                                    <label className='address'>Country</label>
                                 </div>
                                 <select className='inputTypeSelect' {...register('state')}>
                                     {
@@ -229,7 +239,7 @@ const CreateTender = () => {
                             <div className='companyTypeInputContainer2'>
                                 <div className=' labelContainer'  >
                                     <span>*</span>
-                                    <label>Postal Code</label>
+                                    <label className='address'>Postal Code</label>
                                 </div>
                                 <input className='inputTypeInput' type='number' {...register('postal_code')} />
                             </div>
@@ -240,33 +250,34 @@ const CreateTender = () => {
                         <div className='companyBox' >
 
                             <div style={{
-                                border: errors?.duration_of_bidding_end ? '1px solid red' : '1px solid #ccc'
+                                border: bidEndErr ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer'>
-                                    < span >*</span><label>END DURATION OF BIDDING PERIOD</label>
+                                    < span >*</span><label className='address'>END DURATION OF BIDDING PERIOD</label>
                                 </div>
 
-                                <input type='date' {...register('duration_of_bidding_end')}
-
+                                <input type='date'
+                                    value={duration_of_bidding_end}
+                                    onChange={(e) => setDuration_of_bidding_end(e.target.value)}
                                     id="date"
                                     name="date"
-                                    min={minDate || today}  // Set min attribute dynamically
-                                    onChange={handleDateChange}
+
                                 />
                             </div>
                             <div style={{
-                                border: errors?.duration_of_bidding_start ? '1px solid red' : '1px solid #ccc'
+                                border: bidStartErr ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer' >
-                                    <span>*</span><label>START DURATION OF BIDDING PERIOD</label>
+                                    <span>*</span><label className='address'>START DURATION OF BIDDING PERIOD</label>
                                 </div>
 
-                                <input {...register('duration_of_bidding_start')}
+                                <input
                                     type="date"
                                     id="date"
                                     name="date"
-                                    min={minDate || today}  // Set min attribute dynamically
-                                    onChange={handleDateChange}
+                                    value={duration_of_bidding_start}
+                                    onChange={(e) => setDuration_of_bidding_start(e.target.value)}
+
                                 />
                             </div>
                         </div>
@@ -275,33 +286,34 @@ const CreateTender = () => {
                         <div className='companyBox' >
 
                             <div style={{
-                                border: errors?.duration_of_work_end ? '1px solid red' : '1px solid #ccc'
+                                border: workEndErr ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer'>
-                                    < span >*</span><label>END DURATION OF WORK PERIOD</label>
+                                    < span >*</span><label className='address'>END DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                <input  {...register('duration_of_work_end')}
+                                <input
                                     type="date"
                                     id="date"
                                     name="date"
-                                    min={minDate || today}  // Set min attribute dynamically
-                                    onChange={handleDateChange}
+                                    value={duration_of_work_end}
+                                    onChange={(e) => setDuration_of_work_end(e.target.value)}
                                 />
                             </div>
                             <div style={{
-                                border: errors?.duration_of_work_start ? '1px solid red' : '1px solid #ccc'
+                                border: workStartErr ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
                                 <div className='labelContainer' >
-                                    <span>*</span><label>START DURATION OF WORK PERIOD</label>
+                                    <span>*</span><label className='address'>START DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                <input  {...register('duration_of_work_start')}
+                                <input
                                     type="date"
                                     id="date"
                                     name="date"
-                                    min={minDate || today}  // Set min attribute dynamically
-                                    onChange={handleDateChange}
+                                    value={duration_of_work_start}
+                                    onChange={(e) => setDuration_of_work_start(e.target.value)}
+
                                 />
                             </div>
                         </div>
@@ -314,7 +326,7 @@ const CreateTender = () => {
                             </div>
                             <select className='inputTypeSelect'
                                 onChange={(event) => setCompanyType(event.target.value)}
-                                {...register('type_of_tender')}>
+                            >
                                 <option value='Private' >Private</option>
                                 <option value='Government' >Government</option>
                             </select>

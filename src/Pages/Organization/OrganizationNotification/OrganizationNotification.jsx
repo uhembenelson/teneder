@@ -7,6 +7,8 @@ import Notification from '../../../components/Notification/Notification';
 import { useSelector, useDispatch } from 'react-redux';
 import useSWR from 'swr';
 import { CircularProgress } from '@mui/material';
+import moment from 'moment';
+import { format, } from 'date-fns'
 
 const OrganizationNotification = () => {
 
@@ -30,7 +32,7 @@ const OrganizationNotification = () => {
 
 
     const { data } = useSWR([url, token], () => fetchNotification(url, token));
-    console.log(typeof (data))
+    console.log(data)
 
 
 
@@ -65,7 +67,39 @@ const OrganizationNotification = () => {
     }
 
 
+    const [newData, setData] = useState([]);
 
+    useEffect(() => {
+        // Dummy data for demonstration
+        const dummyData = [
+            { id: 0, name: 'Item 0', date: '2024-04-02T12:00:00' },
+            { id: 1, name: 'Item 1', date: '2024-04-01T12:00:00' },
+            { id: 2, name: 'Item 2', date: '2022-01-10T15:00:00' },
+            { id: 3, name: 'Item 3', date: '2022-01-11T10:00:00' },
+            { id: 4, name: 'Item 4', date: '2022-01-11T14:00:00' },
+            { id: 5, name: 'Item 5', date: '2022-01-12T09:00:00' },
+        ];
+
+        // Sort the data based on date
+        dummyData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // Group the sorted data by date
+        const groupedData = groupDataByDate(dummyData);
+        setData(groupedData);
+    }, []);
+
+    // Function to group data by date
+    const groupDataByDate = (data) => {
+        const groupedData = {};
+        data.forEach(item => {
+            const date = item.date.split('T')[0]; // Extract date without time
+            if (!groupedData[date]) {
+                groupedData[date] = [];
+            }
+            groupedData[date].push(item);
+        });
+        return groupedData;
+    };
 
 
 
@@ -92,9 +126,42 @@ const OrganizationNotification = () => {
                     <p className='markAsRead' >Clear notifications</p>
                 </div>
             </div>
-            {
-                content
-            }
+
+            <div>
+                {Object.entries(newData).map(([date, items]) => {
+
+
+                    const currentDate = moment();
+                    const inputDate = date; // Parse input date with format
+
+                    let displayDate;
+                    if (currentDate.isSame(inputDate, 'day')) {
+                        displayDate = 'Today';
+                    } else if (currentDate.subtract(1, 'days').isSame(inputDate, 'day')) {
+                        displayDate = 'Yesterday';
+                    } else {
+                        displayDate = inputDate;
+                    }
+
+
+
+
+                    return (
+                        <div key={date}>
+                            <p>{displayDate}</p>
+
+                            <ul>
+                                {items.map((item, index) => (
+                                    <li key={index}>{item.name}</li>
+                                    // Render other item properties as needed
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                })}
+
+            </div>
+
             {/*<Notification date='Today' />
         <Notification date='Yesterday' />*/}
 

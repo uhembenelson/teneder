@@ -54,7 +54,9 @@
     
 }
 
-.createTenderBox label {
+
+
+.createTenderBox label, .address {
     font-weight: 500;
 }
 
