@@ -6,6 +6,7 @@ import Notification from '../../../components/Notification/Notification'
 import { useSelector } from 'react-redux';
 import useSWR from 'swr';
 import moment from 'moment';
+import { toast } from 'react-toastify'
 import { CircularProgress } from '@mui/material';
 
 const BidderNotification = () => {
@@ -24,6 +25,42 @@ const BidderNotification = () => {
         return data;
 
     };
+
+    const deleteNotification = async () => {
+        try {
+
+            const res = await fetch(`https://school-project-production-459d.up.railway.app/v8/notification/${bidder_id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `${token}`
+                }
+            })
+
+            const data = await res.json()
+            console.log(data)
+
+            if (res.ok) {
+                toast.success(data, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+            }
+            else {
+                toast.error(data.error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+            }
+        }
+        catch {
+
+        }
+    }
+
 
     const { token, bidder_id } = useSelector(state => state.bidder.user)
     const url = `https://school-project-production-459d.up.railway.app/v8/notification/${bidder_id}`
@@ -93,7 +130,7 @@ const BidderNotification = () => {
                         <p >{data?.length} notifications</p>
 
                     </div>
-                    <p className='markAsRead' >Clear Notifications</p>
+                    <p onClick={deleteNotification} className='markAsRead' >Clear Notifications</p>
                 </div>
             </div>
             <div>

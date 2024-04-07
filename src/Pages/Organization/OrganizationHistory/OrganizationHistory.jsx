@@ -39,11 +39,6 @@ const OrganizationHistory = () => {
 
     // For each of the options in the select replace their respective table with it..
 
-    console.log(allHistory)
-    console.log(cancelledHistory)
-    console.log(ongoingHistory)
-    console.log(completedHistory)
-
 
     let content = null
     if (option === 'all') {

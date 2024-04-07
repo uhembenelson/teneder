@@ -123,7 +123,6 @@ const BidderEditProfile = () => {
     const [panCard, setPanCard] = useState(data?.pan_card)
 
     const [companyType, setCompanyType] = useState(userDetails?.company_type)
-    const [no_of_employees, setNo_of_employees] = useState(userDetails?.no_of_employees)
 
     const {
         getValues,
@@ -142,7 +141,6 @@ const BidderEditProfile = () => {
 
     const updateProfile = async () => {
         const info = getValues()
-        info.no_of_employees = no_of_employees
         info.company_type = companyType
 
 
@@ -284,16 +282,7 @@ const BidderEditProfile = () => {
                             <div className='typeInput' >
                                 <label>No. of Employees</label>
                             </div>
-                            <select className='inputTypeSelect'
-                                onChange={e => setNo_of_employees(e.target.value)}
-                                value={no_of_employees}
-                            >
-                                <option value='20' >20</option>
-                                <option value='50'>50</option>
-                                <option value='100'>100</option>
-                                <option value='500'>500</option>
-                                <option value='1000'>1000</option>
-                            </select>
+                            <input {...register('no_of_employees')} className='inputTypeInput' type='number' placeholder='20' />
                         </div>
                     </div>
                     <div className='companyBox' >

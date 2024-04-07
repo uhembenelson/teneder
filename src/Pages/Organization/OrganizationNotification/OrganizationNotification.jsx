@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useSWR from 'swr';
 import { CircularProgress } from '@mui/material';
 import moment from 'moment';
-import { format, } from 'date-fns'
+import { toast } from 'react-toastify'
 
 const OrganizationNotification = () => {
 
@@ -32,8 +32,42 @@ const OrganizationNotification = () => {
 
 
     const { data } = useSWR([url, token], () => fetchNotification(url, token));
-    console.log(data)
 
+
+    const deleteNotification = async () => {
+        try {
+            setIsLoading(true)
+            const res = await fetch(`https://school-project-production-459d.up.railway.app/v8/notification/organization/delete/${organization_id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `${token}`
+                }
+            })
+
+            const data = await res.json()
+            console.log(data)
+
+            if (res.ok) {
+                toast.success(data, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+            }
+            else {
+                toast.error(data.error, {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                    hideProgressBar: true,
+
+                });
+            }
+        }
+        catch {
+            setIsLoading(false)
+        }
+    }
 
 
 
@@ -123,7 +157,7 @@ const OrganizationNotification = () => {
                         <p >{noOFNotifications} notifications</p>
 
                     </div>
-                    <p className='markAsRead' >Clear notifications</p>
+                    <p className='markAsRead' onClick={deleteNotification} >Clear notifications</p>
                 </div>
             </div>
 

@@ -19,7 +19,9 @@ function CancelOrder({ handleShowModal }) {
 	const selectedTender = useSelector(state => state.organization.selectedTender)
 	const user = useSelector(state => state.organization.user)
 
-	const [reasons, setReasons] = useState('others')
+	const [reasons, setReasons] = useState('Proposal not up to the Mark / Short response period')
+
+	const [isOthersSelected, setIsOthersSelected] = useState(false)
 
 	const token = user.token
 

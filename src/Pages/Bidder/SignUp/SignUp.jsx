@@ -26,7 +26,8 @@ const SignUp = () => {
         last_name: yup.string().required('Last Name is required'),
         postal_code: yup.string().required('Postal Code is required'),
         // checked: yup.string().required(),
-        job_title: yup.string().required(),
+        job_title: yup.string().required('GST Number is required'),
+        no_of_employees: yup.string().required('NO Of Employees is required'),
         contact_number: yup.string().required(),
         email: yup.string().email().required('Email is required'),
         confirm_email: yup.string().email().oneOf([yup.ref('email'), null]).required('Email is required'),
@@ -40,7 +41,6 @@ const SignUp = () => {
 
 
     const [companyType, setCompanyType] = useState('Private')
-    const [no_of_employees, setNo_of_employees] = useState(20)
     const [states, setStates] = useState([])
     const [salutation, setSalutation] = useState('mr')
 
@@ -74,6 +74,7 @@ const SignUp = () => {
 
         regFormData.append('name_of_company', userInfo?.name_of_company)
         regFormData.append('organization_website', userInfo?.organization_website)
+        regFormData.append('no_of_employees', userInfo?.no_of_employees)
         regFormData.append('address_one', userInfo?.address_one)
         regFormData.append('address_three', userInfo?.address_three)
         regFormData.append('address_two', userInfo?.address_two)
@@ -212,14 +213,8 @@ const SignUp = () => {
                                     <span>*</span>
                                     <label>Number of Employees</label>
                                 </div>
-                                <select className='inputTypeSelect' onChange={(event) => setNo_of_employees(event.target.value)}
-                                    value={no_of_employees}>
-                                    <option value='20' >20</option>
-                                    <option value='50'>50</option>
-                                    <option value='100'>100</option>
-                                    <option value='500'>500</option>
-                                    <option value='1000'>1000</option>
-                                </select>
+
+                                <input {...register('no_of_employees')} className='inputTypeInput' type='number' placeholder='20' />
                             </div>
                             <div style={{ borderColor: errors?.organization_website?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
                                 <div className='typeInput' >

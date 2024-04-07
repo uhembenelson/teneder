@@ -7,7 +7,7 @@ import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import useSWR from 'swr'
-
+import passwordReset from '../../../assets/Password Reset.png'
 
 
 
@@ -111,11 +111,18 @@ const OrganizationProfile = () => {
                         <div className='bidderProfileNav' >
                             <p onClick={() => navigate(-1)} className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
 
-                            <button className='editProfileBtn' onClick={() => navigate('/organization/edit-profile')} >
+                            <div className='profileActionContainer' >
+                                <button className='editProfileBtn' onClick={() => navigate('/organization/edit-profile')} >
 
-                                Edit Profile
-                                <img src={userRegImage} alt='' />
-                            </button>
+                                    Edit Profile
+                                    <img src={userRegImage} alt='' />
+                                </button>
+                                <button className='editProfileBtn' onClick={() => navigate('/organization/change-password')} >
+
+                                    Change Password
+                                    <img src={passwordReset} alt='' />
+                                </button>
+                            </div>
                         </div>
                         <div className='profileBox' >
                             <div className='bidderProfileLeft' >

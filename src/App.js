@@ -39,6 +39,7 @@ import BidderFeedback from './Pages/Bidder/BidderFeedback/BidderFeedback';
 import OrganizationResetPassword from './Pages/Organization/OrganizationAuth/OrganizationRestPassword';
 import CancelReason from './Pages/Bidder/CancelReason/CancelReason';
 import ChangePassword from './Pages/Bidder/ChangePassword/ChangePassword';
+import OrganizationChangePassword from './Pages/Organization/ChangePassword/ChangePassword';
 
 const App = () => {
 	return (
@@ -139,7 +140,12 @@ const App = () => {
 					<Route
 						path='/organization/profile'
 						element={<OrganizationProfile />}
-					/><Route
+					/>
+					<Route
+						path='/organization/change-password'
+						element={<OrganizationChangePassword />}
+					/>
+					<Route
 						path='/organization/login'
 						element={<OrganizationLogin />}
 					/>

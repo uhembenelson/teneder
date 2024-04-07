@@ -59,9 +59,9 @@ function TenderTable() {
 		content = <table className='tender__table'>
 			<thead>
 				<th>tender description</th>
-				<th>type</th>
-				<th>due date</th>
-				<th>cancel</th>
+				<th style={{ textAlign: 'center' }} >type</th>
+				<th style={{ textAlign: 'center' }} >due date</th>
+				<th style={{ textAlign: 'center' }} >cancel</th>
 			</thead>
 
 			<tbody>
@@ -81,13 +81,13 @@ function TenderTable() {
 										{tender?.state}
 									</span>
 
-									<span>
+									{/*<span>
 										<img
 											src={flag}
 											alt='flag'
 										/>
 										India
-									</span>
+					</span>*/}
 								</div>
 							</td>
 							<td>{tender?.type_of_tender}</td>

@@ -14,7 +14,6 @@ import { registerOrganization } from '../../../Redux/Organization/Action'
 import { CircularProgress } from '@mui/material'
 
 const OrganizationSignUp = () => {
-    const [contact_number, setContactNumber] = useState(null)
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
     const [panCard, setPanCard] = useState(null)
@@ -22,11 +21,13 @@ const OrganizationSignUp = () => {
         name_of_organization: yup.string().required('Company name is required'),
         organization_website: yup.string().required('organization_website is required'),
         address_one: yup.string().required('Address one is required'),
+        no_of_employees: yup.string().required('No of Employees is required'),
         state: yup.string().required('State is required'),
         city: yup.string().required('City is required'),
         first_name: yup.string().required('First Name is required'),
         last_name: yup.string().required('Last Name is required'),
         postal_code: yup.string().required('Postal Code is required'),
+        contact_number: yup.string().required('GST Number is required'),
         checked: yup.string().required(),
         job_title: yup.string().required(),
         email: yup.string().email().required('Email is required'),
@@ -41,7 +42,6 @@ const OrganizationSignUp = () => {
 
 
     const [companyType, setCompanyType] = useState('Private')
-    const [no_of_employees, setNo_of_employees] = useState(20)
     const [states, setStates] = useState([])
     const [salutation, setSalutation] = useState('mr')
 
@@ -82,6 +82,7 @@ const OrganizationSignUp = () => {
 
         regFormData.append('name_of_organization', data?.name_of_organization)
         regFormData.append('organization_website', data?.organization_website)
+        regFormData.append('no_of_employees', data?.no_of_employees)
         regFormData.append('address_one', data?.address_one)
         regFormData.append('address_three', data?.address_three)
         regFormData.append('address_two', data?.address_two)
@@ -100,6 +101,7 @@ const OrganizationSignUp = () => {
         regFormData.append('registration_number', data?.registration_number)
         regFormData.append('contact_number', data?.contact_number)
         regFormData.append('registration_certificate', file)
+        regFormData.append('contact_number', data?.contact_number)
         regFormData.append('aadhar_card', AadharCard)
         regFormData.append('pan_card', panCard)
 
@@ -223,15 +225,8 @@ const OrganizationSignUp = () => {
                                     <span>*</span>
                                     <label>Number of Employees</label>
                                 </div>
-                                <select className='inputTypeSelect'
-                                    onChange={(event) => setNo_of_employees(event.target.value)}
-                                    value={no_of_employees}>
-                                    <option value='20' >20</option>
-                                    <option value='50'>50</option>
-                                    <option value='100'>100</option>
-                                    <option value='500'>500</option>
-                                    <option value='1000'>1000</option>
-                                </select>
+
+                                <input {...register('no_of_employees')} className='inputTypeInput' type='number' placeholder='20' />
                             </div>
                             <div className='companyTypeInputContainer2'>
                                 <div className='typeInput' >
@@ -340,16 +335,9 @@ const OrganizationSignUp = () => {
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >
                                 <span>*</span>
-                                <label>Contact Number</label>
+                                <label>GST Number</label>
                             </div>
-                            <PhoneInput
-                                placeholder="Enter phone number"
-                                value={contact_number}
-                                defaultCountry="IN"
-                                style={{ border: 'none', outline: 'none' }}
-                                onChange={setContactNumber}
-                                {...register('contact_number')}
-                            />
+                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text' {...register('contact_number')} />
                         </div>
                         <div className='companyTypeInputContainer2'>
                             <div className='typeInput' >

@@ -35,7 +35,7 @@ const EditProfile = () => {
 
 
     const [organization_type, setOrganizationType] = useState(userDetails?.organization_type)
-    const [no_of_employees, setNo_of_employees] = useState(userDetails?.no_of_employees)
+
     const [states, setCountries] = useState([])
 
     const fetchOrgDetails = async (url, token) => {
@@ -141,7 +141,7 @@ const EditProfile = () => {
     // Update the user profile
     const updateUser = async () => {
         const info = getValues()
-        info.no_of_employees = no_of_employees
+
         info.organization_type = organization_type
 
 
@@ -219,8 +219,8 @@ const EditProfile = () => {
     useEffect(() => {
         setValue('name_of_organization', userDetails?.name_of_organization)
         setValue('organization_type', userDetails?.organization_type)
-        setValue('registration_number', userDetails?.registration_number)
         setValue('no_of_employees', userDetails?.no_of_employees)
+        setValue('registration_number', userDetails?.registration_number)
         setValue('address_one', userDetails?.address_one)
         setValue('address_two', userDetails?.address_two)
         setValue('address_three', userDetails?.address_three)
@@ -307,16 +307,7 @@ const EditProfile = () => {
                                 <span>*</span>
                                 <label>No. of Employees</label>
                             </div>
-                            <select className='inputTypeSelect'
-                                onChange={e => setNo_of_employees(e.target.value)}
-                                value={no_of_employees}
-                            >
-                                <option value='20' >20</option>
-                                <option value='50'>50</option>
-                                <option value='100'>100</option>
-                                <option value='500'>500</option>
-                                <option value='1000'>1000</option>
-                            </select>
+                            <input {...register('no_of_employees')} className='inputTypeInput' type='number' placeholder='20' />
                         </div>
                     </div>
                     <div className='companyBox' >
