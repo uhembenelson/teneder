@@ -9,7 +9,7 @@ const Clients = () => {
         <div className='clientContainer' >
             <div className='clientBox' >
                 <h2>What Our Clients Say About Us</h2>
-                <div className='userCardHolder'>
+                <div className='userCardHolder' id='testimonials'>
                     <div className='userCardContainer' >
                         <div className='userCardInner' >
                             <img src={second} alt='first' />

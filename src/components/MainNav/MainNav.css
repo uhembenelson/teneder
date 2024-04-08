@@ -18,7 +18,7 @@
 
 .mainNavListParent{
     display: flex;
-    width: 60%;
+    width: 70%;
     /* align-self: center;  */
     align-items: center;
     height: 3rem;
@@ -57,16 +57,9 @@
     display: none;
 }
 
-@media screen and (max-width: 780px) {
-    .homeNavIcon2 {
-        display: flex;
-        z-index: 4000;
-        color: #fff;
-        font-size: 2rem;
-    }
-}
 
-@media screen and (max-width: 720px){
+
+@media screen and (max-width: 800px){
     .mainNavListParent{
         display: none;
     }
@@ -101,4 +94,13 @@
         right: 1rem;
     }
 
+}
+
+@media screen and (max-width: 780px) {
+    .homeNavIcon2 {
+        display: flex;
+        z-index: 4000;
+        color: #fff;
+        font-size: 2rem;
+    }
 }

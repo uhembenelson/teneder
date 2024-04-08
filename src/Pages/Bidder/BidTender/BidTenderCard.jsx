@@ -56,7 +56,7 @@ const BidTenderCard = ({ tender, id }) => {
                     description_tender
                 }
                 <div className='table__inner'>
-                    <span>No. {tender?.tender_id}</span>
+                    <span>no. {tender?.tender_id}</span>
                     <span>
                         <img
                             src={location}

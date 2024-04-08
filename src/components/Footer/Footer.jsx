@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Footer.css'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/SYMBOL.png'
@@ -6,8 +6,27 @@ import CustomBtn from '../CustomBtn/CustomBtn'
 import Twitter from '../../assets/twitter.png'
 import Symbol from '../../assets/footerLogo.png'
 import copyright from '../../assets/copyright.png'
+import { toast } from 'react-toastify'
 
 const Footer = () => {
+
+    const [email, setEmail] = useState('')
+
+    const showMessage = () => {
+        if (!email) {
+            return
+        }
+        else {
+            toast.success('Congratulations, You will now start receiving all the notifications of this platform', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+                hideProgressBar: true,
+            });
+        }
+    }
+
+
+
     return (
         <div className='footerContainer' id='footer' >
             <div className='footerBox'>
@@ -16,8 +35,8 @@ const Footer = () => {
                     <div className='leftFooter' >
                         <p className='footerText' >Trust is like the air we breathe – when it’s present, nobody really notices; when it’s absent, everybody notices.</p>
                         <div className='inputBox' >
-                            <input placeholder='Your Email' />
-                            <CustomBtn >Subscribe Now</CustomBtn>
+                            <input value={email} type='email' onChange={e => setEmail(e.target.value)} placeholder='Your Email' />
+                            <CustomBtn onClick={showMessage} >Subscribe Now</CustomBtn>
                         </div>
                     </div>
 

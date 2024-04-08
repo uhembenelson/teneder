@@ -21,6 +21,7 @@ const Search = ({ setSearchTerm, approve, setSearchType, seachType, searchTender
                 <option className='optionsSearch' value='orgName'>Organization</option>
                 <option className='optionsSearch' value='type'>Type</option>
                 <option className='optionsSearch' value='status'>Status</option>
+                <option className='optionsSearch' value='tender_id'>T_no</option>
 
             </select> :
                 <select placeholder='Keyword Search'
@@ -31,6 +32,7 @@ const Search = ({ setSearchTerm, approve, setSearchType, seachType, searchTender
                     {/*<option className='optionsSearch'>T-Number</option>*/}
                     <option className='optionsSearch' value='date'>Due Date</option>
                     <option className='optionsSearch' value='type'>Type</option>
+                    <option className='optionsSearch' value='tender_id'>T_no</option>
 
                 </select>}
             <div className='searchInputBox' >

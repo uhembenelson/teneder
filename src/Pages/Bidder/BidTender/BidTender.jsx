@@ -69,9 +69,15 @@ const BidTender = () => {
 
         else if (searchType === 'date') {
             filteredTender = data?.filter(datum =>
-                datum?.duration_of_work.replace(/-/g, '/')?.includes(searchTerm.toLocaleLowerCase())
+                datum?.duration_of_bidding_end.replace(/-/g, '/')?.includes(searchTerm.toLocaleLowerCase())
             )
         }
+        else if (searchType === 'tender_id') {
+            filteredTender = data?.filter(datum =>
+                datum?.tender_id.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
 
         setFilteredTenders(filteredTender)
 

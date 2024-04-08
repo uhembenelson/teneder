@@ -75,6 +75,12 @@ function ApproveTender() {
                 datum?.name_of_organization.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
             )
         }
+        else if (searchType === 'tender_id') {
+            filteredTender = data?.filter(datum =>
+                datum?.tender_id.toLocaleLowerCase()?.includes(searchTerm.toLocaleLowerCase())
+            )
+        }
+
 
 
         setFilteredTenders(filteredTender)
@@ -181,7 +187,7 @@ function ApproveTender() {
                                             <td >
                                                 {id + 1} {tender?.description_tender}
                                                 <div className='table__inner'>
-                                                    <span>No. {tender?.tender_id}</span>
+                                                    <span>no. {tender?.tender_id}</span>
                                                     <span>
                                                         <img
                                                             src={location}

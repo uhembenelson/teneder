@@ -37,6 +37,7 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
                     {/*<Link to='/contact' >
                         <li>CONTACT US</li>
     </Link>*/}
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('testimonials')}>TESTIMONIALS</li>
                     <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('footer')}>CONTACT US</li>
 
                     <button onClick={() => setShowLoginModal(true)} className='HomeBtn' >
@@ -70,6 +71,9 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
                     </Link>
                     <Link to='/about' >
                         <li>ABOUT</li>
+                    </Link>
+                    <Link to='/about' >
+                        <li>TESTIMONIALS</li>
                     </Link>
                     <Link to='/contact' >
                         <li>CONTACT US</li>
