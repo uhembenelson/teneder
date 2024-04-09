@@ -150,7 +150,7 @@ function CancelOrder({ handleShowModal }) {
 							onClick={handleShowModal}>
 							cancel
 						</button>
-						<button type='submit' className='return__btn act__btn'>{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Return'}</button>
+						<button type='submit' className='return__btn act__btn'>{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Submit'}</button>
 					</div>
 				</form>
 			</section>

@@ -6,7 +6,7 @@ import saly from '../../assets/Saly-13.png'
 
 const WhyUs = () => {
     return (
-        <div className='WhyUs' >
+        <div className='WhyUs' id='whyUs'>
             <div className='defiContainer' >
                 <div className='whyUsBox' >
                     <h2 className='whyUsTitle' >Why We Are Better than others?</h2>

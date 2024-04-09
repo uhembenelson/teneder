@@ -35,7 +35,7 @@ function TenderTable() {
 
 		const response = await fetch(url, { headers });
 		const data = await response.json();
-		return data;
+		return data.reverse();
 
 
 	};

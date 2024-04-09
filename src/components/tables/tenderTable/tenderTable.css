@@ -11,6 +11,7 @@
 	height: 100%;
 	margin: auto;
 	padding-bottom: 1rem;
+	
 }
 
 .table__heading {
@@ -59,6 +60,7 @@
 	width: 100%;
 	border-collapse: collapse;
 	padding-bottom: 2rem;
+	
 }
 
 /* .tender__table thead th {

@@ -1,7 +1,8 @@
 .mainHeader{
     background-color: #000b45;
     width: 100vw;
-    position: relative;
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: center;
     height: 6rem;

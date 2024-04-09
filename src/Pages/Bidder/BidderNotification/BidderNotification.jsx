@@ -26,6 +26,13 @@ const BidderNotification = () => {
 
     };
 
+    const { token, bidder_id } = useSelector(state => state.bidder.user)
+    const url = `https://school-project-production-459d.up.railway.app/v8/notification/${bidder_id}`
+
+
+    const { data } = useSWR([url, token], () => fetchAllNotifications(url, token));
+    // console.log(data)
+
     const deleteNotification = async () => {
         try {
 
@@ -46,6 +53,15 @@ const BidderNotification = () => {
                     hideProgressBar: true,
 
                 });
+                const res = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `${token}`
+                    }
+                })
+
+                const data = await res.json()
+                console.log(data)
             }
             else {
                 toast.error(data.error, {
@@ -62,53 +78,34 @@ const BidderNotification = () => {
     }
 
 
-    const { token, bidder_id } = useSelector(state => state.bidder.user)
-    const url = `https://school-project-production-459d.up.railway.app/v8/notification/${bidder_id}`
 
-
-    const { data } = useSWR([url, token], () => fetchAllNotifications(url, token));
-    // console.log(data)
 
     let notification = <div className='spinnerContainer' >
         <CircularProgress color="info" thickness={8} size={30} />
     </div>
 
-    if (data?.length > 0) {
+    if (typeof (data) === 'string') {
+        notification = <p style={{ textAlign: 'center' }} >No new notifications</p>
+    }
+
+    else if (typeof (data) === 'object') {
         notification = data?.map(notification => {
             return (
                 <Notification notification={notification} date='Today' />
             )
         })
     }
-    else if (data?.length === 0) {
-        notification = <div className='spinnerContainer' ><p>No Notification found </p></div>
+
+    let noOFNotifications = 0
+
+    if (typeof (data) === 'string') {
+        noOFNotifications = 0
+    }
+    else if (typeof (data) === 'object') {
+        noOFNotifications = data?.length
     }
 
-    useEffect(() => {
 
-
-        // Sort the data based on date
-        data?.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-
-        // Group the sorted data by date
-        const groupedData = groupDataByDate(data);
-
-        setData(groupedData);
-    }, [])
-
-    const groupDataByDate = (data) => {
-        const groupedData = {};
-        data?.forEach(item => {
-            const date = item.created_at?.split('T')[0]; // Extract date without time
-
-            if (!groupedData[date]) {
-                groupedData[date] = [];
-            }
-            groupedData[date].push(item);
-        });
-
-        return groupedData;
-    };
 
     const navigate = useNavigate()
     return (
@@ -127,45 +124,17 @@ const BidderNotification = () => {
                 </div>
                 <div className='mark' >
                     <div className='markAll'>
-                        <p >{data?.length} notifications</p>
+                        <p >{noOFNotifications} notifications</p>
 
                     </div>
                     <p onClick={deleteNotification} className='markAsRead' >Clear Notifications</p>
                 </div>
             </div>
-            <div>
-                {Object.entries(newData).map(([date, items]) => {
-
-                    // console.log(date)
-                    const currentDate = moment();
-                    const inputDate = date; // Parse input date with format
-                    // console.log(inputDate)
-                    let displayDate;
-                    if (currentDate.isSame(inputDate, 'day')) {
-                        displayDate = 'Today';
-                    } else if (currentDate.subtract(1, 'days').isSame(inputDate, 'day')) {
-                        displayDate = 'Yesterday';
-                    } else {
-                        displayDate = inputDate;
-                    }
-
-                    return (
-                        <div key={date}>
-                            <div className='todaysDate' ><p>{displayDate}</p></div>
 
 
-                            {
-                                notification
-                            }
-                        </div>
-                    )
-                })}
-
-            </div>
-
-            {/*
+            {
                 notification
-            */}
+            }
 
 
         </div>

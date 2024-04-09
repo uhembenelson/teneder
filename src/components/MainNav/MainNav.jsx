@@ -32,7 +32,7 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
                         <li>HOME</li>
                     </Link>
                     {/*<Link to='/about' >*/}
-                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('footer')}>ABOUT</li>
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('whyUs')}>ABOUT</li>
                     {/*</Link>*/}
                     {/*<Link to='/contact' >
                         <li>CONTACT US</li>
