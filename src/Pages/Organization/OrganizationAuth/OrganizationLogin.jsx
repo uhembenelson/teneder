@@ -79,7 +79,7 @@ const OrganizationLogin = () => {
 
             }
             else {
-                toast.error(data.message, {
+                toast.error(data, {
                     position: toast.POSITION.TOP_RIGHT,
                     autoClose: 3000,
                     hideProgressBar: true,

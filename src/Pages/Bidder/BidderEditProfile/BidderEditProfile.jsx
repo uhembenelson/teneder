@@ -343,7 +343,7 @@ const BidderEditProfile = () => {
                                     ))
                                 }
                             </select>*/}
-                            <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='number' />
+                            <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='text' />
                         </div>
 
                         <div className='companyTypeInputContainer2'>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import DatePicker from 'react-date-picker';
 import './CreateTender.css'
 import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import UploadFile from '../../../components/UploadFile/UploadFile'
@@ -10,6 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { CircularProgress } from "@mui/material";
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
 const CreateTender = () => {
 
@@ -24,6 +27,9 @@ const CreateTender = () => {
     const [workStartErr, setWorkStartErr] = useState(false)
     const [workEndErr, setWorkEndErr] = useState(false)
 
+    const [value, onChange] = useState(new Date())
+
+    // 
 
     const navigate = useNavigate()
 
@@ -52,6 +58,7 @@ const CreateTender = () => {
 
     const [hasFileBeenSelected, setHasFileBeenSelected] = useState(false)
 
+
     const {
         getValues,
         register,
@@ -72,6 +79,9 @@ const CreateTender = () => {
     }, [])
 
     const user = useSelector(state => state.organization.user)
+
+
+
 
 
 
@@ -255,14 +265,7 @@ const CreateTender = () => {
                                 <div className='labelContainer'>
                                     < span >*</span><label className='address'>END DURATION OF BIDDING PERIOD</label>
                                 </div>
-
-                                <input type='date'
-                                    value={duration_of_bidding_end}
-                                    onChange={(e) => setDuration_of_bidding_end(e.target.value)}
-                                    id="date"
-                                    name="date"
-
-                                />
+                                <DatePicker minDate={new Date() && duration_of_bidding_start} onChange={setDuration_of_bidding_end} value={duration_of_bidding_end} />
                             </div>
                             <div style={{
                                 border: bidStartErr ? '1px solid red' : '1px solid #ccc'
@@ -271,14 +274,15 @@ const CreateTender = () => {
                                     <span>*</span><label className='address'>START DURATION OF BIDDING PERIOD</label>
                                 </div>
 
-                                <input
+                                {/*<input
                                     type="date"
                                     id="date"
                                     name="date"
                                     value={duration_of_bidding_start}
                                     onChange={(e) => setDuration_of_bidding_start(e.target.value)}
 
-                                />
+                        />*/}
+                                <DatePicker minDate={new Date()} onChange={setDuration_of_bidding_start} value={duration_of_bidding_start} />
                             </div>
                         </div>
                     </div >
