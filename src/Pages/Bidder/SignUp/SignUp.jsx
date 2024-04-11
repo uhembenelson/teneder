@@ -265,15 +265,16 @@ const SignUp = () => {
                             <div className='companyTypeInputContainer2'>
                                 <div className='typeInput' >
                                     <span>*</span>
-                                    <label>State</label>
+                                    <label>Country</label>
                                 </div>
-                                <select className='inputTypeSelect' {...register('state')}>
+                                {/*<select className='inputTypeSelect' >
                                     {
                                         states?.map((state, id) => (
                                             <option value={state?.country} key={id} >{state?.country}</option>
                                         ))
                                     }
-                                </select>
+                                </select>*/}
+                                <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='number' />
                             </div>
                             <div style={{ borderColor: errors?.postal_code?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
                                 <div className='typeInput' >
