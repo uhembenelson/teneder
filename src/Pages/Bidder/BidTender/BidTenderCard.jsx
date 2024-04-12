@@ -50,7 +50,7 @@ const BidTenderCard = ({ tender, id }) => {
 
 
     return (
-        <tr key={tender?.tender_id} onClick={() => TenderInfo(tender)} >
+        <tr key={tender?.tender_id}  >
             <td >
                 {id + 1}. {tender?.
                     description_tender
@@ -87,6 +87,7 @@ const BidTenderCard = ({ tender, id }) => {
                         alt='cancel'
                 /> :*/}
                 <img
+                    onClick={() => TenderInfo(tender)}
                     src={NotbidImage}
                     alt='cancel'
                 />
