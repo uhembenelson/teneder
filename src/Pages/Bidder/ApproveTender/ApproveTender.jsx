@@ -222,20 +222,7 @@ function ApproveTender() {
                                             </td>
                                             <td>
 
-                                                {tender?.status === 'ongoing' ? <div>
-                                                    <p>ON-GOING</p>
-                                                    <img
-                                                        src={checked}
-                                                        alt='cancel'
-                                                    />
-                                                </div> :
-                                                    <div>
-                                                        <p>CANCELLED</p>
-                                                        <img
-                                                            src={cancel}
-                                                            alt='cancel'
-                                                        />
-                                                    </div>}
+                                                <p>{tender?.status}</p>
                                             </td>
                                         </tr>
                                     )
