@@ -259,6 +259,17 @@ const CreateTender = () => {
                     <div className='companyContainer' >
                         <div className='companyBox' >
 
+
+                            <div style={{
+                                border: bidStartErr ? '1px solid red' : '1px solid #ccc'
+                            }} className='createTenderBox durationBox ' >
+                                <div className='labelContainer' >
+                                    <span>*</span><label className='address'>START DURATION OF BIDDING PERIOD</label>
+                                </div>
+
+
+                                <DatePicker minDate={new Date()} onChange={setDuration_of_bidding_start} value={duration_of_bidding_start} />
+                            </div>
                             <div style={{
                                 border: bidEndErr ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
@@ -267,43 +278,11 @@ const CreateTender = () => {
                                 </div>
                                 <DatePicker minDate={new Date() && duration_of_bidding_start} onChange={setDuration_of_bidding_end} value={duration_of_bidding_end} />
                             </div>
-                            <div style={{
-                                border: bidStartErr ? '1px solid red' : '1px solid #ccc'
-                            }} className='createTenderBox durationBox ' >
-                                <div className='labelContainer' >
-                                    <span>*</span><label className='address'>START DURATION OF BIDDING PERIOD</label>
-                                </div>
-
-                                {/*<input
-                                    type="date"
-                                    id="date"
-                                    name="date"
-                                    value={duration_of_bidding_start}
-                                    onChange={(e) => setDuration_of_bidding_start(e.target.value)}
-
-                        />*/}
-                                <DatePicker minDate={new Date()} onChange={setDuration_of_bidding_start} value={duration_of_bidding_start} />
-                            </div>
                         </div>
                     </div >
                     <div className='companyContainer' style={{ marginTop: '2rem' }} >
                         <div className='companyBox' >
 
-                            <div style={{
-                                border: workEndErr ? '1px solid red' : '1px solid #ccc'
-                            }} className='createTenderBox durationBox ' >
-                                <div className='labelContainer'>
-                                    < span >*</span><label className='address'>END DURATION OF WORK PERIOD</label>
-                                </div>
-
-                                <input
-                                    type="date"
-                                    id="date"
-                                    name="date"
-                                    value={duration_of_work_end}
-                                    onChange={(e) => setDuration_of_work_end(e.target.value)}
-                                />
-                            </div>
                             <div style={{
                                 border: workStartErr ? '1px solid red' : '1px solid #ccc'
                             }} className='createTenderBox durationBox ' >
@@ -318,6 +297,22 @@ const CreateTender = () => {
                                     value={duration_of_work_start}
                                     onChange={(e) => setDuration_of_work_start(e.target.value)}
 
+                                />
+                            </div>
+
+                            <div style={{
+                                border: workEndErr ? '1px solid red' : '1px solid #ccc'
+                            }} className='createTenderBox durationBox ' >
+                                <div className='labelContainer'>
+                                    < span >*</span><label className='address'>END DURATION OF WORK PERIOD</label>
+                                </div>
+
+                                <input
+                                    type="date"
+                                    id="date"
+                                    name="date"
+                                    value={duration_of_work_end}
+                                    onChange={(e) => setDuration_of_work_end(e.target.value)}
                                 />
                             </div>
                         </div>

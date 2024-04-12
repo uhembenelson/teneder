@@ -274,7 +274,7 @@ const SignUp = () => {
                                         ))
                                     }
                                 </select>*/}
-                                <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='number' />
+                                <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='text' />
                             </div>
                             <div style={{ borderColor: errors?.postal_code?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
                                 <div className='typeInput' >
