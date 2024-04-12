@@ -22,7 +22,7 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'ongoing') {
         percentage = 66
     }
-    else if (data?.status === 'Result pending') {
+    else if (data?.status === 'result pending') {
         percentage = 0
     }
     else {
@@ -37,8 +37,8 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'ongoing') {
         status = <span className='ongoing'>  ONGOING</span>
     }
-    else if (data?.status === 'Result pending') {
-        status = <span className='ongoing'>  Pending</span>
+    else if (data?.status === 'result pending') {
+        status = <span className='ongoing'>  PENDING</span>
     }
 
     const provideFeedback = () => {
