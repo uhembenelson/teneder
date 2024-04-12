@@ -1,6 +1,7 @@
 export const formatDate = (date) => {
-    if (date) {
+    if (date?.includes("-")) {
         const startDateParts = date
+        console.log(startDateParts)
         const convertedDateString = startDateParts?.replace(/-/g, '/')
         const dateComponents = convertedDateString?.split('/');
 
@@ -9,6 +10,9 @@ export const formatDate = (date) => {
 
 
         return rearrangedDate
+    }
+    else if (date?.includes("/")) {
+        return date
     }
     else {
         return 'N/A'

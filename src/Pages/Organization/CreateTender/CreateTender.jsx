@@ -27,9 +27,6 @@ const CreateTender = () => {
     const [workStartErr, setWorkStartErr] = useState(false)
     const [workEndErr, setWorkEndErr] = useState(false)
 
-    const [value, onChange] = useState(new Date())
-
-    // 
 
     const navigate = useNavigate()
 
@@ -52,7 +49,6 @@ const CreateTender = () => {
 
     const [err, setErr] = useState(null)
 
-    const [states, setStates] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [type_of_tender, setCompanyType] = useState('Private')
 
@@ -72,11 +68,7 @@ const CreateTender = () => {
         mode: "onChange",
     });
 
-    useEffect(() => {
-        fetch('https://countriesnow.space/api/v0.1/countries/')
-            .then(res => res.json()).
-            then(data => setStates(data.data))
-    }, [])
+
 
     const user = useSelector(state => state.organization.user)
 
@@ -99,6 +91,11 @@ const CreateTender = () => {
     const formData = new FormData();
 
     const createTender = async () => {
+        // console.log(duration_of_bidding_start.toLocaleDateString().reverse())
+        // console.log(duration_of_bidding_end.toLocaleDateString().reverse())
+        // console.log(duration_of_work_start.toLocaleDateString().reverse())
+        // console.log(duration_of_work_end.toLocaleDateString().reverse())
+
 
         const data = getValues()
 
@@ -113,10 +110,10 @@ const CreateTender = () => {
         formData.append('state', data?.state)
         formData.append('city', data?.city)
         formData.append('postal_code', data?.postal_code)
-        formData.append('duration_of_bidding_start', duration_of_bidding_start)
-        formData.append('duration_of_bidding_end', duration_of_bidding_end)
-        formData.append('duration_of_work_start', duration_of_work_start)
-        formData.append('duration_of_work_end', duration_of_work_end)
+        formData.append('duration_of_bidding_start', duration_of_bidding_start.toLocaleDateString())
+        formData.append('duration_of_bidding_end', duration_of_bidding_end.toLocaleDateString())
+        formData.append('duration_of_work_start', duration_of_work_start.toLocaleDateString())
+        formData.append('duration_of_work_end', duration_of_work_end.toLocaleDateString())
         formData.append('type_of_tender', type_of_tender)
         formData.append('appendices', appendices)
         formData.append('material_required', data?.material_required)
@@ -164,6 +161,14 @@ const CreateTender = () => {
 
                     });
                     navigate('/organization/manage-tender')
+                }
+                else {
+                    toast.error(data.message, {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                        hideProgressBar: true,
+
+                    });
                 }
             }
             catch (err) {
@@ -237,14 +242,8 @@ const CreateTender = () => {
                                     <span>*</span>
                                     <label className='address'>Country</label>
                                 </div>
-                                <select className='inputTypeSelect' {...register('state')}>
-                                    {
-                                        states?.map((state, id) => (
-                                            <option value={state?.country} key={id} >{state?.country}</option>
-                                        ))
-                                    }
-                                </select>
 
+                                <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='text' />
                             </div>
                             <div className='companyTypeInputContainer2'>
                                 <div className=' labelContainer'  >
@@ -290,15 +289,8 @@ const CreateTender = () => {
                                     <span>*</span><label className='address'>START DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                {/*<input
-                                    type="date"
-                                    id="date"
-                                    name="date"
-                                    value={duration_of_work_start}
-                                    onChange={(e) => setDuration_of_work_start(e.target.value)}
 
-                        />*/}
-                                <DatePicker minDate={new Date() && duration_of_work_start} onChange={setDuration_of_bidding_end} value={duration_of_bidding_end} />
+                                <DatePicker minDate={new Date() && duration_of_bidding_end} onChange={setDuration_of_work_start} value={duration_of_work_start} />
                             </div>
 
                             <div style={{
@@ -308,13 +300,8 @@ const CreateTender = () => {
                                     < span >*</span><label className='address'>END DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                <input
-                                    type="date"
-                                    id="date"
-                                    name="date"
-                                    value={duration_of_work_end}
-                                    onChange={(e) => setDuration_of_work_end(e.target.value)}
-                                />
+
+                                <DatePicker minDate={new Date() && duration_of_work_start} onChange={setDuration_of_work_end} value={duration_of_work_end} />
                             </div>
                         </div>
                     </div>
