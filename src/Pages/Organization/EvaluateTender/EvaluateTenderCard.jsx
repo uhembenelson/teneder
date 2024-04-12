@@ -40,6 +40,9 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'result pending') {
         status = <span className='ongoing'>  PENDING</span>
     }
+    else if (data?.status === 'complete') {
+        status = <span className='ongoing'>  COMPLETE</span>
+    }
 
     const provideFeedback = () => {
         dispatch(selectTender(data))

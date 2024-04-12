@@ -1,18 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import checked from '../../../assets/Checked Checkbox.png'
 import backArrow from '../../../assets/Shape.png';
-import cancel from '../../../assets/Multiplication.png';
-import approval from '../../../assets/Approval.png';
-import flag from '../../../assets/flag.png';
-import HourGlass from '../../../assets/Hourglass.png'
-import location from '../../../assets/location.png';
 import useSWR from 'swr';
 import { useSelector } from 'react-redux';
 import { getTenderInfo } from '../../../Redux/Bidder/Action';
 import { useDispatch } from 'react-redux';
 import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
+import ApproveTenderCard from './ApproveTenderCard';
 
 function ApproveTender() {
 
@@ -88,69 +83,111 @@ function ApproveTender() {
 
     }
 
-    let option = <div>
-        <p>ON-GOING</p>
-        <img
-            src={cancel}
-            alt='cancel'
-        />
-    </div>
+    let option
+    // = <div>
+    //     <p>ON-GOING</p>
+    //     <img
+    //         src={cancel}
+    //         alt='cancel'
+    //     />
+    // </div>
 
-    data?.map(tender => {
-        if (tender?.status === 'cancelled') {
-            option = <div>
-                <p>CANCELLED</p>
-                <img
-                    src={cancel}
-                    alt='cancel'
-                />
-            </div>
-        }
-        else if (tender?.status === 'rejected') {
-            option = <div>
-                <p>CANCELLED</p>
-                <img
-                    src={cancel}
-                    alt='cancel'
-                />
-            </div>
-        }
-        else if (tender?.status === 'ongoing') {
-            option = <div>
-                <p>ON-GOING</p>
-                <img
-                    src={checked}
-                    alt='cancel'
-                />
-            </div>
-        }
-        else if (tender?.status === 'Result not out yet') {
-            option = <div>
-                <p>PENDING</p>
-                <img
-                    src={HourGlass}
-                    alt='cancel'
-                />
-            </div>
-        }
-
-        else {
-            option = <div>
-                <p>SELECTED</p>
-                <img
-                    src={approval}
-                    alt='approval'
-                />
-            </div>
-        }
-    })
+    // switch (tender?.status) {
+    //     case 'cancelled':
+    //         option = <div>
+    //             <p>CANCELLED</p>
+    //             <img
+    //                 src={cancel}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //         break;
+    //     case 'rejected':
+    //         option = <div>
+    //             <p>CANCELLED</p>
+    //             <img
+    //                 src={cancel}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //         break;
+    //     case 'ongoing':
+    //         option = <div>
+    //             <p>ON-GOING</p>
+    //             <img
+    //                 src={checked}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //         break
+    //     case 'result pending':
+    //         option = <div>
+    //             <p>PENDING</p>
+    //             <img
+    //                 src={HourGlass}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //     default:
+    //         option = <div>
+    //             <p>SELECTED</p>
+    //             <img
+    //                 src={approval}
+    //                 alt='approval'
+    //             />
+    //         </div>
+    // }
 
 
 
-    const select = (data) => {
-        dispatch(getTenderInfo(data))
-        navigate(`/bidder/approval/${data?.tender_id}`)
-    }
+    // data?.map(tender => {
+    //     if (tender?.status === 'cancelled') {
+    //         option = <div>
+    //             <p>CANCELLED</p>
+    //             <img
+    //                 src={cancel}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //     }
+    //     else if (tender?.status === 'rejected') {
+    //         option = <div>
+    //             <p>CANCELLED</p>
+    //             <img
+    //                 src={cancel}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //     }
+    //     else if (tender?.status === 'ongoing') {
+    //         option = <div>
+    //             <p>ON-GOING</p>
+    //             <img
+    //                 src={checked}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //     }
+    //     else if (tender?.status === 'result pending') {
+    //         option = <div>
+    //             <p>PENDING</p>
+    //             <img
+    //                 src={HourGlass}
+    //                 alt='cancel'
+    //             />
+    //         </div>
+    //     }
+
+    //     else {
+    //         option = <div>
+    //             <p>SELECTED</p>
+    //             <img
+    //                 src={approval}
+    //                 alt='approval'
+    //             />
+    //         </div>
+    //     }
+    // })
 
 
 
@@ -185,46 +222,16 @@ function ApproveTender() {
                     <table className='tender__table'>
                         <thead>
                             <th>tender description</th>
-                            <th>type</th>
-                            <th>organization Name</th>
-                            <th>status</th>
+                            <th style={{ textAlign: 'center' }}>type</th>
+                            <th style={{ textAlign: 'center' }}>organization Name</th>
+                            <th style={{ textAlign: 'center' }}>status</th>
                         </thead>
 
                         <tbody>
                             {
                                 filteredTenders?.map((tender, id) => {
                                     return (
-                                        <tr key={id} onClick={() => select(tender)} >
-                                            <td >
-                                                {id + 1} {tender?.description_tender}
-                                                <div className='table__inner'>
-                                                    <span>no. {tender?.tender_id}</span>
-                                                    <span>
-                                                        <img
-                                                            src={location}
-                                                            alt='location'
-                                                        />
-                                                        {tender?.state}
-                                                    </span>
-
-                                                    {/*<span>
-                                                        <img
-                                                            src={flag}
-                                                            alt='flag'
-                                                        />
-                                                        India
-                                                    </span>*/}
-                                                </div>
-                                            </td>
-                                            <td>{tender?.type_of_tender}</td>
-                                            <td>
-                                                {tender?.name_of_organization}
-                                            </td>
-                                            <td>
-
-                                                <p>{tender?.status}</p>
-                                            </td>
-                                        </tr>
+                                        <ApproveTenderCard tender={tender} key={id} />
                                     )
                                 })
                             }

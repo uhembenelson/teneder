@@ -290,14 +290,15 @@ const CreateTender = () => {
                                     <span>*</span><label className='address'>START DURATION OF WORK PERIOD</label>
                                 </div>
 
-                                <input
+                                {/*<input
                                     type="date"
                                     id="date"
                                     name="date"
                                     value={duration_of_work_start}
                                     onChange={(e) => setDuration_of_work_start(e.target.value)}
 
-                                />
+                        />*/}
+                                <DatePicker minDate={new Date() && duration_of_work_start} onChange={setDuration_of_bidding_end} value={duration_of_bidding_end} />
                             </div>
 
                             <div style={{
