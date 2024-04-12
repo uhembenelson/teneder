@@ -5,6 +5,7 @@ import backArrow from '../../../assets/Shape.png';
 import cancel from '../../../assets/Multiplication.png';
 import approval from '../../../assets/Approval.png';
 import flag from '../../../assets/flag.png';
+import HourGlass from '../../../assets/Hourglass.png'
 import location from '../../../assets/location.png';
 import useSWR from 'swr';
 import { useSelector } from 'react-redux';
@@ -123,6 +124,16 @@ function ApproveTender() {
                 />
             </div>
         }
+        else if (tender?.status === 'Result not out yet') {
+            option = <div>
+                <p>PENDING</p>
+                <img
+                    src={HourGlass}
+                    alt='cancel'
+                />
+            </div>
+        }
+
         else {
             option = <div>
                 <p>SELECTED</p>
