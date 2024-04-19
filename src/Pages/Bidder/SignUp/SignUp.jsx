@@ -9,6 +9,7 @@ import 'react-phone-number-input/style.css'
 import UploadFile from '../../../components/UploadFile/UploadFile'
 import BidderHomeNavBar from '../../../components/BidderHomeNavBar/BidderHomeNavBar'
 import { CircularProgress } from '@mui/material';
+import { ethers } from "ethers";
 
 const SignUp = () => {
 
@@ -16,6 +17,7 @@ const SignUp = () => {
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
     const [panCard, setPanCard] = useState(null)
+    const [defaultAccount, setDefaultAccount] = useState();
     const schema = yup.object().shape({
         name_of_company: yup.string().required('Company name is required'),
         organization_website: yup.string().required('organization_website is required'),
@@ -43,6 +45,32 @@ const SignUp = () => {
     const [companyType, setCompanyType] = useState('Private')
     const [states, setStates] = useState([])
     const [salutation, setSalutation] = useState('mr')
+
+
+
+    const connectWallet = async () => {
+        if (window.ethereum) {
+          try {
+            window.ethereum
+              .request({ method: "eth_requestAccounts" })
+              .then((result) => {
+                console.log(result[0]);
+                setDefaultAccount(result[0]);
+              });
+          } catch (error) {}
+        } else {
+          document.getElementById("my_modal_1").showModal();
+        }
+      };
+    
+      useEffect(() => {
+        connectWallet();
+      }, []);
+    
+      console.log("this is the wallet address", defaultAccount);
+
+
+
 
     const {
         getValues,
@@ -152,269 +180,305 @@ const SignUp = () => {
 
     const navigate = useNavigate()
     return (
-        <div>
 
-            <div className='signUpContainer' >
-                <div className='signUpBox' >
-                    <div onClick={() => navigate(-1)}>
-                        <p className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
+        <>
+        <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hi, dear</h3>
+          <p className="py-4">MetaMask is required on this application.</p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn",
+                    "_blank"
+                  )
+                }
+                className="btn"
+              >
+                Install MetaMast
+              </button>
+            </form>
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+
+      <div>
+
+<div className='signUpContainer' >
+    <div className='signUpBox' >
+        <div onClick={() => navigate(-1)}>
+            <p className='alreadyText'><i className="ri-arrow-left-line"></i> Return</p>
+        </div>
+        <div className='memberContainer' >
+            <p  >Already a member?</p>
+            <Link className='loginText' to='/bidder/signin' >LOG IN NOW</Link>
+        </div>
+    </div>
+    <form onSubmit={handleSubmit(registerBidder)} >
+        <h2>COMPANY INFO</h2>
+        <div className='companyContainer' >
+            <div className='companyBox' >
+                <div className='companyTypeInputContainer2'>
+                    <div className='typeInput' >
+                        <span>*</span>
+                        <label>Company Type</label>
                     </div>
-                    <div className='memberContainer' >
-                        <p  >Already a member?</p>
-                        <Link className='loginText' to='/bidder/signin' >LOG IN NOW</Link>
-                    </div>
+                    <select className='inputTypeSelect' onChange={(event) => setCompanyType(event.target.value)}
+                        value={companyType}>
+                        <option value='Private' >Private</option>
+                        <option value='Public' >Public</option>
+                    </select>
                 </div>
-                <form onSubmit={handleSubmit(registerBidder)} >
-                    <h2>COMPANY INFO</h2>
-                    <div className='companyContainer' >
-                        <div className='companyBox' >
-                            <div className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
-                                    <span>*</span>
-                                    <label>Company Type</label>
-                                </div>
-                                <select className='inputTypeSelect' onChange={(event) => setCompanyType(event.target.value)}
-                                    value={companyType}>
-                                    <option value='Private' >Private</option>
-                                    <option value='Public' >Public</option>
-                                </select>
-                            </div>
-                            <div style={{ borderColor: errors?.name_of_company?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
-                                    <span>*</span>
-                                    <label>Full Name of Company</label>
-                                </div>
-                                <input placeholder='Name of Company' className='inputTypeInput' {...register('name_of_company')} type='text' />
-                            </div>
-                        </div>
+                <div style={{ borderColor: errors?.name_of_company?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                    <div className='typeInput' >
+                        <span>*</span>
+                        <label>Full Name of Company</label>
+                    </div>
+                    <input placeholder='Name of Company' className='inputTypeInput' {...register('name_of_company')} type='text' />
+                </div>
+            </div>
 
-                    </div>
-                    <div className='companyBox' >
-                        <div style={{ borderColor: errors?.registration_number?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Registration No. / Organization No.</label>
-                            </div>
-                            <input  {...register('registration_number')} className='inputTypeInput' placeholder='E.g. 201903124587' type='text' />
-                        </div>
-                        <div style={{ borderBottom: file ? '2px solid #ccc' : '2px solid red' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Registration Certificate</label>
-                            </div>
-                            <UploadFile setFile={setFile} />
-                            {file && <p className='fileName'>{file?.name}</p>}
-                        </div>
-                    </div>
-                    <div className='companyContainer' >
-                        <div className='companyBox' >
-                            <div className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
-                                    <span>*</span>
-                                    <label>Number of Employees</label>
-                                </div>
-
-                                <input {...register('no_of_employees')} className='inputTypeInput' type='number' placeholder='20' />
-                            </div>
-                            <div style={{ borderColor: errors?.organization_website?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
-                                    <span>*</span>
-                                    <label>Company Website</label>
-                                </div>
-                                <input {...register('organization_website')} className='inputTypeInput' type='url' placeholder='E.g. https://...' />
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <h2>COMPANY PRIMARY ADDRESS</h2>
-                    <div className='companyBox' >
-                        <div style={{ borderColor: errors?.address_one?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Address Line 1</label>
-                            </div>
-                            <input placeholder='123 Street' {...register('address_one')} className='inputTypeInput' type='text' />
-                        </div>
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Address Line 2</label>
-                            </div>
-                            <input placeholder='123 Street' {...register('address_two')} className='inputTypeInput' type='text' />
-                        </div>
-                    </div>
-                    <div className='companyBox' >
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-
-                                <label>Address Line 3</label>
-                            </div>
-                            <input placeholder='123 Street' {...register('address_three')} className='inputTypeInput' type='text' />
-                        </div>
-                        <div style={{ borderColor: errors?.city?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>City</label>
-                            </div>
-                            <input placeholder='City' {...register('city')} className='inputTypeInput' type='text' />
-                        </div>
-                    </div>
-                    <div className='companyContainer' >
-                        <div className='companyBox' >
-                            <div className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
-                                    <span>*</span>
-                                    <label>Country</label>
-                                </div>
-                                {/*<select className='inputTypeSelect' >
-                                    {
-                                        states?.map((state, id) => (
-                                            <option value={state?.country} key={id} >{state?.country}</option>
-                                        ))
-                                    }
-                                </select>*/}
-                                <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='text' />
-                            </div>
-                            <div style={{ borderColor: errors?.postal_code?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
-                                    <span>*</span>
-                                    <label>Postal Code</label>
-                                </div>
-                                <input placeholder='1235678989' {...register('postal_code')} className='inputTypeInput' type='number' />
-                            </div>
-                        </div>
-
-                    </div>
-                    <h2>USER INFO</h2>
-                    <div className='companyContainer' >
-                        <div className='companyBox' >
-                            <div className='companyTypeInputContainer2'>
-                                <div className='typeInput' >
-                                    <span>*</span>
-                                    <label>Salutation</label>
-                                </div>
-                                <select className='inputTypeSelect' onChange={(event) => setSalutation(event.target.value)}
-                                    value={salutation}>
-                                    <option value='mr' >Mr</option>
-                                    <option value='mrs' >Mrs</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div className='companyBox' >
-                        <div style={{ borderColor: errors?.first_name?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>First Name</label>
-                            </div>
-                            <input placeholder='John' className='inputTypeInput' type='text' {...register('first_name')} />
-                        </div>
-                        <div style={{ borderColor: errors?.last_name?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Last Name</label>
-                            </div>
-                            <input placeholder='Doe' className='inputTypeInput' type='text' {...register('last_name')} />
-                        </div>
-                    </div>
-                    <div className='companyBox' >
-                        <div style={{ borderColor: errors?.contact_number?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>GST Number</label>
-                            </div>
-
-                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text' {...register('contact_number')} />
-
-                        </div>
-                        <div style={{ borderColor: errors?.job_title?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Job Title</label>
-                            </div>
-                            <input placeholder="Enter Job Title" className='inputTypeInput' {...register('job_title')} type='text' />
-                        </div>
-                    </div>
-                    <div className='companyBox' >
-                        <div style={{ borderColor: errors?.email?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Email</label>
-                            </div>
-                            <input className='inputTypeInput' type='email' placeholder='E.g. example@domain.com' {...register('email')} />
-                        </div>
-                        <div style={{ borderColor: errors?.confirm_email?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Re-enter Email</label>
-                            </div>
-                            <input className='inputTypeInput' type='email' placeholder='E.g. example@domain.com' {...register('confirm_email')} />
-                        </div>
-                    </div>
-                    <div className='companyBox' >
-                        <div style={{ borderColor: errors?.password?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' {...register('password')} />
-                        </div>
-                        <div style={{ borderColor: errors?.confirm_password?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Re-enter Password</label>
-                            </div>
-                            <input className='inputTypeInput' type='password' {...register('confirm_password')} />
-                        </div>
-                    </div>
-                    <div style={{ borderColor: errors?.public_address?.message ? 'red' : '#ccc' }} className='companyBox' >
-                        <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Public Address</label>
-                            </div>
-                            <input className='inputTypeInput' type='text' {...register('public_address')} maxLength={16} />
-                        </div>
-                        <div style={{ borderColor: errors?.wallet_address?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Wallet Address</label>
-                            </div>
-                            <input className='inputTypeInput' type='text' {...register('wallet_address')} maxLength={16} />
-                        </div>
-                    </div>
-                    <div className='companyBox' >
-                        <div style={{ borderBottom: AadharCard ? '2px solid #ccc' : '2px solid red' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Aadhar card </label>
-                            </div>
-                            <UploadFile setFile={setAadharCard} />
-                            {AadharCard && <p className='fileName'>{AadharCard?.name}</p>}
-                        </div>
-                        <div style={{ borderBottom: panCard ? '2px solid #ccc' : '2px solid red' }} className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
-                                <span>*</span>
-                                <label>Pan Card</label>
-                            </div>
-                            <UploadFile setFile={setPanCard} />
-                            {panCard && <p className='fileName'>{panCard?.name}</p>}
-                        </div>
-                    </div>
-                    <div>
-                        <div className='typeInput' >
-                            <input type='checkbox' />
-                            <span>*</span>
-                            <label>I have read and agreed to <span id='termsOfUse' >Terms of Use</span>and <span id='termsOfUse' >Privacy Policy</span></label>
-                        </div>
-                    </div>
-                    <button className='registerBtn' type='submit' >{isLoading ? < CircularProgress color="primary" thickness={10} size={18} /> : 'Complete Registration'}</button>
-                </form>
+        </div>
+        <div className='companyBox' >
+            <div style={{ borderColor: errors?.registration_number?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Registration No. / Organization No.</label>
+                </div>
+                <input  {...register('registration_number')} className='inputTypeInput' placeholder='E.g. 201903124587' type='text' />
+            </div>
+            <div style={{ borderBottom: file ? '2px solid #ccc' : '2px solid red' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Registration Certificate</label>
+                </div>
+                <UploadFile setFile={setFile} />
+                {file && <p className='fileName'>{file?.name}</p>}
             </div>
         </div>
+        <div className='companyContainer' >
+            <div className='companyBox' >
+                <div className='companyTypeInputContainer2'>
+                    <div className='typeInput' >
+                        <span>*</span>
+                        <label>Number of Employees</label>
+                    </div>
+
+                    <input {...register('no_of_employees')} className='inputTypeInput' type='number' placeholder='20' />
+                </div>
+                <div style={{ borderColor: errors?.organization_website?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                    <div className='typeInput' >
+                        <span>*</span>
+                        <label>Company Website</label>
+                    </div>
+                    <input {...register('organization_website')} className='inputTypeInput' type='url' placeholder='E.g. https://...' />
+                </div>
+            </div>
+
+        </div>
+
+        <h2>COMPANY PRIMARY ADDRESS</h2>
+        <div className='companyBox' >
+            <div style={{ borderColor: errors?.address_one?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Address Line 1</label>
+                </div>
+                <input placeholder='123 Street' {...register('address_one')} className='inputTypeInput' type='text' />
+            </div>
+            <div className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+
+                    <label>Address Line 2</label>
+                </div>
+                <input placeholder='123 Street' {...register('address_two')} className='inputTypeInput' type='text' />
+            </div>
+        </div>
+        <div className='companyBox' >
+            <div className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+
+                    <label>Address Line 3</label>
+                </div>
+                <input placeholder='123 Street' {...register('address_three')} className='inputTypeInput' type='text' />
+            </div>
+            <div style={{ borderColor: errors?.city?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>City</label>
+                </div>
+                <input placeholder='City' {...register('city')} className='inputTypeInput' type='text' />
+            </div>
+        </div>
+        <div className='companyContainer' >
+            <div className='companyBox' >
+                <div className='companyTypeInputContainer2'>
+                    <div className='typeInput' >
+                        <span>*</span>
+                        <label>Country</label>
+                    </div>
+                    {/*<select className='inputTypeSelect' >
+                        {
+                            states?.map((state, id) => (
+                                <option value={state?.country} key={id} >{state?.country}</option>
+                            ))
+                        }
+                    </select>*/}
+                    <input placeholder='Enter Country' {...register('state')} className='inputTypeInput' type='text' />
+                </div>
+                <div style={{ borderColor: errors?.postal_code?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                    <div className='typeInput' >
+                        <span>*</span>
+                        <label>Postal Code</label>
+                    </div>
+                    <input placeholder='1235678989' {...register('postal_code')} className='inputTypeInput' type='number' />
+                </div>
+            </div>
+
+        </div>
+        <h2>USER INFO</h2>
+        <div className='companyContainer' >
+            <div className='companyBox' >
+                <div className='companyTypeInputContainer2'>
+                    <div className='typeInput' >
+                        <span>*</span>
+                        <label>Salutation</label>
+                    </div>
+                    <select className='inputTypeSelect' onChange={(event) => setSalutation(event.target.value)}
+                        value={salutation}>
+                        <option value='mr' >Mr</option>
+                        <option value='mrs' >Mrs</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+        <div className='companyBox' >
+            <div style={{ borderColor: errors?.first_name?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>First Name</label>
+                </div>
+                <input placeholder='John' className='inputTypeInput' type='text' {...register('first_name')} />
+            </div>
+            <div style={{ borderColor: errors?.last_name?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Last Name</label>
+                </div>
+                <input placeholder='Doe' className='inputTypeInput' type='text' {...register('last_name')} />
+            </div>
+        </div>
+        <div className='companyBox' >
+            <div style={{ borderColor: errors?.contact_number?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>GST Number</label>
+                </div>
+
+                <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text' {...register('contact_number')} />
+
+            </div>
+            <div style={{ borderColor: errors?.job_title?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Job Title</label>
+                </div>
+                <input placeholder="Enter Job Title" className='inputTypeInput' {...register('job_title')} type='text' />
+            </div>
+        </div>
+        <div className='companyBox' >
+            <div style={{ borderColor: errors?.email?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Email</label>
+                </div>
+                <input className='inputTypeInput' type='email' placeholder='E.g. example@domain.com' {...register('email')} />
+            </div>
+            <div style={{ borderColor: errors?.confirm_email?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Re-enter Email</label>
+                </div>
+                <input className='inputTypeInput' type='email' placeholder='E.g. example@domain.com' {...register('confirm_email')} />
+            </div>
+        </div>
+        <div className='companyBox' >
+            <div style={{ borderColor: errors?.password?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Password</label>
+                </div>
+                <input className='inputTypeInput' type='password' {...register('password')} />
+            </div>
+            <div style={{ borderColor: errors?.confirm_password?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Re-enter Password</label>
+                </div>
+                <input className='inputTypeInput' type='password' {...register('confirm_password')} />
+            </div>
+        </div>
+        <div style={{ borderColor: errors?.public_address?.message ? 'red' : '#ccc' }} className='companyBox' >
+            <div className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Public Address</label>
+                </div>
+                <input className='inputTypeInput' type='text' {...register('public_address')} maxLength={16} />
+            </div>
+            <div style={{ borderColor: errors?.wallet_address?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Wallet Address</label>
+                </div>
+                <input className='inputTypeInput' type='text' {...register('wallet_address')} maxLength={16} />
+            </div>
+        </div>
+        <div className='companyBox' >
+            <div style={{ borderBottom: AadharCard ? '2px solid #ccc' : '2px solid red' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Aadhar card </label>
+                </div>
+                <UploadFile setFile={setAadharCard} />
+                {AadharCard && <p className='fileName'>{AadharCard?.name}</p>}
+            </div>
+            <div style={{ borderBottom: panCard ? '2px solid #ccc' : '2px solid red' }} className='companyTypeInputContainer2'>
+                <div className='typeInput' >
+                    <span>*</span>
+                    <label>Pan Card</label>
+                </div>
+                <UploadFile setFile={setPanCard} />
+                {panCard && <p className='fileName'>{panCard?.name}</p>}
+            </div>
+        </div>
+        <div>
+            <div className='typeInput' >
+                <input type='checkbox' />
+                <span>*</span>
+                <label>I have read and agreed to <span id='termsOfUse' >Terms of Use</span>and <span id='termsOfUse' >Privacy Policy</span></label>
+            </div>
+        </div>
+        <button className='registerBtn' type='submit' >{isLoading ? < CircularProgress color="primary" thickness={10} size={18} /> : 'Complete Registration'}</button>
+    </form>
+</div>
+</div>
+        
+        
+        </>
+
+
+       
     )
 }
 
