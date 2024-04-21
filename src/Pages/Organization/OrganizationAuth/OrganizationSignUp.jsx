@@ -61,8 +61,21 @@ const OrganizationSignUp = () => {
   const [salutation, setSalutation] = useState("mr");
 
   const [isLoading, setIsLoading] = useState(false);
-  const [defaultAccount, setDefaultAccount] = useState();
+  const [defaultAccount, setDefaultAccount] = useState('');
   const [errorMessage, setErrorMessage] = useState();
+
+  const {
+    getValues,
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    criteriaMode: "all",
+    reValidateMode: "onSubmit",
+    mode: "onChange",
+  });
 
   //connect wallet function
 
@@ -74,8 +87,9 @@ const OrganizationSignUp = () => {
           .then((result) => {
             console.log(result[0]);
             setDefaultAccount(result[0]);
+
           });
-      } catch (error) {}
+      } catch (error) { }
     } else {
       document.getElementById("my_modal_1").showModal();
     }
@@ -87,17 +101,7 @@ const OrganizationSignUp = () => {
 
   console.log("this is the wallet address", defaultAccount);
 
-  const {
-    getValues,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    criteriaMode: "all",
-    reValidateMode: "onSubmit",
-    mode: "onChange",
-  });
+
 
   useEffect(() => {
     //     fetch('https://countriesnow.space/api/v0.1/countries/states', {
@@ -133,8 +137,8 @@ const OrganizationSignUp = () => {
     regFormData.append("confirm_email", data?.confirm_email);
     regFormData.append("password", data?.password);
     regFormData.append("confirm_password", data?.confirm_password);
-    regFormData.append("wallet_address", data?.wallet_address);
-    regFormData.append("public_address", data?.public_address);
+    regFormData.append("wallet_address", defaultAccount);
+    // // regFormData.append("public_address", data?.public_aess);
     regFormData.append("registration_number", data?.registration_number);
     regFormData.append("contact_number", data?.contact_number);
     regFormData.append("registration_certificate", file);
@@ -538,8 +542,9 @@ const OrganizationSignUp = () => {
                 <input
                   className="inputTypeInput"
                   type="text"
-                  {...register("wallet_address")}
-                  maxLength={16}
+                  // {...register("wallet_address")}
+                  value={defaultAccount}
+                // maxLengt16}
                 />
               </div>
             </div>
