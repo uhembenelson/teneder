@@ -22,6 +22,9 @@ const OrganizationFeedback = () => {
 
     const selectedTender = useSelector(state => state.organization.selectedTender)
 
+    const { selectedBidder } = useSelector(state => state.organization)
+    console.log(selectedBidder)
+
 
     const { token, organization_id } = user
 
@@ -51,7 +54,7 @@ const OrganizationFeedback = () => {
     useEffect(() => {
         setValue('name_of_organization', user.name_of_organization)
         setValue('tender_id', selectedTender.tender_id)
-        setValue('name_of_bidder', selectedTender?.name_of_company)
+        setValue('name_of_bidder', selectedBidder?.name_of_company)
     }, [setValue, user, selectedTender])
 
 

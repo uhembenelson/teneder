@@ -73,7 +73,7 @@ const CreateTender = () => {
     const user = useSelector(state => state.organization.user)
 
 
-
+    console.log(errors)
 
 
 
@@ -100,6 +100,8 @@ const CreateTender = () => {
         const data = getValues()
 
         console.log(data)
+
+        console.log(errors)
 
         formData.append('description_tender', data?.description_tender)
         formData.append('tender_motive', data?.tender_motive)
@@ -194,14 +196,14 @@ const CreateTender = () => {
                             <span>*</span><label>DESCRIPTION ABOUT THE TENDER </label>
                         </div>
 
-                        <textarea style={{ borderColor: errors?.description_tender?.message ? 'red' : '#000' }} placeholder='Ex : Facility Management And Maintenance At The Building Of The Ministry Of Communications  ' {...register('description_tender')} ></textarea>
+                        <textarea style={{ border: errors?.description_tender?.message ? '1px solid red' : '1px solid #000' }} placeholder='Ex : Facility Management And Maintenance At The Building Of The Ministry Of Communications  ' {...register('description_tender')} ></textarea>
                     </div>
                     <div className='createTenderBox' >
                         <div className='labelContainer' >
                             <span>*</span><label>TENDER MOTIVE</label>
                         </div>
 
-                        <textarea style={{ borderColor: errors?.tender_motive?.message ? 'red' : '#000' }} placeholder='Ex : Bridge tender aims to unite cities, boost commerce, enhance transportation, and foster regional growth through connectivity' {...register('tender_motive')} ></textarea>
+                        <textarea style={{ border: errors?.tender_motive?.message ? '1px solid red' : '1px solid #000' }} placeholder='Ex : Bridge tender aims to unite cities, boost commerce, enhance transportation, and foster regional growth through connectivity' {...register('tender_motive')} ></textarea>
                     </div>
                     <div className='companyBox' >
                         <div className='companyTypeInputContainer2' style={{ borderBottomColor: errors?.address_one?.message ? 'red' : '#ccc' }}>
@@ -338,7 +340,7 @@ const CreateTender = () => {
                             <span>*</span><label>Materials Required</label>
                         </div>
 
-                        <textarea style={{ borderColor: errors?.material_required?.message ? 'red' : '#000' }} {...register('material_required')}></textarea>
+                        <textarea style={{ border: errors?.material_required?.message ? '1px solid red' : ' 1px solid #000' }} {...register('material_required')}></textarea>
                     </div>
                     <div className='createTenderBtn' >
                         <CustomBtn >

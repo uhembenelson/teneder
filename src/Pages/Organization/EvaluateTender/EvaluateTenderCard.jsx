@@ -13,6 +13,7 @@ const EvaluateTenderCard = ({ data, user }) => {
     const dispatch = useDispatch()
 
     console.log(data)
+    console.log(user)
 
     let percentage = 0;
     let color = 'rgb(62, 152, 199)'
@@ -23,6 +24,9 @@ const EvaluateTenderCard = ({ data, user }) => {
         percentage = 66
     }
     else if (data?.status === 'result pending') {
+        percentage = 0
+    }
+    else if (data?.status === 'Result not out yet') {
         percentage = 0
     }
     else {
@@ -38,6 +42,9 @@ const EvaluateTenderCard = ({ data, user }) => {
         status = <span className='ongoing'>  ONGOING</span>
     }
     else if (data?.status === 'result pending') {
+        status = <span className='ongoing'>  PENDING</span>
+    }
+    else if (data?.status === 'Result not out yet') {
         status = <span className='ongoing'>  PENDING</span>
     }
     else if (data?.status === 'complete') {
@@ -97,7 +104,7 @@ const EvaluateTenderCard = ({ data, user }) => {
 
                 <div>
                     <div className='statusContainer' >
-                        <p className='completedBy' >{user ? 'PUBLISHED' : 'COMPLETED'} BY:<span >  {user ? data?.name_of_organization : data?.names}</span></p>
+                        <p className='completedBy' >{user ? 'PUBLISHED' : 'COMPLETED'} BY:<span >  {user ? data?.name_of_organization : data?.name_of_company}</span></p>
                         <p>Status : <span className='complete'>  {status}</span></p>
                     </div>
                     <div className='statusContainer'><p >TIME TAKEN: {user ? 'NA' : <span>26/10/2023 - 24/11/2023</span>}</p></div>

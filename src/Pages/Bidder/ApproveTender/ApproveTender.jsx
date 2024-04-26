@@ -83,112 +83,6 @@ function ApproveTender() {
 
     }
 
-    let option
-    // = <div>
-    //     <p>ON-GOING</p>
-    //     <img
-    //         src={cancel}
-    //         alt='cancel'
-    //     />
-    // </div>
-
-    // switch (tender?.status) {
-    //     case 'cancelled':
-    //         option = <div>
-    //             <p>CANCELLED</p>
-    //             <img
-    //                 src={cancel}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //         break;
-    //     case 'rejected':
-    //         option = <div>
-    //             <p>CANCELLED</p>
-    //             <img
-    //                 src={cancel}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //         break;
-    //     case 'ongoing':
-    //         option = <div>
-    //             <p>ON-GOING</p>
-    //             <img
-    //                 src={checked}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //         break
-    //     case 'result pending':
-    //         option = <div>
-    //             <p>PENDING</p>
-    //             <img
-    //                 src={HourGlass}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //     default:
-    //         option = <div>
-    //             <p>SELECTED</p>
-    //             <img
-    //                 src={approval}
-    //                 alt='approval'
-    //             />
-    //         </div>
-    // }
-
-
-
-    // data?.map(tender => {
-    //     if (tender?.status === 'cancelled') {
-    //         option = <div>
-    //             <p>CANCELLED</p>
-    //             <img
-    //                 src={cancel}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //     }
-    //     else if (tender?.status === 'rejected') {
-    //         option = <div>
-    //             <p>CANCELLED</p>
-    //             <img
-    //                 src={cancel}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //     }
-    //     else if (tender?.status === 'ongoing') {
-    //         option = <div>
-    //             <p>ON-GOING</p>
-    //             <img
-    //                 src={checked}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //     }
-    //     else if (tender?.status === 'result pending') {
-    //         option = <div>
-    //             <p>PENDING</p>
-    //             <img
-    //                 src={HourGlass}
-    //                 alt='cancel'
-    //             />
-    //         </div>
-    //     }
-
-    //     else {
-    //         option = <div>
-    //             <p>SELECTED</p>
-    //             <img
-    //                 src={approval}
-    //                 alt='approval'
-    //             />
-    //         </div>
-    //     }
-    // })
-
 
 
     return (
@@ -231,7 +125,7 @@ function ApproveTender() {
                             {
                                 filteredTenders?.map((tender, id) => {
                                     return (
-                                        <ApproveTenderCard tender={tender} key={id} />
+                                        <ApproveTenderCard tender={tender} key={id} id={id} />
                                     )
                                 })
                             }

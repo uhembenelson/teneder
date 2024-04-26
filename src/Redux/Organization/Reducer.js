@@ -8,6 +8,7 @@ const initialState = {
     errorMsg: '',
     selectedTender: {},
     selectedBidder: {},
+    selectNewBidder: {},
     organizationProfilePicture: []
 
 }
@@ -32,6 +33,11 @@ const organizationReducer = (state = initialState, action) => {
             return {
                 ...state, organizationProfilePicture: action.payload
             }
+        case actionTypes.ORGANIZATION_SELECT_NEW_BIDDER:
+            return {
+                ...state, selectNewBidder: action.payload
+            }
+
         case actionTypes.ORGANIZATION_LOGOUT:
             return initialState
         default:

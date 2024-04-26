@@ -11,12 +11,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 
-const ApproveTenderCard = ({ tender, key }) => {
+const ApproveTenderCard = ({ tender, id }) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const select = (tender) => {
+    const select = () => {
+        console.log(tender)
         dispatch(getTenderInfo(tender))
         navigate(`/bidder/approval/${tender?.tender_id}`)
     }
@@ -28,6 +29,7 @@ const ApproveTenderCard = ({ tender, key }) => {
             option = <div>
                 <p>CANCELLED</p>
                 <img
+                    style={{ margin: 'auto' }}
                     src={cancel}
                     alt='cancel'
                 />
@@ -37,6 +39,7 @@ const ApproveTenderCard = ({ tender, key }) => {
             option = <div>
                 <p>CANCELLED</p>
                 <img
+                    style={{ margin: 'auto' }}
                     src={cancel}
                     alt='cancel'
                 />
@@ -46,6 +49,7 @@ const ApproveTenderCard = ({ tender, key }) => {
             option = <div>
                 <p>ON-GOING</p>
                 <img
+                    style={{ margin: 'auto' }}
                     src={checked}
                     alt='cancel'
                 />
@@ -55,15 +59,27 @@ const ApproveTenderCard = ({ tender, key }) => {
             option = <div>
                 <p>PENDING</p>
                 <img
+                    style={{ margin: 'auto' }}
+                    src={HourGlass}
+                    alt='cancel'
+                />
+            </div>
+            break
+        case 'Result not out yet':
+            option = <div>
+                <p>PENDING</p>
+                <img
+                    style={{ margin: 'auto' }}
                     src={HourGlass}
                     alt='cancel'
                 />
             </div>
             break
         default:
-            option = <div>
+            option = <div  >
                 <p>SELECTED</p>
                 <img
+                    style={{ margin: 'auto' }}
                     src={approval}
                     alt='approval'
                 />
@@ -75,7 +91,7 @@ const ApproveTenderCard = ({ tender, key }) => {
     return (
         <tr onClick={select}>
             <td >
-                {key + 1} {tender?.description_tender}
+                {id + 1} {tender?.description_tender}
                 <div className='table__inner'>
                     <span>no. {tender?.tender_id}</span>
                     <span>

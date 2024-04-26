@@ -180,7 +180,7 @@ const App = () => {
 						element={<ReasonForCancellation />}
 					/>
 					<Route
-						path='/organization/feedback'
+						path='/organization/feedback/:id'
 						element={<OrganizationFeedback />}
 					/>
 					<Route

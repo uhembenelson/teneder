@@ -69,6 +69,11 @@ export const selectBidder = (data) => ({
     payload: data
 })
 
+export const selectNewBidder = (data) => ({
+    type: actionTypes.ORGANIZATION_SELECT_NEW_BIDDER,
+    payload: data
+})
+
 export const logoutOrganization = () => ({
     type: actionTypes.ORGANIZATION_LOGOUT
 })

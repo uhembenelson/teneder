@@ -13,7 +13,7 @@ import { selectBidder } from '../../../Redux/Organization/Action';
 import { useSelector, useDispatch } from 'react-redux';
 import useSWR from 'swr';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 
@@ -40,10 +40,11 @@ function ManageTenderTable() {
 	const [isBidderSelected, setIsBidderSelected] = useState(false)
 	const [selectedCompany, setSelectedCompany] = useState(null)
 
-	const selectABidder = (id) => {
-		setSelectedCompany(id)
+	const selectABidder = (datum) => {
+
+		setSelectedCompany(datum.bidder_id)
 		setIsBidderSelected(true)
-		dispatch(selectBidder(id))
+		dispatch(selectBidder(datum))
 	}
 
 	const handleChange = (option) => {
@@ -56,7 +57,7 @@ function ManageTenderTable() {
 	const [pdfLink, setPdfLink] = useState('')
 
 	const id = useParams()
-	console.log(id)
+
 
 	const navigate = useNavigate()
 
@@ -85,6 +86,7 @@ function ManageTenderTable() {
 
 
 	const { data } = useSWR([url, token], () => fetchAllBidApplicants(url, token));
+	console.log(data)
 
 	const formData = {
 		select_bid_reason: reasons,
@@ -94,32 +96,43 @@ function ManageTenderTable() {
 
 	const createSelectBid = async () => {
 		try {
-			setIsLoading(true)
-			const res = await fetch('https://school-project-production-459d.up.railway.app/v9/bid/selected', {
-				method: 'POST',
-				headers: {
-					'Authorization': `${token}`
-				},
-				body: JSON.stringify(formData)
-			})
-			const data = res.json()
-			console.log(data)
-			setIsLoading(false)
-
-			if (res.ok) {
-				toast.success('Success', {
-					position: toast.POSITION.TOP_RIGHT,
-					autoClose: 3000,
-					hideProgressBar: true,
-
-				});
-
+			if (data?.length <= 1) {
+				dispatch(selectBidder(selectedBidder))
+				navigate(`/organization/feedback/${selectedTender.tender_id}`)
 			}
+			else {
+				setIsLoading(true)
+				const res = await fetch('https://school-project-production-459d.up.railway.app/v9/bid/selected', {
+					method: 'POST',
+					headers: {
+						'Authorization': `${token}`
+					},
+					body: JSON.stringify(formData)
+				})
+				const data = await res.json()
+				console.log(data)
+				setIsLoading(false)
+
+				if (res.ok) {
+					toast.success('Success', {
+						position: toast.POSITION.TOP_RIGHT,
+						autoClose: 3000,
+						hideProgressBar: true,
+
+
+					});
+					dispatch(selectBidder(selectedBidder))
+					navigate(`/organization/feedback/${selectedTender.tender_id}`)
+
+				}
+			}
+
 		}
 		catch (err) {
 			setIsLoading(false)
 			console.log(err)
 		}
+
 
 	}
 
@@ -183,7 +196,6 @@ function ManageTenderTable() {
 						<tbody>
 							{
 								data?.map((datum, id) => {
-									console.log(id)
 									return (
 										<tr key={datum?.bidder_id} >
 											<td>{id + 1} {datum?.name_of_company}</td>
@@ -199,7 +211,7 @@ function ManageTenderTable() {
 											</td>
 											<td>13-sept-2023</td>
 											<td style={{ cursor: 'pointer' }}>
-												{selectedCompany !== datum.id && isBidderSelected ?
+												{selectedCompany !== datum.bidder_id && isBidderSelected ?
 													<form key={id} className='optionSelectParent' ><select
 														className='optionSelect'
 														onChange={e => handleChange(e.target.value)}
@@ -216,8 +228,8 @@ function ManageTenderTable() {
 													</select>
 													</form>
 													:
-													<img onClick={() => selectABidder(datum.id)}
-														src={selectedCompany === datum.id ? darkApprove : lightApprove}
+													<img onClick={() => selectABidder(datum)}
+														src={selectedCompany === datum.bidder_id ? darkApprove : lightApprove}
 														alt='lightApprove'
 													/>
 												}

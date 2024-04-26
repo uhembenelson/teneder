@@ -40,6 +40,7 @@ width: 100%;
 .rightFeedbackContainer{
     width: 45%;
     margin: auto
+    
 }
 
 .rateText{
@@ -49,6 +50,7 @@ width: 100%;
     margin: auto;
     width: 30%;
     margin-top: 1rem;
+    display: flex;
 }
 
 .feebackTextAreaContainer{
