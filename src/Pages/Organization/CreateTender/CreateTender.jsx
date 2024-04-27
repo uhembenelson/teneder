@@ -13,8 +13,43 @@ import { useSelector } from 'react-redux'
 import { CircularProgress } from "@mui/material";
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import { getWeb3, getContract } from '../../../contracts/contract';
 
 const CreateTender = () => {
+
+    //contract section 
+
+  const [web3, setWeb3] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [accounts, setAccounts] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const web3Instance = await getWeb3();
+        setWeb3(web3Instance);
+        const contractInstance = await getContract(web3Instance);
+        setContract(contractInstance);
+        const accounts = await web3Instance.eth.getAccounts();
+        setAccounts(accounts);
+        const totalAmount = await contractInstance.methods.getTotalAmount().call();
+        setTotalAmount(totalAmount);
+      } catch (error) {
+        console.error('Error initializing contract:', error);
+      }
+    };
+    init();
+  }, []);
+
+  const handleDepositFunds = async () => {
+    // Assume user inputs the amount to deposit
+    const amount = '10';
+    await contract.methods.depositFunds().send({ from: accounts[0], value: web3.utils.toWei(amount, 'ether') });
+  };
+
+  //end here
 
     const [duration_of_bidding_start, setDuration_of_bidding_start] = useState(null)
     const [duration_of_bidding_end, setDuration_of_bidding_end] = useState(null)
@@ -188,7 +223,14 @@ const CreateTender = () => {
     return (
         <div>
             <CompanyNav />
+            <div>
+      <h1>Payment Contract</h1>
+      <p>Total Amount: {web3 && web3.utils.fromWei(totalAmount.toString(), 'ether')} ETH</p>
+      <button onClick={handleDepositFunds}>Deposit Funds</button>
+    </div>
             <div className='createNavContainer' >
+
+        
                 <h2>CREATE TENDER </h2>
                 <form onSubmit={handleSubmit(createTender)} >
                     <div className='createTenderBox' >
