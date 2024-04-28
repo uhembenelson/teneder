@@ -12,7 +12,7 @@ const Search = ({ setSearchTerm, approve, setSearchType, seachType, searchTender
 
     return (
         <form onSubmit={submitForm} className='searchContainer' >
-            {approve ? <select placeholder='Keyword Search'
+            {approve ? <select className='searchSelect' placeholder='Keyword Search'
                 onChange={e => setSearchType(e.target.value)}
                 value={seachType}
             >
@@ -24,7 +24,7 @@ const Search = ({ setSearchTerm, approve, setSearchType, seachType, searchTender
                 <option className='optionsSearch' value='tender_id'>T_no</option>
 
             </select> :
-                <select placeholder='Keyword Search'
+                <select className='searchSelect' placeholder='Keyword Search'
                     onChange={e => setSearchType(e.target.value)}
                     value={seachType}
                 >

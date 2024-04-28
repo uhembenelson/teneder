@@ -86,11 +86,14 @@ const BidTenderCard = ({ tender, id }) => {
                         src={bidImage}
                         alt='cancel'
                 /> :*/}
-                <img
-                    onClick={() => TenderInfo(tender)}
-                    src={NotbidImage}
-                    alt='cancel'
-                />
+                <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }} >
+                    <img
+                        onClick={() => TenderInfo(tender)}
+                        src={bidImage}
+                        alt='cancel'
+                    />
+                </div>
+
 
 
 

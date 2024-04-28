@@ -201,7 +201,8 @@ function ManageTenderTable() {
 											<td>{id + 1} {datum?.name_of_company}</td>
 											<td>{datum?.tender_id}</td>
 											<td >
-												<div target='_blank' >
+												<div style={{ display: 'flex', width: '100%', justifyContent: 'center' }} target='_blank' >
+
 													<img style={{ cursor: 'pointer' }}
 														src={exportPdf}
 														alt='exportPdf'
@@ -228,10 +229,13 @@ function ManageTenderTable() {
 													</select>
 													</form>
 													:
-													<img onClick={() => selectABidder(datum)}
-														src={selectedCompany === datum.bidder_id ? darkApprove : lightApprove}
-														alt='lightApprove'
-													/>
+													<div style={{ display: 'flex', width: '100%', justifyContent: 'center' }} >
+														<img onClick={() => selectABidder(datum)}
+															src={selectedCompany === datum.bidder_id ? darkApprove : lightApprove}
+															alt='lightApprove'
+														/>
+													</div>
+
 												}
 											</td>
 										</tr>

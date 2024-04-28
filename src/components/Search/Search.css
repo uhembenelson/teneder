@@ -11,6 +11,10 @@
     height: 2.5rem;
 }
 
+.searchSelect{
+    border: 1px solid black
+}
+
 .searchInputBox input{
     height: 20px;
     border: none;
