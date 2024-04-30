@@ -40,6 +40,7 @@ import OrganizationResetPassword from './Pages/Organization/OrganizationAuth/Org
 import CancelReason from './Pages/Bidder/CancelReason/CancelReason';
 import ChangePassword from './Pages/Bidder/ChangePassword/ChangePassword';
 import OrganizationChangePassword from './Pages/Organization/ChangePassword/ChangePassword';
+import SmartContract from './Pages/Organization/SmartContract/SmartContract';
 
 const App = () => {
 	return (
@@ -174,6 +175,10 @@ const App = () => {
 					<Route
 						path='/organization/create-tender'
 						element={<CreateTender />}
+					/>
+					<Route
+						path='/organization/smart-contract/:id'
+						element={<SmartContract />}
 					/>
 					<Route
 						path='/organization/cancel-tender'

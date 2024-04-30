@@ -1,0 +1,81 @@
+.smartContractContainer{
+    margin-top: 1rem;
+    width: 80%;
+    margin: auto;
+}
+
+.smartContractHeading{
+    text-align: center;
+    font-size: 1.5rem;
+    width: 50%;
+    margin: auto;
+    font-weight: bold;
+}
+
+.smartContractInputHolder{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.smartContractInputBox {
+    
+        width: 45%;
+}
+
+.smartContractInputContainer{
+    
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding: .5rem
+}
+
+.smartContractInput{
+    width: 90%;
+    height: 30px;
+    outline: none;
+    padding-left: .5rem;
+    border: none;
+    border-left: 1px solid black;
+    margin-left: .5rem;
+}
+
+.smartContractIcons{
+    height: 2rem;
+}
+
+.smartContractInputBox label {
+    font-weight: bold;
+}
+
+.smartContractBtnContainer{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+@media screen and (max-width: 990px){
+    .smartContractContainer{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .smartContractHeading {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .smartContractInputHolder {
+        flex-direction: column;
+    }
+    .smartContractInputBox{
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+}

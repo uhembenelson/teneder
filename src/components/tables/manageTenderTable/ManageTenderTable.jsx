@@ -98,7 +98,7 @@ function ManageTenderTable() {
 		try {
 			if (data?.length <= 1) {
 				dispatch(selectBidder(selectedBidder))
-				navigate(`/organization/feedback/${selectedTender.tender_id}`)
+				navigate(`/organization/smart-contract/${selectedTender.tender_id}`)
 			}
 			else {
 				setIsLoading(true)
@@ -122,7 +122,7 @@ function ManageTenderTable() {
 
 					});
 					dispatch(selectBidder(selectedBidder))
-					navigate(`/organization/feedback/${selectedTender.tender_id}`)
+					navigate(`/organization/smart-contract/${selectedTender.tender_id}`)
 
 				}
 			}
