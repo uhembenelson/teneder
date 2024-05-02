@@ -373,6 +373,40 @@ const SmartContract = () => {
   }
 
 
+  const updateContractPayload = {
+    bider_id: selectedTender?.bidder_id,
+    tender_id: selectedTender?.tender_id,
+    org_id: user?.organization_id,
+    nameOfOrg: user?.name_of_organization,
+    nameOfBider: selectedBidder?.name_of_company,
+    contractAddress,
+    totalAmountPaid,
+    contractSate,
+    walletAddress: beneficiary
+  }
+
+  console.log("this is payload", updateContractPayload)
+
+
+  //  const updateContract = async()=>{
+  //   try{
+  //    await axiox.post(url, updateContractPayload)
+
+  //   }catch(error){
+  //     alert("Failed to Update Contract")
+  //   }
+
+  //  }
+
+
+  //
+
+
+
+
+
+
+
 
 
 
