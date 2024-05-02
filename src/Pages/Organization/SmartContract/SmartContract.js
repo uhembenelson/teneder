@@ -231,7 +231,7 @@ const SmartContract = () => {
 
       const deployContract = async () => {
         const web3Instance = new Web3(window.ethereum);
-        await window.ethereum.enable();
+        await window.ethereum.enable();  // Request account access if needed
         const accounts = await web3Instance.eth.getAccounts();
         try {
          
@@ -239,9 +239,11 @@ const SmartContract = () => {
            // Ensure all required values are defined
          if (!totalAmount || !paymentPercentage || !paymentIntervalInSeconds || !beneficiary) {
             alert('All fields are required');
+            setMessage();
+
            return;
           }
-       console.log("here")
+           console.log("here")
           const deployedContract = await new web3Instance.eth.Contract(PaymentContract)
             .deploy({
               data: bytecode,
@@ -251,6 +253,10 @@ const SmartContract = () => {
             .send({ from: accounts[0] });
     
           setMessage(`Contract deployed at address: ${deployedContract.options.address}`);
+          //update user details with hasContract state, and the state is going to be set as true 
+          // set success as user.hasContract
+            // update contraact payload 
+
           setSuccess(true)
           console.log("here",deployedContract)
           setContract(deployedContract);
@@ -330,7 +336,6 @@ const SmartContract = () => {
         console.log("this is working here", res)
       }
       
-
     useEffect(()=>{
         checkDp()
         AmountPaid()
@@ -362,7 +367,6 @@ const SmartContract = () => {
 
     }
 
-
     const AmountPaid = async()=>{
         const res =  await contract?.methods.getTotalPaid().call()
         console.log("res", res)
@@ -371,6 +375,40 @@ const SmartContract = () => {
 
         console.log("this is working here", res)
       }
+
+   
+        const updateContractPayload = {
+          bider_id: selectedTender?.bidder_id,
+          tender_id:selectedTender?.tender_id,
+          org_id:user?.organization_id,
+          nameOfOrg: user?.name_of_organization,
+           nameOfBider: selectedBidder?.name_of_company,
+           contractAddress,
+           totalAmountPaid,
+           contractSate,
+           walletAddress:beneficiary
+         }
+   
+         console.log("this is payload", updateContractPayload)
+         
+
+        //  const updateContract = async()=>{
+        //   try{
+        //    await axiox.post(url, updateContractPayload)
+
+        //   }catch(error){
+        //     alert("Failed to Update Contract")
+        //   }
+
+        //  }
+
+     
+         //
+         
+      
+
+
+    
 
 
 
