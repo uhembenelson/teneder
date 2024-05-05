@@ -29,7 +29,7 @@ const SmartContract = () => {
   console.log(selectedTender)
 
   const { selectedBidder } = useSelector(state => state.organization)
-  console.log(selectedBidder)
+
 
   const PaymentContract = [
     {
@@ -229,10 +229,10 @@ const SmartContract = () => {
   const [paymentIntervalInSeconds, setPaymentIntervalInSeconds] = useState('');
   const [beneficiary, setBeneficiary] = useState(selectedBidder.wallet_address);
   const [totalPaid, setTotalPaid] = useState('')
-  const [contract_address, setContractAddress] = useState()
+  const [contract_address, setContractAddress] = useState('')
   const [success, setSuccess] = useState(false)
   const [contract_state, setContractState] = useState()
-  const [total_amount_paid, setTotalAmountPaid] = useState()
+  const [total_amount_paid, setTotalAmountPaid] = useState('')
 
   const updateContractPayload = {
     bidder_id: selectedBidder?.bidder_id,
@@ -249,29 +249,28 @@ const SmartContract = () => {
   console.log("this is payload", updateContractPayload)
 
 
-  // check there is already an existing  contract
-  const fetchContract = async (url, token) => {
-    const headers = new Headers();
 
-    if (token) {
-      headers.append('Authorization', `${token}`);
-    }
-
-    const response = await fetch(url, { headers });
-    const data = await response.json();
-    console.log(data)
-    if (data.length === 0) {
-      setSuccess(false)
-    }
-    else {
+  const fetchData = async () => {
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `{token}`
+      }
+    })
+    const data = await res.json()
+    if (data) {
       setSuccess(true)
     }
-    return data;
-  };
+    else {
+      setSuccess(false)
+    }
+    console.log(data)
+  }
 
-
-  const { data } = useSWR([url, token], () => fetchContract(url, token));
-  console.log(data)
+  useEffect(() => {
+    fetchData()
+  })
 
   const createSmartContract = async () => {
     try {
@@ -279,9 +278,40 @@ const SmartContract = () => {
       const res = await fetch('https://school-project-production-459d.up.railway.app/V11/contract', {
         method: 'POST',
         headers: {
-          'Authorization': `${token}`
+          'Authorization': `${token}`,
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(updateContractPayload)
+      })
+      const data = await res.json()
+      console.log(data)
+
+
+      if (res.ok) {
+        toast.success('Success', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
+      }
+    }
+    catch (err) {
+      console.log(err)
+    }
+
+
+  }
+
+  const updateSmartContract = async () => {
+    try {
+
+      const res = await fetch(`https://school-project-production-459d.up.railway.app/V11/contract/${selectedBidder.tender_id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ contract_state })
       })
       const data = await res.json()
       console.log(data)
@@ -305,6 +335,12 @@ const SmartContract = () => {
 
   const deployContract = async (e) => {
     e.preventDefault()
+    if (!totalAmount || !paymentPercentage || !paymentIntervalInSeconds || !beneficiary) {
+      alert('All fields are required');
+      return;
+    }
+
+
     const web3Instance = new Web3(window.ethereum);
     await window.ethereum.enable();
     const accounts = await web3Instance.eth.getAccounts();
@@ -312,10 +348,7 @@ const SmartContract = () => {
 
       setMessage('Deploying contract...');
       // Ensure all required values are defined
-      if (!totalAmount || !paymentPercentage || !paymentIntervalInSeconds || !beneficiary) {
-        alert('All fields are required');
-        return;
-      }
+
       console.log("here")
       const deployedContract = await new web3Instance.eth.Contract(PaymentContract)
         .deploy({
@@ -354,6 +387,7 @@ const SmartContract = () => {
 
       // Optionally, display a success message or handle any other UI updates
       setMessage('Contract data refreshed successfully');
+      updateSmartContract()
     } catch (error) {
       console.error('Error refreshing contract data:', error);
       // Display an error message if necessary
@@ -385,6 +419,7 @@ const SmartContract = () => {
       await refreshContractData(); // Function to refresh contract data
       checkDp()
       alert('Funds deposited successfully');
+      updateSmartContract()
     } catch (error) {
       console.error('Error depositing funds:', error);
       // Display an error message if necessary
@@ -410,6 +445,7 @@ const SmartContract = () => {
   useEffect(() => {
     checkDp()
     AmountPaid()
+    updateSmartContract()
   }, [contract])
 
 
@@ -552,7 +588,7 @@ const SmartContract = () => {
                 </div>
               </div>
               <div className='smartContractBtnContainer' >
-                <button onClick={deployContract} className='evalButton' > Initiate smart contract</button>
+                <button onClick={deployContract} className='evalButton' >{isLoading ? < CircularProgress color="primary" thickness={10} size={18} /> : 'Initiate smart contract'}</button>
               </div>
 
             </form>
@@ -564,7 +600,7 @@ const SmartContract = () => {
               </div>
               <div>
                 {
-                  isLoading == true ? (<p>Distributing funds to Bidder please wait...</p>) : null
+                  isLoading === true ? (<p>Distributing funds to Bidder please wait...</p>) : null
                 }
               </div>
 
@@ -605,7 +641,7 @@ const SmartContract = () => {
                     <td>{selectedBidder?.wallet_address}</td>
 
                     <td>
-                      {total_amount_paid == '' ? "No amount has been paid yet" : total_amount_paid + " Ether"
+                      {total_amount_paid === '' ? "No amount has been paid yet" : total_amount_paid + " Ether"
                       }
                     </td>
                     <th>
@@ -613,7 +649,7 @@ const SmartContract = () => {
                     </th>
                     <th>
                       {
-                        contract_state == "Not funded" ? <button onClick={depositFunds} className="btn btn-ghost btn-xs">Fund Contract</button> :
+                        contract_state === "Not funded" ? <button onClick={depositFunds} className="btn btn-ghost btn-xs">Fund Contract</button> :
                           <button onClick={distributeFunds} className="btn btn-ghost btn-xs">Distribute Funds</button>
                       }
 
@@ -637,12 +673,6 @@ const SmartContract = () => {
 
 
       </div>
-
-
-
-
-
-
 
 
 

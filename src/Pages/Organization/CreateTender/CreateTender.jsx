@@ -223,11 +223,7 @@ const CreateTender = () => {
     return (
         <div>
             <CompanyNav />
-            {/* <div>
-      <h1>Payment Contract</h1>
-      <p>Total Amount: {web3 && web3.utils.fromWei(totalAmount.toString(), 'ether')} ETH</p>
-      <button onClick={handleDepositFunds}>Deposit Funds</button>
-    </div>*/}
+
             <div className='createNavContainer' >
 
 
