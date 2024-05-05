@@ -69,6 +69,22 @@ function CompanyNav() {
 
     }, [timeOut]);
 
+    const connectWallet = async () => {
+        if (window.ethereum) {
+            try {
+                window.ethereum
+                    .request({ method: "eth_requestAccounts" })
+                    .then((result) => {
+                        console.log(result[0]);
+                        // setDefaultAccount(result[0]);
+
+                    });
+            } catch (error) { }
+        } else {
+            document.getElementById("my_modal_1").showModal();
+        }
+    };
+
 
     return (
         <nav className=' orgNav'>
@@ -90,7 +106,7 @@ function CompanyNav() {
                             />
                         </li>
                     </Link>
-                    <li>
+                    <li onClick={connectWallet}>
                         wallet
                         <img
                             src={vector}
@@ -183,7 +199,7 @@ function CompanyNav() {
                                 alt='notification'
                             />
                         </li>
-                        <li>
+                        <li onClick={connectWallet}>
                             wallet
                             <img
                                 src={vector}

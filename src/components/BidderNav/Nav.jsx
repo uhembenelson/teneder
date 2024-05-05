@@ -67,6 +67,21 @@ function BidderNav() {
 	}, [userDetails])
 
 
+	const connectWallet = async () => {
+		if (window.ethereum) {
+			try {
+				window.ethereum
+					.request({ method: "eth_requestAccounts" })
+					.then((result) => {
+						console.log(result[0]);
+						// setDefaultAccount(result[0]);
+
+					});
+			} catch (error) { }
+		} else {
+			document.getElementById("my_modal_1").showModal();
+		}
+	};
 
 	const navigate = useNavigate()
 	return (
@@ -89,7 +104,7 @@ function BidderNav() {
 							/>
 						</li>
 					</Link>
-					<li>
+					<li onClick={connectWallet}>
 						wallet
 						<img
 							src={vector}
@@ -181,7 +196,7 @@ function BidderNav() {
 									alt='notification'
 								/>
 							</li>
-							<li>
+							<li onClick={connectWallet}>
 								wallet
 								<img
 									src={vector}
