@@ -61,7 +61,7 @@ const OrganizationSignUp = () => {
   const [salutation, setSalutation] = useState("mr");
 
   const [isLoading, setIsLoading] = useState(false);
-  const [wallet_address, setDefaultAccount] = useState('');
+  const [defaultAccount, setDefaultAccount] = useState('');
   const [errorMessage, setErrorMessage] = useState();
 
   const {
@@ -99,11 +99,18 @@ const OrganizationSignUp = () => {
     connectWallet();
   }, []);
 
-  console.log("this is the wallet address", wallet_address);
+  console.log("this is the wallet address", defaultAccount);
 
 
 
   useEffect(() => {
+    //     fetch('https://countriesnow.space/api/v0.1/countries/states', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ "country": "India" })
+    //     }).then(res => res.json()).then(data => setStates(data?.data?.states))
     fetch("https://countriesnow.space/api/v0.1/countries/")
       .then((res) => res.json())
       .then((data) => setStates(data.data));
@@ -130,7 +137,7 @@ const OrganizationSignUp = () => {
     regFormData.append("confirm_email", data?.confirm_email);
     regFormData.append("password", data?.password);
     regFormData.append("confirm_password", data?.confirm_password);
-    regFormData.append("wallet_address", wallet_address);
+    regFormData.append("wallet_address", defaultAccount);
     // // regFormData.append("public_address", data?.public_aess);
     regFormData.append("registration_number", data?.registration_number);
     regFormData.append("contact_number", data?.contact_number);
@@ -535,8 +542,8 @@ const OrganizationSignUp = () => {
                 <input
                   className="inputTypeInput"
                   type="text"
-                  {...register("wallet_address")}
-                // value={defaultAccount}
+                  // {...register("wallet_address")}
+                  value={defaultAccount}
                 // maxLengt16}
                 />
               </div>
