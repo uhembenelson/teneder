@@ -86,13 +86,6 @@ const SignUp = () => {
 
 
     useEffect(() => {
-        //     fetch('https://countriesnow.space/api/v0.1/countries/states', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ "country": "India" })
-        //     }).then(res => res.json()).then(data => setStates(data?.data?.states))
         fetch('https://countriesnow.space/api/v0.1/countries/').then(res => res.json()).then(data => setStates(data.data))
     }, [])
 
