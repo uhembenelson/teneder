@@ -17,7 +17,7 @@ const SignUp = () => {
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
     const [panCard, setPanCard] = useState(null)
-    const [defaultAccount, setDefaultAccount] = useState('');
+    const [wallet_address, setDefaultAccount] = useState('');
     const schema = yup.object().shape({
         name_of_company: yup.string().required('Company name is required'),
         organization_website: yup.string().required('organization_website is required'),
@@ -67,7 +67,7 @@ const SignUp = () => {
         connectWallet();
     }, []);
 
-    console.log("this is the wallet address", defaultAccount);
+    console.log("this is the wallet address", wallet_address);
 
 
 
@@ -97,6 +97,7 @@ const SignUp = () => {
     }, [])
 
     const registerBidder = async () => {
+        console.log(errors)
         const userInfo = getValues()
         const regFormData = new FormData();
 
@@ -116,7 +117,7 @@ const SignUp = () => {
         regFormData.append('confirm_email', userInfo?.confirm_email)
         regFormData.append('password', userInfo?.password)
         regFormData.append('confirm_password', userInfo?.confirm_password)
-        regFormData.append("wallet_address", defaultAccount);
+        regFormData.append("wallet_address", wallet_address);
         regFormData.append('public_address', userInfo?.public_address)
         regFormData.append('registration_number', userInfo?.registration_number)
         regFormData.append('contact_number', userInfo?.contact_number)
@@ -124,7 +125,7 @@ const SignUp = () => {
         regFormData.append('aadhar_card', AadharCard)
         regFormData.append('pan_card', panCard)
 
-
+        console.log(errors)
 
         if (!file || !panCard || !AadharCard) {
             return
@@ -443,9 +444,9 @@ const SignUp = () => {
                                 </div>
                                 <input className='inputTypeInput'
                                     type='text'
-                                    // {...register('wallet_address')}
-                                    // maxLength={16}
-                                    value={defaultAccount}
+                                    {...register('wallet_address')}
+                                // maxLength={16}
+                                // value={defaultAccount}
                                 />
                             </div>
                         </div>

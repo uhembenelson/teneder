@@ -71,15 +71,22 @@
 }
 
 .bidderBoxDummy{
-    width: 90%;
+    width: 80%;
+    margin: auto;
     margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     
+
 }
+
+
 
 .dummyBox2{
 background: linear-gradient(45deg, #3538e3, #030ce7);
 width: 90%;
 margin: auto;
+margin-top: 2rem;
 }
 
 .bidderdummyBox{
@@ -143,20 +150,8 @@ margin: auto;
 
 /* dummyBox dummyBox2 organizationDummyBox */
 
-@media screen and (max-width: 1389px) {
-    .bidderBoxDummy{
-        display: grid;
-        grid-template-columns:repeat(2, 1fr) ;
-        margin: auto;
-        margin-top: 2rem;
-        width: 70%;
-        grid-gap: 1rem;
-        
-    }
-}
-
 @media screen and (max-width: 1345px) {
-    .bidderBoxDummy {
+    .bidderBoxDummy{
         
         grid-template-columns: repeat(2, 1fr);
         
@@ -250,7 +245,8 @@ margin: auto;
     
         }
         .dummyBox2{
-            width: 93%;
+            width: 100%;
+            margin-top: 2rem;
         }
 }
 
@@ -275,18 +271,3 @@ margin: auto;
     }
 }
 
-@media screen and (max-width: 420px) {
-    
-
-    .dummyBox2 {
-        width: 90%;
-    }
-}
-
-@media screen and (max-width: 320px) {
-
-
-    .dummyBox2 {
-        width: 88%;
-    }
-}

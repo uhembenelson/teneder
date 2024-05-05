@@ -128,6 +128,13 @@
 	font-weight: 500;
 }
 
+@media screen and (max-width: 1230px){
+	.nav__items li {
+			font-size: 1rem !important;
+		}
+}
+
+
 /* Resonsiveness (Tablets) */
 @media (max-width: 1024px) {
 	.orgNav {

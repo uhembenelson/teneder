@@ -1,21 +1,17 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CompanyNav from '../../OrganizationNav/OrganizationNav';
 import './manageTenderTable.css';
 
 import backArrow from '../../../assets/Shape.png';
-import exportPdf from '../../../assets/Export Pdf.png';
-import lightApprove from '../../../assets/approval-1.png';
-import darkApprove from '../../../assets/Approval.png';
 import x from '../../../assets/x.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CancelOrder from '../tenderTable/CancelOrder';
 import { selectBidder } from '../../../Redux/Organization/Action';
 import { useSelector, useDispatch } from 'react-redux';
 import useSWR from 'swr';
-import { useForm } from 'react-hook-form';
-
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
+import ManageTenderTableRow from './ManageTenderTableRow';
 
 function ManageTenderTable() {
 	const [showModal, setShowModal] = useState(false);
@@ -24,18 +20,6 @@ function ManageTenderTable() {
 	const [isLoading, setIsLoading] = useState(false)
 
 	const dispatch = useDispatch()
-
-	const {
-		getValues,
-		register,
-
-		formState: { errors },
-	} = useForm({
-
-		criteriaMode: "all",
-		reValidateMode: "onSubmit",
-		mode: "onChange",
-	});
 
 	const [isBidderSelected, setIsBidderSelected] = useState(false)
 	const [selectedCompany, setSelectedCompany] = useState(null)
@@ -49,14 +33,7 @@ function ManageTenderTable() {
 
 	const handleChange = (option) => {
 		setReasons(option)
-		console.log(option)
 	}
-
-
-
-	const [pdfLink, setPdfLink] = useState('')
-
-	const id = useParams()
 
 
 	const navigate = useNavigate()
@@ -136,23 +113,6 @@ function ManageTenderTable() {
 
 	}
 
-	// console.log(data)
-
-	// const downloadLink = () => {
-	// fetch(`https://school-project-production-459d.up.railway.app/v3/download/${data?.upload_document}`)
-	// 	.then(res => setPdfLink(res.url)).then(data => console.log(data))
-	// }
-
-	// useEffect(() => {
-	// 	if (data) {
-	// fetch(`https://school-project-production-459d.up.railway.app/v3/download/${data?.upload_document}`)
-	// 	.then(res => setPdfLink(res.url))
-	// 	}
-
-	// }, [data?.upload_document])
-	// console.log(pdfLink)
-
-	// let selectOption = 
 
 	return (
 		<section>
@@ -186,59 +146,25 @@ function ManageTenderTable() {
 				<section className='table__body'>
 					<table className='tender__table'>
 						<thead>
-							<th >company name</th>
-							<th>tender id</th>
-							<th>porposal </th>
-							<th>dos</th>
-							<th>selected bid</th>
+							<th style={{ textAlign: 'center' }}>company name</th>
+							<th style={{ textAlign: 'center' }}>tender id</th>
+							<th style={{ textAlign: 'center' }}>porposal </th>
+							<th style={{ textAlign: 'center' }}>dos</th>
+							<th style={{ textAlign: 'center' }}>selected bid</th>
 						</thead>
 
 						<tbody>
 							{
 								data?.map((datum, id) => {
 									return (
-										<tr key={datum?.bidder_id} >
-											<td>{id + 1} {datum?.name_of_company}</td>
-											<td>{datum?.tender_id}</td>
-											<td >
-												<div style={{ display: 'flex', width: '100%', justifyContent: 'center' }} target='_blank' >
-
-													<img style={{ cursor: 'pointer' }}
-														src={exportPdf}
-														alt='exportPdf'
-													/>
-												</div>
-
-											</td>
-											<td>13-sept-2023</td>
-											<td style={{ cursor: 'pointer' }}>
-												{selectedCompany !== datum.bidder_id && isBidderSelected ?
-													<form key={id} className='optionSelectParent' ><select
-														className='optionSelect'
-														onChange={e => handleChange(e.target.value)}
-														// value={reasons}
-														name='reason__cancellation'
-														id=''>
-														<option>
-															Non-Competitive Pricing
-														</option>
-														<option>Criterion Not Fullfiled </option>
-														<option>Less work experience</option>
-														<option>Incorrect-Documentation</option>
-														<option>Others</option>
-													</select>
-													</form>
-													:
-													<div style={{ display: 'flex', width: '100%', justifyContent: 'center' }} >
-														<img onClick={() => selectABidder(datum)}
-															src={selectedCompany === datum.bidder_id ? darkApprove : lightApprove}
-															alt='lightApprove'
-														/>
-													</div>
-
-												}
-											</td>
-										</tr>
+										<ManageTenderTableRow
+											reasons={reasons}
+											selectedCompany={selectedCompany}
+											isBidderSelected={isBidderSelected}
+											datum={datum}
+											selectABidder={selectABidder}
+											handleChange={handleChange}
+											id={id} key={id} />
 									)
 								})
 							}

@@ -16,8 +16,8 @@ const OrganizationDummy = () => {
     }, [url, orgurl])
 
     return (
-        <div>
-            <div className='dummyBoxHolder bidderBoxDummy'   >
+        <div  >
+            <div className=' bidderBoxDummy'   >
                 <div className='dummyBox dummyBox2 organizationDummyBox' >
                     <div className='bidderdummyBox' >
                         <div>
@@ -82,7 +82,8 @@ const OrganizationDummy = () => {
 
                     </div>
                 </div>
-            </div></div>
+            </div>
+        </div>
     )
 }
 

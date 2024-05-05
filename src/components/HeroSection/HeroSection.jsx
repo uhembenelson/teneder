@@ -2,7 +2,7 @@ import React from 'react';
 import './HeroSection.css';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import HeroImage from '../../assets/heroImage.png';
-import pdf from '../../assets/The Redeemed Campus (3).pdf'
+import pdf from '../../assets/SMART-TENDER.pdf'
 
 
 const HeroSection = ({ setShowLoginModal }) => {
