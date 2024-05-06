@@ -26,7 +26,7 @@ const SmartContract = () => {
   const user = useSelector(state => state.organization.user)
 
   const selectedTender = useSelector(state => state.organization.selectedTender)
-  console.log(selectedTender)
+
 
   const { selectedBidder } = useSelector(state => state.organization)
 
@@ -238,7 +238,7 @@ const SmartContract = () => {
     setValue('name_of_bidder', selectedBidder?.name_of_company)
   }, [setValue, user, selectedTender])
 
-  const url = `https://school-project-production-459d.up.railway.app/V11/contract/${selectedBidder?.tender_id}`
+  const url = `https://school-project-production-459d.up.railway.app/V11/contract/${user?.organization_id}`
 
 
 
@@ -257,7 +257,7 @@ const SmartContract = () => {
   const [totalPaid, setTotalPaid] = useState('')
   const [contract_address, setContractAddress] = useState('')
   const [success, setSuccess] = useState(false)
-  const [contract_state, setContractState] = useState()
+  const [contract_state, setContractState] = useState('')
   const [total_amount_paid, setTotalAmountPaid] = useState('')
 
   const updateContractPayload = {
@@ -285,12 +285,24 @@ const SmartContract = () => {
       }
     })
     const data = await res.json()
-    // if (data) {
+    // if (data.length > 0) {
     //   setSuccess(true)
     // }
-    // else {
-    //   setSuccess(false)
-    // }
+    if (data.length > 0) {
+      data?.map(datum => {
+        if (datum?.bidder_id === selectedBidder?.bidder_id) {
+          setSuccess(true)
+        }
+        else {
+          setSuccess(false)
+        }
+      })
+    }
+    else {
+      setSuccess(false)
+    }
+
+
     console.log(data)
   }
 
@@ -298,7 +310,7 @@ const SmartContract = () => {
     fetchData()
   })
 
-  const createSmartContract = async () => {
+  const createSmartContract = async (updateContractPayload) => {
     try {
 
       const res = await fetch('https://school-project-production-459d.up.railway.app/V11/contract', {
@@ -319,6 +331,7 @@ const SmartContract = () => {
           autoClose: 3000,
           hideProgressBar: true,
         });
+        console.log(updateContractPayload)
       }
     }
     catch (err) {
@@ -327,7 +340,8 @@ const SmartContract = () => {
 
 
   }
-
+  const updateInfo = updateContractPayload.status = 'ongoing'
+  const successInfo = updateContractPayload.status = 'completed'
   const updateSmartContract = async () => {
     try {
 
@@ -337,7 +351,7 @@ const SmartContract = () => {
           'Authorization': `${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ contract_state })
+        body: JSON.stringify({ updateInfo })
       })
       const data = await res.json()
       console.log(data)
@@ -349,6 +363,7 @@ const SmartContract = () => {
           autoClose: 3000,
           hideProgressBar: true,
         });
+        console.log(updateContractPayload)
       }
     }
     catch (err) {
@@ -357,6 +372,38 @@ const SmartContract = () => {
 
 
   }
+
+  const finishSmartContract = async () => {
+    try {
+
+      const res = await fetch(`https://school-project-production-459d.up.railway.app/V11/contract/${selectedBidder.tender_id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ successInfo })
+      })
+      const data = await res.json()
+      console.log(data)
+
+
+      if (res.ok) {
+        toast.success('Success', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
+        console.log(updateContractPayload)
+      }
+    }
+    catch (err) {
+      console.log(err)
+    }
+
+
+  }
+
 
 
   const deployContract = async (e) => {
@@ -386,10 +433,11 @@ const SmartContract = () => {
 
       setMessage(`Contract deployed at address: ${deployedContract.options.address}`);
       setSuccess(true)
+      // console.log(dep)
       setContract(deployedContract);
 
       console.log("here", deployedContract)
-      createSmartContract()
+      createSmartContract(updateContractPayload)
       setContractAddress(deployedContract.options.address);
 
 
@@ -414,7 +462,7 @@ const SmartContract = () => {
 
       // Optionally, display a success message or handle any other UI updates
       setMessage('Contract data refreshed successfully');
-      updateSmartContract()
+      updateSmartContract(updateInfo)
     } catch (error) {
       console.error('Error refreshing contract data:', error);
       // Display an error message if necessary
@@ -446,7 +494,7 @@ const SmartContract = () => {
       await refreshContractData(); // Function to refresh contract data
       checkDp()
       alert('Funds deposited successfully');
-      updateSmartContract()
+      updateSmartContract(updateInfo)
     } catch (error) {
       console.error('Error depositing funds:', error);
       // Display an error message if necessary
@@ -472,7 +520,7 @@ const SmartContract = () => {
   useEffect(() => {
     checkDp()
     AmountPaid()
-    updateSmartContract()
+
   }, [contract])
 
 
@@ -491,6 +539,7 @@ const SmartContract = () => {
       const account = accounts[0];
       await contract.methods.distributeFundsAutomatically().send({ from: account });
       AmountPaid()
+      finishSmartContract()
       // update
       setIsLoading(false);
     } catch (err) {
@@ -509,6 +558,7 @@ const SmartContract = () => {
 
 
     console.log("this is working here", res)
+    // navigate('/organization/evaluate-tender')
   }
 
 

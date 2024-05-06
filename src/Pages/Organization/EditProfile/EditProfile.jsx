@@ -395,7 +395,7 @@ const EditProfile = () => {
                                 <span>*</span>
                                 <label> Wallet Address</label>
                             </div>
-                            <input className='inputTypeInput' type='text' maxLength={16} {...register('wallet_address')} />
+                            <input className='inputTypeInput' type='text'  {...register('wallet_address')} />
 
                         </div>
                     </div>

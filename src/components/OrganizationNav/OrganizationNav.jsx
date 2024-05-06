@@ -70,23 +70,25 @@ function CompanyNav() {
     }, [timeOut]);
 
     const connectWallet = async () => {
-        try {
-            // Check if MetaMask is installed
-            if (typeof window.ethereum !== 'undefined') {
-                // Prompt the user to connect MetaMask
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                // MetaMask is connected, accounts[0] contains the user's Ethereum address
-                console.log('MetaMask connected:', accounts[0]);
-                alert('MetaMask connected: ' + accounts[0]);
-            } else {
-                // MetaMask is not installed or not detected
-                console.error('MetaMask not installed');
-                alert('MetaMask not installed');
+        const connectWallet = async () => {
+            try {
+                // Check if MetaMask is installed
+                if (typeof window.ethereum !== 'undefined') {
+                    // Prompt the user to connect MetaMask
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    // MetaMask is connected, accounts[0] contains the user's Ethereum address
+                    console.log('MetaMask connected:', accounts[0]);
+                    alert('MetaMask connected: ' + accounts[0]);
+                } else {
+                    // MetaMask is not installed or not detected
+                    console.error('MetaMask not installed');
+                    alert('MetaMask not installed');
+                }
+            } catch (error) {
+                // MetaMask connection error
+                console.error('MetaMask connection error:', error);
+                alert('MetaMask connection error: ' + error.message);
             }
-        } catch (error) {
-            // MetaMask connection error
-            console.error('MetaMask connection error:', error);
-            alert('MetaMask connection error: ' + error.message);
         }
     }
 

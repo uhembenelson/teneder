@@ -369,7 +369,7 @@ const BidderEditProfile = () => {
                                 <span>*</span>
                                 <label> Wallet Address</label>
                             </div>
-                            <input {...register('wallet_address')} className='inputTypeInput' type='text' maxLength={16} />
+                            <input {...register('wallet_address')} className='inputTypeInput' type='text' />
                         </div>
                     </div>
                     <h2 className='editProfileInfo' >ACCOUNT HANDLER INFO </h2>
