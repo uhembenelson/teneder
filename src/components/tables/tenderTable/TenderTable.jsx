@@ -35,6 +35,7 @@ function TenderTable() {
 
 		const response = await fetch(url, { headers });
 		const data = await response.json();
+		console.log(data)
 		return data.reverse();
 
 
@@ -47,6 +48,10 @@ function TenderTable() {
 		setShowModal(!showModal);
 	}
 	// Edit date format
+
+	const moveTo = (id) => {
+		navigate(`/organization/manage-tender/${id}`)
+	}
 
 
 	let content = <div className='spinnerContainer' >
@@ -69,27 +74,33 @@ function TenderTable() {
 					return (
 						<tr key={tender?.tender_id} onClick={() => dispatch(selectTender(tender))} >
 
-							<td onClick={() => { navigate(`/organization/manage-tender/${tender?.tender_id}`) }}>
-								{tender?.description_tender}
-								<div className='table__inner'>
-									<span>No. {tender?.tender_id}</span>
-									<span>
-										<img
-											src={location}
-											alt='location'
-										/>
-										{tender?.state}
-									</span>
-
-									{/*<span>
-										<img
-											src={flag}
-											alt='flag'
-										/>
-										India
-					</span>*/}
-								</div>
-							</td>
+							{tender?.status !== 'cancelled' ?
+								<td style={{ cursor: 'pointer' }} onClick={() => moveTo(tender?.tender_id)}>
+									{tender?.description_tender}
+									<div className='table__inner'>
+										<span>No. {tender?.tender_id}</span>
+										<span>
+											<img
+												src={location}
+												alt='location'
+											/>
+											{tender?.state}
+										</span>
+									</div>
+								</td> :
+								<td >
+									{tender?.description_tender}
+									<div className='table__inner'>
+										<span>No. {tender?.tender_id}</span>
+										<span>
+											<img
+												src={location}
+												alt='location'
+											/>
+											{tender?.state}
+										</span>
+									</div>
+								</td>}
 							<td>{tender?.type_of_tender}</td>
 							<td>
 								{formatDate(tender?.duration_of_bidding_end)}
@@ -119,7 +130,7 @@ function TenderTable() {
 				})}
 
 			</tbody>
-		</table>
+		</table >
 
 
 	}

@@ -104,13 +104,6 @@ const OrganizationSignUp = () => {
 
 
   useEffect(() => {
-    //     fetch('https://countriesnow.space/api/v0.1/countries/states', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ "country": "India" })
-    //     }).then(res => res.json()).then(data => setStates(data?.data?.states))
     fetch("https://countriesnow.space/api/v0.1/countries/")
       .then((res) => res.json())
       .then((data) => setStates(data.data));
@@ -118,6 +111,8 @@ const OrganizationSignUp = () => {
 
   const registerUser = async () => {
     const data = getValues();
+
+    console.log(data)
 
     const regFormData = new FormData();
 
@@ -542,8 +537,8 @@ const OrganizationSignUp = () => {
                 <input
                   className="inputTypeInput"
                   type="text"
-                  // {...register("wallet_address")}
-                  value={defaultAccount}
+                  {...register("wallet_address")}
+                // value={defaultAccount}
                 // maxLengt16}
                 />
               </div>

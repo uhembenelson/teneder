@@ -5,6 +5,7 @@ import darkApprove from '../../../assets/Approval.png';
 import { formatDate } from '../../../utilities/dateFormatter'
 
 const ManageTenderTableRow = ({ datum, id, selectedCompany, selectABidder, handleChange, isBidderSelected }) => {
+    console.log(datum)
 
     const [pdfLink, setPdfLink] = useState('')
 

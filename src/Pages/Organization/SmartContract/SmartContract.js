@@ -238,7 +238,7 @@ const SmartContract = () => {
     setValue('name_of_bidder', selectedBidder?.name_of_company)
   }, [setValue, user, selectedTender])
 
-  const url = `https://school-project-production-459d.up.railway.app/V11/contract/${user.organization_id}`
+  const url = `https://school-project-production-459d.up.railway.app/V11/contract/${selectedBidder?.tender_id}`
 
 
 
@@ -285,12 +285,12 @@ const SmartContract = () => {
       }
     })
     const data = await res.json()
-    if (data) {
-      setSuccess(true)
-    }
-    else {
-      setSuccess(false)
-    }
+    // if (data) {
+    //   setSuccess(true)
+    // }
+    // else {
+    //   setSuccess(false)
+    // }
     console.log(data)
   }
 
@@ -387,6 +387,7 @@ const SmartContract = () => {
       setMessage(`Contract deployed at address: ${deployedContract.options.address}`);
       setSuccess(true)
       setContract(deployedContract);
+
       console.log("here", deployedContract)
       createSmartContract()
       setContractAddress(deployedContract.options.address);

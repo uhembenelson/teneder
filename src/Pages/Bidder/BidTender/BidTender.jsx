@@ -42,7 +42,7 @@ const BidTender = () => {
 
         const response = await fetch(url, { headers });
         const data = await response.json();
-        setFilteredTenders(data)
+        setFilteredTenders(data.reverse())
         return data;
 
 

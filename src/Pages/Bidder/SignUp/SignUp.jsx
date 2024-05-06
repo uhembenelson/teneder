@@ -17,7 +17,7 @@ const SignUp = () => {
     const [file, setFile] = useState(null)
     const [AadharCard, setAadharCard] = useState(null)
     const [panCard, setPanCard] = useState(null)
-    const [wallet_address, setDefaultAccount] = useState('');
+    const [defaultAccount, setDefaultAccount] = useState('');
     const schema = yup.object().shape({
         name_of_company: yup.string().required('Company name is required'),
         organization_website: yup.string().required('organization_website is required'),
@@ -67,7 +67,7 @@ const SignUp = () => {
         connectWallet();
     }, []);
 
-    console.log("this is the wallet address", wallet_address);
+    console.log("this is the wallet address", defaultAccount);
 
 
 
@@ -110,7 +110,7 @@ const SignUp = () => {
         regFormData.append('confirm_email', userInfo?.confirm_email)
         regFormData.append('password', userInfo?.password)
         regFormData.append('confirm_password', userInfo?.confirm_password)
-        regFormData.append("wallet_address", wallet_address);
+        regFormData.append("wallet_address", defaultAccount);
         regFormData.append('public_address', userInfo?.public_address)
         regFormData.append('registration_number', userInfo?.registration_number)
         regFormData.append('contact_number', userInfo?.contact_number)
@@ -429,6 +429,7 @@ const SignUp = () => {
                                     <span>*</span>
                                     <label>Wallet Address</label>
                                 </div>
+
                                 <input className='inputTypeInput'
                                     type='text'
                                     {...register('wallet_address')}
