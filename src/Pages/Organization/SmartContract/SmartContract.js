@@ -269,6 +269,7 @@ const SmartContract = () => {
     contract_address,
     total_amount_paid,
     contract_state,
+    status: 'ongoing',
     wallet_address: beneficiary
   }
 

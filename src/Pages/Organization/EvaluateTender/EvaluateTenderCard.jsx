@@ -23,6 +23,9 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'ongoing') {
         percentage = 66
     }
+    else if (data?.status === 'Result pending') {
+        percentage = 0
+    }
     else if (data?.status === 'result pending') {
         percentage = 0
     }
@@ -44,6 +47,9 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'result pending') {
         status = <span className='ongoing'>  PENDING</span>
     }
+    else if (data?.status === 'result pending') {
+        status = <span className='ongoing'>  PENDING</span>
+    }
     else if (data?.status === 'Result not out yet') {
         status = <span className='ongoing'>  PENDING</span>
     }
@@ -53,12 +59,28 @@ const EvaluateTenderCard = ({ data, user }) => {
 
     const provideFeedback = () => {
         dispatch(selectTender(data))
-        navigate('/organization/feedback')
+
+        if (user === 'bidder') {
+            navigate(`/bidder/feedback/${data?.tender_id}`)
+            return
+        }
+        else {
+            navigate(`/organization/feedback/${data?.tender_id}`)
+        }
+
+
     }
 
     const handleSmartContract = () => {
         dispatch(selectTender(data))
-        // smartContact stuffs
+        if (user === 'bidder') {
+            navigate(`/bidder/view-tender/${data?.tender_id}`)
+            return
+        }
+        else {
+            navigate(`/organization/smart-contract/${data?.tender_id}`)
+        }
+
     }
 
     const provideReasons = () => {
@@ -88,6 +110,16 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'cancelled') {
         button = <button onClick={provideReasons} className='evalButton' > {user ? 'SEE REASONS' : 'PROVIDE REASONS'} <img className='evalImg' src={sad} alt='' />
         </button>
+    }
+
+    else if (data?.status === 'Result pending') {
+        button = null
+    }
+    else if (data?.status === 'Result not out yet') {
+        button = null
+    }
+    else if (data?.status === 'result pending') {
+        button = null
     }
 
     const navigate = useNavigate()

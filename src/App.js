@@ -121,7 +121,7 @@ const App = () => {
 						element={<ViewTender />}
 					/>
 					<Route
-						path='/bidder/feedback'
+						path='/bidder/feedback/:id'
 						element={<BidderFeedback />}
 					/>
 					<Route
