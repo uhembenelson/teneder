@@ -47,9 +47,10 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'result pending') {
         status = <span className='ongoing'>  PENDING</span>
     }
-    else if (data?.status === 'result pending') {
+    else if (data?.status === 'Result pending') {
         status = <span className='ongoing'>  PENDING</span>
     }
+    
     else if (data?.status === 'Result not out yet') {
         status = <span className='ongoing'>  PENDING</span>
     }
