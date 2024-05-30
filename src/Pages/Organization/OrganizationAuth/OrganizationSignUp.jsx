@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
-
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
 import UploadFile from "../../../components/UploadFile/UploadFile";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
-import { registerOrganization } from "../../../Redux/Organization/Action";
 import { CircularProgress } from "@mui/material";
-import { ethers } from "ethers";
+
 
 const OrganizationSignUp = () => {
   const [file, setFile] = useState(null);
@@ -62,12 +57,11 @@ const OrganizationSignUp = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [defaultAccount, setDefaultAccount] = useState('');
-  const [errorMessage, setErrorMessage] = useState();
+
 
   const {
     getValues,
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -451,7 +445,7 @@ const OrganizationSignUp = () => {
                   placeholder="Enter GST Number"
                   maxLength={16}
                   className="inputTypeInput"
-                  type="text"
+                  type="number"
                   {...register("contact_number")}
                 />
               </div>

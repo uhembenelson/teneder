@@ -3,6 +3,11 @@ import './HelpCenter.css'
 import BidderNav from '../../../components/BidderNav/Nav'
 
 const HelpCenter = () => {
+
+
+
+    const email = 'tenederblockchain@gmail.com'
+
     return (
         <div>
             <BidderNav />
@@ -113,7 +118,7 @@ const HelpCenter = () => {
                             <h5>Still have questions?</h5>
                             <p>Can’t find the answer you’re looking for? Please chat to our friendly team.</p>
                         </div>
-                        <button className='getInTouchBtn' >Get in touch</button>
+                        <a href={`mailto:${email}`} className='getInTouchBtn' >Get in touch</a>
                     </div>
 
                 </div>

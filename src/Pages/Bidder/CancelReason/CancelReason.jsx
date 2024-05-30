@@ -72,7 +72,7 @@ const CancelReason = () => {
                                 <b>Name of Bidder:</b> {tender[0]?.names}
     </li>*/}
                             <li>
-                                <b>Amount:</b> <span>0.90 ETH</span>
+                                <b>Amount:</b> <span>{tender?.amount || 'null'}</span>
                             </li>
                             <li>
                                 <b>Duration:</b> {formatDate(tender[0]?.duration_of_work_start)} - {formatDate(tender[0]?.duration_of_work_end)}

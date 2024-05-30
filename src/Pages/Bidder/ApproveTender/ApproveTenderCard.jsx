@@ -1,10 +1,8 @@
 import React from 'react'
 import location from '../../../assets/location.png';
 import checked from '../../../assets/Checked Checkbox.png'
-import backArrow from '../../../assets/Shape.png';
 import cancel from '../../../assets/Multiplication.png';
 import approval from '../../../assets/Approval.png';
-import flag from '../../../assets/flag.png';
 import HourGlass from '../../../assets/Hourglass.png'
 import { getTenderInfo } from '../../../Redux/Bidder/Action';
 import { useNavigate } from 'react-router-dom';
@@ -65,6 +63,18 @@ const ApproveTenderCard = ({ tender, id }) => {
                 />
             </div>
             break
+
+        case 'Result pending':
+            option = <div>
+                <p>PENDING</p>
+                <img
+                    style={{ margin: 'auto' }}
+                    src={HourGlass}
+                    alt='cancel'
+                />
+            </div>
+            break
+
         case 'Result not out yet':
             option = <div>
                 <p>PENDING</p>

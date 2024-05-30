@@ -70,7 +70,7 @@ const ApprovalCheck = () => {
                             </div>
                             <div className='textHeaderContainer' >
                                 <p className='textHeader' >Amount :</p>
-                                <p className='textDesc' >0.90 ETH</p>
+                                <p className='textDesc' >{tender?.amount || 'null'}</p>
                             </div>
                             <div className='textHeaderContainer' >
                                 <p className='textHeader' >Status :</p>

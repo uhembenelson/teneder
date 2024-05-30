@@ -1,60 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { getTenderInfo } from '../../../Redux/Bidder/Action';
 import { useDispatch } from 'react-redux';
 import bidImage from '../../../assets/image 65.png';
 import NotbidImage from '../../../assets/image 55.png';
-import flag from '../../../assets/flag.png';
 import location from '../../../assets/location.png';
-import approval from '../../../assets/Approval.png';
+import moment from 'moment'
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../../../utilities/dateFormatter';
 
 
 const BidTenderCard = ({ tender, id }) => {
 
+    const [canBid, setCanBid] = useState(false)
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const TenderInfo = (tender) => {
-
         dispatch(getTenderInfo(tender))
-        // if (daysRemaining < 0) {
-        //     return
-        // }
-        // else {
         navigate(`/bidder/bid-details/${tender?.tender_id}`)
-        // }
-
-
     }
 
-    // const presentDay = new Date();
+    const presentDay = moment().format('L')
+    const startDate = moment(tender?.duration_of_bidding_start).format('L')
+    const endDate = moment(tender?.duration_of_bidding_end).format('L')
 
-    // const targetDate = new Date(tender?.duration_of_work);
-
-    // const timeDifference = targetDate - presentDay;
-    // console.log(targetDate)
-
-    // const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-    // console.log(daysRemaining)
-
-
-    // const concluded = <div>
-    //     <p>Concluded</p>
-    //     <img src={approval} alt='' />
-    // </div>
-
-
-
+    useEffect(() => {
+        if (presentDay >= startDate && presentDay <= endDate) {
+            setCanBid(true)
+        }
+        else {
+            setCanBid(false)
+        }
+    }, [presentDay, startDate, endDate])
 
 
 
     return (
         <tr key={tender?.tender_id}  >
             <td >
-                {id + 1}. {tender?.
-                    description_tender
-                }
+                {id + 1}. {tender?.description_tender}
                 <div className='table__inner'>
                     <span>no. {tender?.tender_id}</span>
                     <span>
@@ -82,17 +67,21 @@ const BidTenderCard = ({ tender, id }) => {
             </td>
             <td>
 
-                {/*daysRemaining > 0 ? <img
-                        src={bidImage}
-                        alt='cancel'
-                /> :*/}
-                <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }} >
+                {canBid ? <div style={{ display: 'flex', width: '100%', justifyContent: 'center', cursor: 'pointer' }} >
                     <img
                         onClick={() => TenderInfo(tender)}
                         src={bidImage}
                         alt='cancel'
                     />
                 </div>
+                    :
+                    <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+                        <img
+                            src={NotbidImage}
+                            alt='cancel'
+                        />
+                    </div>}
+
 
 
 

@@ -64,7 +64,7 @@ function BidderNav() {
 				'Content-Type': 'application/json'
 			}
 		}).then(res => res.json()).then(data => setUserDetails(data))
-	}, [userDetails])
+	}, [token, bidder_id])
 
 
 	// const connectWallet = async () => {

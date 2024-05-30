@@ -7,9 +7,8 @@ import './SignUp.css'
 import { Link, useNavigate } from 'react-router-dom'
 import 'react-phone-number-input/style.css'
 import UploadFile from '../../../components/UploadFile/UploadFile'
-import BidderHomeNavBar from '../../../components/BidderHomeNavBar/BidderHomeNavBar'
 import { CircularProgress } from '@mui/material';
-import { ethers } from "ethers";
+
 
 const SignUp = () => {
 
@@ -373,7 +372,7 @@ const SignUp = () => {
                                     <label>GST Number</label>
                                 </div>
 
-                                <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text' {...register('contact_number')} />
+                                <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='number' {...register('contact_number')} />
 
                             </div>
                             <div style={{ borderColor: errors?.job_title?.message ? 'red' : '#ccc' }} className='companyTypeInputContainer2'>

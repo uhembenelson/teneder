@@ -1,7 +1,6 @@
 export const formatDate = (date) => {
     if (date?.includes("-")) {
         const startDateParts = date
-        console.log(startDateParts)
         const convertedDateString = startDateParts?.replace(/-/g, '/')
         const dateComponents = convertedDateString?.split('/');
 

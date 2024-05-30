@@ -54,9 +54,7 @@ const EditProfile = () => {
     };
 
     useEffect(() => {
-        fetch('https://countriesnow.space/api/v0.1/countries/')
-            .then(res => res.json()).
-            then(data => setCountries(data.data))
+        fetch('https://countriesnow.space/api/v0.1/countries/').then(res => res.json()).then(data => setCountries(data.data))
     }, [])
 
 
@@ -77,7 +75,7 @@ const EditProfile = () => {
         register,
         setValue,
         handleSubmit,
-        formState: { errors },
+
     } = useForm({
 
         criteriaMode: "all",
@@ -111,7 +109,7 @@ const EditProfile = () => {
                 },
                 body: pictureData
             })
-            const data = await res.json()
+
 
             if (res.ok) {
                 dispatch(setOrganizationProfilePicture(imageUrl))
@@ -143,33 +141,6 @@ const EditProfile = () => {
         const info = getValues()
 
         info.organization_type = organization_type
-
-
-        // const regFormData = new FormData();
-
-        // regFormData.append('name_of_organization', data?.name_of_organization)
-        // regFormData.append('organization_website', data?.organization_website)
-        // regFormData.append('address_one', data?.address_one)
-        // regFormData.append('address_three', data?.address_three)
-        // regFormData.append('address_two', data?.address_two)
-        // regFormData.append('state', data?.state)
-        // regFormData.append('city', data?.city)
-        // regFormData.append('first_name', data?.first_name)
-        // regFormData.append('last_name', data?.last_name)
-        // regFormData.append('postal_code', data?.postal_code)
-        // regFormData.append('job_title', data?.job_title)
-        // regFormData.append('email', data?.email)
-        // regFormData.append('confirm_email', data?.confirm_email)
-        // regFormData.append('password', data?.password)
-        // regFormData.append('confirm_password', data?.confirm_password)
-        // regFormData.append('wallet_address', data?.wallet_address)
-        // regFormData.append('public_address', data?.public_address)
-        // regFormData.append('registration_number', data?.registration_number)
-        // regFormData.append('contact_number', data?.contact_number)
-        // regFormData.append('registration_certificate', file)
-        // regFormData.append('aadhar_card', AadharCard)
-        // regFormData.append('pan_card', panCard)
-
 
         try {
             setIsLoading(true)
@@ -431,7 +402,7 @@ const EditProfile = () => {
                                 <span>*</span>
                                 <label>GST Number</label>
                             </div>
-                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text'{...register('contact_number')} />
+                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='number'{...register('contact_number')} />
                         </div>
                     </div>
                     <div className='companyBox' >

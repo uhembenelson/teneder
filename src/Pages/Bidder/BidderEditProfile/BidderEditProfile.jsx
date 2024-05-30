@@ -48,8 +48,7 @@ const BidderEditProfile = () => {
 
     useEffect(() => {
         fetch('https://countriesnow.space/api/v0.1/countries/')
-            .then(res => res.json()).
-            then(data => setStates(data.data))
+            .then(res => res.json()).then(data => setStates(data.data))
     }, [])
 
     // Get profile picture
@@ -85,7 +84,7 @@ const BidderEditProfile = () => {
                 body: pictureData
             })
 
-            const data = await res.json()
+
 
             if (res.ok) {
                 // dispatch(setOrganizationProfilePicture(imageUrl))
@@ -129,7 +128,6 @@ const BidderEditProfile = () => {
         register,
         setValue,
         handleSubmit,
-        formState: { errors },
     } = useForm({
 
         criteriaMode: "all",
@@ -144,7 +142,7 @@ const BidderEditProfile = () => {
         info.company_type = companyType
 
 
-        const regFormData = new FormData();
+
 
         try {
             setIsLoading(true)
@@ -158,7 +156,7 @@ const BidderEditProfile = () => {
                 body: JSON.stringify(info)
             })
 
-            const data = await res.json()
+
 
             setIsLoading(false)
 
@@ -405,7 +403,7 @@ const BidderEditProfile = () => {
                                 <label>GST Number</label>
                             </div>
 
-                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='text' {...register('contact_number')} />
+                            <input placeholder="Enter GST Number" maxLength={16} className='inputTypeInput' type='number' {...register('contact_number')} />
                         </div>
                     </div>
                     <div className='companyBox' >
