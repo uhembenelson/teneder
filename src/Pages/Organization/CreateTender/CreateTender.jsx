@@ -51,11 +51,11 @@ const CreateTender = () => {
 
     //end here
 
-    const [duration_of_bidding_start, setDuration_of_bidding_start] = useState(null)
-    const [duration_of_bidding_end, setDuration_of_bidding_end] = useState(null)
+    const [duration_of_bidding_start, setDuration_of_bidding_start] = useState(new Date())
+    const [duration_of_bidding_end, setDuration_of_bidding_end] = useState(new Date())
 
-    const [duration_of_work_start, setDuration_of_work_start] = useState(null)
-    const [duration_of_work_end, setDuration_of_work_end] = useState(null)
+    const [duration_of_work_start, setDuration_of_work_start] = useState(new Date())
+    const [duration_of_work_end, setDuration_of_work_end] = useState(new Date())
 
     const [bidStartErr, setBidStartErr] = useState(false)
     const [bidEndErr, setBidEndErr] = useState(false)
@@ -64,6 +64,10 @@ const CreateTender = () => {
 
 
     const navigate = useNavigate()
+
+    const today = new Date().toISOString().split('T')[0]
+
+
 
     // Schema for creating request
     const schema = yup.object().shape({
@@ -306,7 +310,7 @@ const CreateTender = () => {
                                     <span>*</span><label className='address'>START DURATION OF BIDDING PERIOD</label>
                                 </div>
 
-
+                                {/*<input type='date' min={today} onChange={e => setDuration_of_bidding_start(e.target.value)} value={duration_of_bidding_start} />*/}
                                 <DatePicker minDate={new Date()} onChange={setDuration_of_bidding_start} value={duration_of_bidding_start} />
                             </div>
                             <div style={{
@@ -347,7 +351,7 @@ const CreateTender = () => {
                     </div>
                     <div className='companyBox' >
                         <div className='companyTypeInputContainer2'>
-                            <div className='typeInput' >
+                            <div className='typeInput labelContainer' >
                                 <span>*</span>
                                 <h3>TYPE OF TENDER </h3>
                             </div>
@@ -362,7 +366,7 @@ const CreateTender = () => {
                             border: hasFileBeenSelected && '1px solid red'
                         }} className='companyTypeInputContainer2'>
 
-                            <div className='typeInput'>
+                            <div className='typeInput labelContainer'>
                                 < span >*</span>
                                 <h3>APPENDICES</h3>
                             </div>
