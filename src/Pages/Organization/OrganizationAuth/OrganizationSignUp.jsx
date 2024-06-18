@@ -445,7 +445,7 @@ const OrganizationSignUp = () => {
                   placeholder="Enter GST Number"
                   maxLength={16}
                   className="inputTypeInput"
-                  type="number"
+                  type="text"
                   {...register("contact_number")}
                 />
               </div>
