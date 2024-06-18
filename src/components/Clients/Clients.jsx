@@ -18,10 +18,10 @@ const Clients = () => {
                                 <path d="M28.3936 19.4528C27.5072 19.4546 26.6364 19.6798 25.8658 20.1065C26.9509 17.3713 28.7467 14.9577 31.0771 13.1022C31.2229 12.9997 31.3457 12.8693 31.4379 12.7189C31.5301 12.5684 31.5897 12.4012 31.6131 12.2275C31.6365 12.0538 31.6232 11.8772 31.5739 11.7087C31.5246 11.5402 31.4405 11.3833 31.3267 11.2477C31.2129 11.112 31.0718 11.0005 30.9121 10.92C30.7524 10.8395 30.5775 10.7917 30.3981 10.7795C30.2187 10.7673 30.0387 10.791 29.8691 10.8492C29.6995 10.9073 29.5439 10.9987 29.4119 11.1176C24.6199 14.9116 22.4874 20.1649 22.4874 23.4219C22.4931 24.5604 22.835 25.6733 23.4723 26.6276C24.1096 27.5819 25.0154 28.3373 26.0814 28.8035C26.8017 29.1448 27.5927 29.3205 28.3936 29.3171C29.0806 29.3497 29.7672 29.2459 30.4118 29.0121C31.0564 28.7784 31.6456 28.4195 32.1437 27.9572C32.6417 27.4949 33.0382 26.9389 33.3091 26.3228C33.58 25.7068 33.7197 25.0435 33.7197 24.3733C33.7197 23.703 33.58 23.0398 33.3091 22.4237C33.0382 21.8077 32.6417 21.2516 32.1437 20.7893C31.6456 20.3271 31.0564 19.9682 30.4118 19.7344C29.7672 19.5006 29.0806 19.3969 28.3936 19.4294V19.4528Z" fill="white" />
                             </svg>
 
-                            <h4 className='userCardName' >Hannah Schmitt</h4>
+                            <h4 id='userCardName' className='userCardName' >Hannah Schmitt</h4>
                             <p className='userCardRole'>CTO,YTL Corporation LTD.</p>
                         </div>
-                        <p className='userCardText' >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim </p>
+                        <p className='userCardText' >Teneder's innovation use of blockchain for tender management is a game-changer. The platform's smart contract technology enssures transparency, efficiency and security throughout the process. It is a must try fr anyone looking to streamline procurement with confidence</p>
                     </div>
                     <div className='userCardContainer' >
                         <div className='userCardInner' >
@@ -34,7 +34,7 @@ const Clients = () => {
                             <h4 className='userCardName' >Hannah Schmitt</h4>
                             <p className='userCardRole'>CEO, WCT Holdings LTD.</p>
                         </div>
-                        <p className='userCardText' >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim </p>
+                        <p className='userCardText' >Five stars for Teneder! Their blockchain-powered tender management system is a game changer. It brings transparency, efficiency and security to the procurement process like never before. Highly impressed!</p>
                     </div>
                     <div className='userCardContainer' >
                         <div className='userCardInner' >
@@ -47,7 +47,7 @@ const Clients = () => {
                             <h4 className='userCardName' >Hannah Schmitt</h4>
                             <p className='userCardRole'>COO, UEM Group LTD</p>
                         </div>
-                        <p className='userCardText' >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim </p>
+                        <p className='userCardText' >Discovering Teneder was a revelation! Their smart contract based tender management is a breath of fresh air in the often opaque world of procurement. With transparency, and efficiency at it's core, Teneder has truly raised the bar for tender processes. Kudos to the team for their groundbreaking work!</p>
                     </div>
 
                 </div>

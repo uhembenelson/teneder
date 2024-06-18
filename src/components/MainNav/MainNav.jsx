@@ -32,12 +32,8 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
                         <li>HOME</li>
                     </Link>
                     {/*<Link to='/about' >*/}
-                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('whyUs')}>ABOUT</li>
-                    {/*</Link>*/}
-                    {/*<Link to='/contact' >
-                        <li>CONTACT US</li>
-    </Link>*/}
-                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('testimonials')}>TESTIMONIALS</li>
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('whyUsTitle')}>ABOUT</li>
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('userCardName')}>TESTIMONIALS</li>
                     <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('footer')}>CONTACT US</li>
 
                     <button onClick={() => setShowLoginModal(true)} className='HomeBtn' >
@@ -69,8 +65,8 @@ const MainNav = ({ setShowLoginModal, setShowSignUpModal }) => {
                     <Link to='/' >
                         <li>HOME</li>
                     </Link>
-                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('whyUs')}>ABOUT</li>
-                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('testimonials')}>TESTIMONIALS</li>
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('whyUsTitle')}>ABOUT</li>
+                    <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('userCardName')}>TESTIMONIALS</li>
                     <li style={{ cursor: 'pointer' }} onClick={() => scrollToSection('footer')}>CONTACT US</li>
 
                     <button onClick={() => setShowLoginModal(true)} className='HomeBtn' >

@@ -8,8 +8,8 @@ const WhyUs = () => {
     return (
         <div className='WhyUs' id='whyUs'>
             <div className='defiContainer' >
-                <div className='whyUsBox' >
-                    <h2 className='whyUsTitle' >Why We Are Better than others?</h2>
+                <div className='whyUsBox ' id='whyUsBox' >
+                    <h2 className='whyUsTitle' id='whyUsTitle' >Why We Are Better than others?</h2>
                     <p>We use Blockchain and Smart Contracts  to construct a transparent,
                         de-centralised, and secure tendering framework that allows bidders
                         to keep track of portal functionality and all tender portal activity
