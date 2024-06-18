@@ -61,7 +61,7 @@ const BidTenderCard = ({ tender, id }) => {
             </td>
             <td>{tender?.type_of_tender}</td>
             <td>
-                {formatDate(tender?.duration_of_bidding_end)}
+                {formatDate(tender?.duration_of_bidding_start)} - {formatDate(tender?.duration_of_bidding_end)}
                 {/*daysRemaining > 0 ? <p>{daysRemaining} <span> days to go</span></p> : concluded*/}
                 {/*Math.ceil((new Date(tender?.duration_of_work) - presentDay) / (1000 * 60 * 60 * 24)) > 0 && <p style={{ color: 'rgba(255, 122, 0, 1)' }}>15-Feb-2024</p>*/}
             </td>

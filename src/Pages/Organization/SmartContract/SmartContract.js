@@ -29,6 +29,7 @@ const SmartContract = () => {
 
 
   const { selectedBidder } = useSelector(state => state.organization)
+  console.log(selectedTender)
 
 
   const PaymentContract = [
@@ -261,11 +262,11 @@ const SmartContract = () => {
   const [total_amount_paid, setTotalAmountPaid] = useState('')
 
   const updateContractPayload = {
-    bidder_id: selectedBidder?.bidder_id,
+    bidder_id: selectedTender?.bidder_id,
     tender_id: selectedTender?.tender_id,
     organization_id: user?.organization_id,
     name_of_organization: user?.name_of_organization,
-    name_of_bidder: selectedBidder?.name_of_company,
+    name_of_bidder: selectedTender?.name_of_bidder || selectedBidder?.name_of_company,
     contract_address,
     total_amount_paid,
     contract_state,
@@ -291,7 +292,7 @@ const SmartContract = () => {
     // }
     if (data.length > 0) {
       data?.map(datum => {
-        if (datum?.bidder_id === selectedBidder?.bidder_id) {
+        if (datum?.bidder_id === selectedTender?.bidder_id) {
           setSuccess(true)
         }
         else {
@@ -508,7 +509,7 @@ const SmartContract = () => {
     const res = await contract?.methods.checkDeposit().call()
 
     console.log("res", res)
-    if (res == false) {
+    if (res === false) {
       setContractState("Not funded")
     } else {
       setContractState("Funded")
@@ -714,9 +715,9 @@ const SmartContract = () => {
                       </div>
                     </td>
                     <td>
-                      {selectedBidder?.name_of_company}
+                      {selectedTender?.name_of_bidder || selectedBidder?.name_of_company}
                     </td>
-                    <td>{selectedBidder?.wallet_address}</td>
+                    <td>{selectedTender?.wallet_address || selectedBidder?.wallet_address}</td>
 
                     <td>
                       {total_amount_paid === '' ? "No amount has been paid yet" : total_amount_paid + " Ether"

@@ -5,7 +5,8 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import externalLink from '../../../assets/External Link.png'
-import { selectTender } from '../../../Redux/Bidder/Action';
+import { selectTenderBidder } from '../../../Redux/Bidder/Action';
+import { selectTender, selectBidder } from '../../../Redux/Organization/Action';
 import sad from '../../../assets/Sad.png'
 
 const EvaluateTenderCard = ({ data, user }) => {
@@ -50,7 +51,7 @@ const EvaluateTenderCard = ({ data, user }) => {
     else if (data?.status === 'Result pending') {
         status = <span className='ongoing'>  PENDING</span>
     }
-    
+
     else if (data?.status === 'Result not out yet') {
         status = <span className='ongoing'>  PENDING</span>
     }
@@ -59,13 +60,14 @@ const EvaluateTenderCard = ({ data, user }) => {
     }
 
     const provideFeedback = () => {
-        dispatch(selectTender(data))
+        dispatch(selectTenderBidder(data))
 
         if (user === 'bidder') {
             navigate(`/bidder/feedback/${data?.tender_id}`)
             return
         }
         else {
+            dispatch(selectBidder(data))
             navigate(`/organization/feedback/${data?.tender_id}`)
         }
 
@@ -73,12 +75,13 @@ const EvaluateTenderCard = ({ data, user }) => {
     }
 
     const handleSmartContract = () => {
-        dispatch(selectTender(data))
+        dispatch(selectTenderBidder(data))
         if (user === 'bidder') {
             navigate(`/bidder/view-tender/${data?.tender_id}`)
             return
         }
         else {
+            dispatch(selectTender(data))
             navigate(`/organization/smart-contract/${data?.tender_id}`)
         }
 
@@ -137,7 +140,7 @@ const EvaluateTenderCard = ({ data, user }) => {
 
                 <div>
                     <div className='statusContainer' >
-                        <p className='completedBy' >{user ? 'PUBLISHED' : 'COMPLETED'} BY:<span >  {user ? data?.name_of_organization : data?.name_of_company}</span></p>
+                        <p className='completedBy' >{user ? 'PUBLISHED' : 'COMPLETED'} BY:<span >  {user ? data?.name_of_organization : data?.name_of_bidder}</span></p>
                         <p>Status : <span className='complete'>  {status}</span></p>
                     </div>
                     <div className='statusContainer'><p >TIME TAKEN: {user ? 'NA' : <span>26/10/2023 - 24/11/2023</span>}</p></div>

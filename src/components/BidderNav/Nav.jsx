@@ -123,13 +123,18 @@ function BidderNav() {
 							/>
 						</li>
 					</Link>
-					<li onClick={connectWallet}>
-						wallet
-						<img
-							src={vector}
-							alt='vector'
-						/>
-					</li>
+					<a target='_blank' href={`https://sepolia.etherscan.io/address/${user?.wallet_address}`} >
+						<li >
+
+							wallet
+							<img
+								src={vector}
+								alt='vector'
+							/>
+
+
+						</li>
+					</a>
 					<li className='popUpContainer'>
 						{userDetails?.first_name}
 						<img
@@ -215,13 +220,18 @@ function BidderNav() {
 									alt='notification'
 								/>
 							</li>
-							<li onClick={connectWallet}>
-								wallet
-								<img
-									src={vector}
-									alt='vector'
-								/>
-							</li>
+							<a target='_blank' href={`https://sepolia.etherscan.io/address/${user?.wallet_address}`} >
+								<li >
+
+									wallet
+									<img
+										src={vector}
+										alt='vector'
+									/>
+
+
+								</li>
+							</a>
 							<li className='popUpContainer'>
 								{userDetails?.first_name}
 								<img

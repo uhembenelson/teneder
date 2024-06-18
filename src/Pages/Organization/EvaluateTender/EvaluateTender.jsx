@@ -87,7 +87,7 @@ const EvaluateTender = () => {
 
 
 
-    const url = `https://school-project-production-459d.up.railway.app/v4/tender/evaluate/${organization_id}`
+    const url = `https://school-project-production-459d.up.railway.app/v11/contract/${organization_id}`
     const { data } = useSWR([url, token], () => fetchTenders(url, token));
     console.log(data)
 

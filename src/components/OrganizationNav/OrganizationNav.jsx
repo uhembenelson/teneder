@@ -14,6 +14,8 @@ function CompanyNav() {
 
 
     const user = useSelector(state => state.organization.user)
+
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -113,13 +115,18 @@ function CompanyNav() {
                             />
                         </li>
                     </Link>
-                    <li onClick={connectWallet}>
-                        wallet
-                        <img
-                            src={vector}
-                            alt='vector'
-                        />
-                    </li>
+                    <a target='_blank' href={`https://sepolia.etherscan.io/address/${user?.wallet_address}`} >
+                        <li >
+
+                            wallet
+                            <img
+                                src={vector}
+                                alt='vector'
+                            />
+
+
+                        </li>
+                    </a>
                     <li className='popUpContainer' >
                         {userDetails?.first_name}
                         <img
@@ -206,13 +213,18 @@ function CompanyNav() {
                                 alt='notification'
                             />
                         </li>
-                        <li onClick={connectWallet}>
-                            wallet
-                            <img
-                                src={vector}
-                                alt='vector'
-                            />
-                        </li>
+                        <a target='_blank' href={`https://sepolia.etherscan.io/address/${user?.wallet_address}`} >
+                            <li >
+
+                                wallet
+                                <img
+                                    src={vector}
+                                    alt='vector'
+                                />
+
+
+                            </li>
+                        </a>
                         <li className='popUpContainer' >
                             {userDetails?.first_name}
                             <img

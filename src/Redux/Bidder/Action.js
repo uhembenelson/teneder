@@ -14,7 +14,7 @@ export const logoutBidder = () => ({
     type: bidderActionTypes.BIDDER_LOGOUT
 })
 
-export const selectTender = (data) => ({
+export const selectTenderBidder = (data) => ({
     type: bidderActionTypes.SELECT_TENDER,
     payload: data
 })

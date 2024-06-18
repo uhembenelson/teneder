@@ -138,7 +138,7 @@ const BidTender = () => {
                         <thead>
                             <th>tender description</th>
                             <th>type</th>
-                            <th>due date</th>
+                            <th>bidding period</th>
                             <th>Bid</th>
                         </thead>
 
