@@ -1491,6 +1491,7 @@ const PaymentContract = () => {
       setContract_state("contract is inactive")
 
       //update the database with contract_state == "contract is inactive"
+      //also disable distrubte funds button if contract_state == "contract is inactive"
 
 
       
