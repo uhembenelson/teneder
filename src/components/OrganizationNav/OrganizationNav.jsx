@@ -47,6 +47,7 @@ function CompanyNav() {
         navigate('/')
     }
 
+    console.log()
 
     // Auto Logout
     const timeOut = 3480000;

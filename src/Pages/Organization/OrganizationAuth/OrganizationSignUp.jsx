@@ -62,6 +62,7 @@ const OrganizationSignUp = () => {
   const {
     getValues,
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -175,6 +176,10 @@ const OrganizationSignUp = () => {
       }
     }
   };
+
+  useEffect(() => {
+    setValue("wallet_address", defaultAccount)
+  }, [defaultAccount, setValue])
 
   const navigate = useNavigate();
 

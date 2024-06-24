@@ -3,8 +3,6 @@ import { useState } from 'react';
 import backArrow from '../../../assets/Shape.png';
 import useSWR from 'swr';
 import { useSelector } from 'react-redux';
-import { getTenderInfo } from '../../../Redux/Bidder/Action';
-import { useDispatch } from 'react-redux';
 import BidderNav from '../../../components/BidderNav/Nav';
 import Search from '../../../components/Search/Search'
 import ApproveTenderCard from './ApproveTenderCard';
@@ -19,9 +17,6 @@ function ApproveTender() {
     const [searchType, setSearchType] = useState('keyword')
 
 
-
-
-    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -40,7 +35,8 @@ function ApproveTender() {
     };
 
     const { token, bidder_id } = useSelector(state => state.bidder.user)
-    const url = `https://school-project-production-459d.up.railway.app/v15/approval/${bidder_id}`
+    // const url = `https://school-project-production-459d.up.railway.app/v15/approval/${bidder_id}`
+    const url = `https://school-project-production-459d.up.railway.app/V11/contract/bidder/${bidder_id}`
 
 
     const { data } = useSWR([url, token], () => fetchAllBidApplicants(url, token));

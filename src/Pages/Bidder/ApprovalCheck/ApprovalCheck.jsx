@@ -8,7 +8,7 @@ const ApprovalCheck = () => {
 
 
 
-    const { token } = useSelector(state => state.bidder.user)
+    const { token, email, contact_number } = useSelector(state => state.bidder.user)
     const tender = useSelector(state => state.bidder.tenderInfo)
 
     const fetchTenderDetails = async (url, token) => {
@@ -62,11 +62,11 @@ const ApprovalCheck = () => {
                             </div>
                             <div className='textHeaderContainer' >
                                 <p className='textHeader' >Email :</p>
-                                <p className='textDesc' >{tender?.email}</p>
+                                <p className='textDesc' >{email}</p>
                             </div>
                             <div className='textHeaderContainer' >
                                 <p className='textHeader' >GST Number :</p>
-                                <p className='textDesc' >{tender?.contact_number}</p>
+                                <p className='textDesc' >{contact_number}</p>
                             </div>
                             <div className='textHeaderContainer' >
                                 <p className='textHeader' >Amount :</p>
