@@ -714,49 +714,6 @@ import useSWR from 'swr'
 //         }
 
 
-
-
-
-
-
-
-//       </div>
-
-
-
-//       {/* 
-//             <div>
-//       <h1>Payment Contract Deployment</h1>
-//       <div>
-//         <label>Total Amount:</label>
-//         <input type="text" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} />
-//       </div>
-//       <div>
-//         <label>Payment Percentage:</label>
-//         <input type="text" value={paymentPercentage} onChange={(e) => setPaymentPercentage(e.target.value)} />
-//       </div>
-//       <div>
-//         <label>Payment Interval (in seconds):</label>
-//         <input type="text" value={paymentIntervalInSeconds} onChange={(e) => setPaymentIntervalInSeconds(e.target.value)} />
-//       </div>
-//       <div>
-//         <label>Beneficiaries (comma-separated addresses):</label>
-//         <input type="text" value={beneficiary} onChange={(e) => setBeneficiary(e.target.value)} />
-//       </div>
-//       <button onClick={deployContract}>Deploy Contract</button>
-//       <div>{message}</div>
-//     </div> */}
-//     </div>
-//   )
-// }
-
-// export default SmartContract
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import { useSelector } from 'react-redux';
@@ -802,6 +759,7 @@ const PaymentContract = () => {
     total_amount_paid: totalPaid,
     contract_state,
     status: 'ongoing',
+    contract_address: contractAddress,
     wallet_address: beneficiary
   }
 
@@ -1394,7 +1352,7 @@ const PaymentContract = () => {
         </dialog>
 
         {/* check if user has an active contract and update state */}
-        {contract ? (
+        {selectedTender?.status === 'ongoing' ? (
 
           <>
 
@@ -1463,7 +1421,7 @@ const PaymentContract = () => {
                     </td>
                     <td>
                       {/* {selectedTender?.wallet_address || selectedBidder?.wallet_address} */}
-                      {contractAddress}
+                      {contractAddress || selectedTender?.contract_address}
                     </td>
 
                     <td>
@@ -1475,7 +1433,7 @@ const PaymentContract = () => {
 
                     </td>
                     <th>
-                      <button className="btn btn-ghost btn-xs">{contract_state}</button>
+                      <button className="btn btn-ghost btn-xs">{contract_state || selectedTender?.contract_state}</button>
                     </th>
                     <th>
                       {
