@@ -18,19 +18,19 @@ const EvaluateTenderCard = ({ data, user }) => {
 
     let percentage = 0;
     let color = 'rgb(62, 152, 199)'
-    if (data?.status === 'completed') {
+    if (data?.contract_status === 'completed') {
         percentage = 100
     }
-    else if (data?.status === 'ongoing') {
+    else if (data?.contract_status === 'ongoing') {
         percentage = 66
     }
-    else if (data?.status === 'Result pending') {
+    else if (data?.contract_status === 'Result pending') {
         percentage = 0
     }
-    else if (data?.status === 'result pending') {
+    else if (data?.contract_status === 'result pending') {
         percentage = 0
     }
-    else if (data?.status === 'Result not out yet') {
+    else if (data?.contract_status === 'Result not out yet') {
         percentage = 0
     }
     else {
@@ -39,23 +39,23 @@ const EvaluateTenderCard = ({ data, user }) => {
     }
 
     let status = <span className='complete'>  COMPLETE</span>
-    if (data?.status === 'cancelled') {
+    if (data?.contract_status === 'cancelled') {
         status = <span className='cancelled'>  CANCELLED</span>
     }
-    else if (data?.status === 'ongoing') {
+    else if (data?.contract_status === 'ongoing') {
         status = <span className='ongoing'>  ONGOING</span>
     }
-    else if (data?.status === 'result pending') {
+    else if (data?.contract_status === 'result pending') {
         status = <span className='ongoing'>  PENDING</span>
     }
-    else if (data?.status === 'Result pending') {
+    else if (data?.contract_status === 'Result pending') {
         status = <span className='ongoing'>  PENDING</span>
     }
 
-    else if (data?.status === 'Result not out yet') {
+    else if (data?.contract_status === 'Result not out yet') {
         status = <span className='ongoing'>  PENDING</span>
     }
-    else if (data?.status === 'complete') {
+    else if (data?.contract_status === 'complete') {
         status = <span className='ongoing'>  COMPLETE</span>
     }
 
@@ -106,23 +106,23 @@ const EvaluateTenderCard = ({ data, user }) => {
     </svg>
     </button>
 
-    if (data?.status === 'ongoing') {
+    if (data?.contract_status === 'ongoing') {
         button = <button onClick={handleSmartContract} className='evalButton' > OPEN SMART CONTRACT <img className='evalImg' src={externalLink} alt='' />
         </button>
     }
 
-    else if (data?.status === 'cancelled') {
+    else if (data?.contract_status === 'cancelled') {
         button = <button onClick={provideReasons} className='evalButton' > {user ? 'SEE REASONS' : 'PROVIDE REASONS'} <img className='evalImg' src={sad} alt='' />
         </button>
     }
 
-    else if (data?.status === 'Result pending') {
+    else if (data?.contract_status === 'Result pending') {
         button = null
     }
-    else if (data?.status === 'Result not out yet') {
+    else if (data?.contract_status === 'Result not out yet') {
         button = null
     }
-    else if (data?.status === 'result pending') {
+    else if (data?.contract_status === 'result pending') {
         button = null
     }
 
@@ -152,14 +152,14 @@ const EvaluateTenderCard = ({ data, user }) => {
 
                     <CircularProgressbar
                         value={percentage}
-                        text={`${data.status}`}
+                        text={`${data?.contract_status}`}
                         // pathColor: {'rgba(168, 85, 247, 1)'}
                         styles={buildStyles({
                             //     // Rotation of path and trail, in number of turns (0-1)
                             //     // rotation: 0.25,
                             //     pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
                             pathColor: `${color}`,
-                            textColor: data.status === 'cancelled' ? 'red' : 'blue',
+                            textColor: data?.contract_status === 'cancelled' ? 'red' : 'blue',
                             //     trailColor: '#d6d6d6',
                             textSize: '15px'
                             //     backgroundColor: '#3e98c7',
