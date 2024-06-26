@@ -35,12 +35,13 @@ function ApproveTender() {
     };
 
     const { token, bidder_id } = useSelector(state => state.bidder.user)
-    // const url = `https://school-project-production-459d.up.railway.app/v15/approval/${bidder_id}`
-    const url = `https://school-project-production-459d.up.railway.app/V11/contract/bidder/${bidder_id}`
+    console.log("here", bidder_id)
+     const url = `https://school-project-production-459d.up.railway.app/v15/approval/${bidder_id}`
+   // const url = `https://school-project-production-459d.up.railway.app/V11/contract/bidder/${bidder_id}`
 
 
     const { data } = useSWR([url, token], () => fetchAllBidApplicants(url, token));
-    console.log(data)
+    console.log("this is data",data)
 
     const searchTenders = () => {
 

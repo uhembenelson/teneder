@@ -22,7 +22,7 @@ const ApproveTenderCard = ({ tender, id }) => {
 
     let option
 
-    switch (tender?.status) {
+    switch (tender?.contract_status) {
         case 'cancelled':
             option = <div>
                 <p>CANCELLED</p>
@@ -87,7 +87,7 @@ const ApproveTenderCard = ({ tender, id }) => {
             break
         default:
             option = <div  >
-                <p>SELECTED</p>
+                <p>COMPLETED</p>
                 <img
                     style={{ margin: 'auto' }}
                     src={approval}

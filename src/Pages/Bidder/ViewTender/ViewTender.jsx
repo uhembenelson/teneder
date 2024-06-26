@@ -23,8 +23,8 @@ const ViewTender = () => {
 
     const { token, bidder_id } = useSelector(state => state.bidder.user)
     // const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/document/${bidder_id}`
-    const url = `https://school-project-production-459d.up.railway.app/V11/contract/bidder/${bidder_id}`
-    // const url = `https://school-project-production-459d.up.railway.app/v15/approval/${bidder_id}`
+    //const url = `https://school-project-production-459d.up.railway.app/V11/contract/bidder/${bidder_id}`
+     const url = `https://school-project-production-459d.up.railway.app/v15/approval/${bidder_id}`
 
 
     const { data } = useSWR([url, token], () => fetchAllBidApplicants(url, token));

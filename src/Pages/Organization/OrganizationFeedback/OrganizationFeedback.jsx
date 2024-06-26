@@ -36,6 +36,11 @@ const OrganizationFeedback = () => {
 
         comment: yup.string().required('Comment is required'),
     })
+    const [name_of_organization, setName_of_organization] = useState()
+    const [tender_id, setTender_id] = useState()
+    const [name_of_bidder, setName_of_bidder] = useState()
+    const [ethereum_value, setEthereum_value] = useState()
+    const [comment, setComment] = useState('')
 
 
     const {
@@ -57,6 +62,8 @@ const OrganizationFeedback = () => {
         setValue('name_of_bidder', selectedBidder?.name_of_company)
     }, [setValue, user, selectedTender])
 
+    console.log("chcking here",selectedBidder)
+
 
 
     const selectStar = (id) => {
@@ -68,22 +75,36 @@ const OrganizationFeedback = () => {
         // e.preventDefault()
         const formata = getValues()
         formata.rating = clickedStar
+        const payload = {
+            name_of_organization:user?.name_of_organization,
+            tender_id:selectedTender.tender_id,
+            name_of_bidder:selectedBidder?.name_of_bidder,
+            ethereum_value:selectedBidder?.contract_worth,
+            comment,
+            rating: clickedStar,
+
+        }
+
+        console.log("testing payload",payload)
+
+
         try {
             setIsLoading(true)
-            const res = await fetch('https://school-project-production-459d.up.railway.app/V5/feedback',
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `${token}`,
-                    },
-                    body: formata,
-                }
-            )
-            const data = await res.json();
+            const res = await fetch('https://school-project-production-459d.up.railway.app/V5/feedback',{
+                method: 'POST',
+            headers: {
+              'Authorization': `${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+            }
+           )
+
+            const data = await res.json()
+            console.log("this is response",data.ok)
+            // const data = await res.json();
 
             setIsLoading(false)
-
-
             if (res.ok) {
                 toast.success('Feedback sent successfully', {
                     position: toast.POSITION.TOP_RIGHT,
@@ -91,7 +112,7 @@ const OrganizationFeedback = () => {
                     hideProgressBar: true,
 
                 });
-                navigate('/organization/home')
+              navigate('/organization/home')
             }
         }
         catch (err) {
@@ -120,7 +141,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input {...register('name_of_organization')} placeholder='Panjim Muncipal Corporation' type='text' />
+                                <input disabled={true} placeholder={user?.name_of_organization} type='text' />
                             </div>
                         </div>
                         <div>
@@ -131,7 +152,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input placeholder='345678' {...register('tender_id')} type='text' />
+                                <input disabled={true} placeholder={selectedTender?.tender_id} type='text' />
                             </div>
                         </div>
                         <div>
@@ -142,7 +163,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input placeholder='L & T' {...register('name_of_bidder')} type='text' />
+                                <input disabled={true} placeholder={selectedBidder?.name_of_bidder} type='text' />
                             </div>
                         </div>
                         <div>
@@ -153,7 +174,7 @@ const OrganizationFeedback = () => {
                                     <ellipse cx="21.2998" cy="31.5583" rx="12.626" ry="7.10213" fill="#59599B" />
                                     <circle cx="21.3005" cy="21.2997" r="19.7281" stroke="#59599B" stroke-width="1.57825" />
                                 </svg>
-                                <input placeholder='3.15' {...register('ethereum_value')} type='number' />
+                                <input disabled={true} placeholder={selectedBidder?.contract_worth} type='number' />
                             </div>
                         </div>
                         <h3 className='rateText' >Rate the overall work done by Bidder</h3>
@@ -170,12 +191,18 @@ const OrganizationFeedback = () => {
                             }
                         </div>
                         <div className='feebackTextAreaContainer'>
-                            <textarea className='feebackTextArea' {...register('comment')} placeholder='Add your comments...' ></textarea>
+                            <textarea
+                            required
+                            value={comment}
+                             onChange={(e)=> setComment(e.target.value)}
+                             className='feebackTextArea'  placeholder='Add your comments...' ></textarea>
                         </div>
 
                         <div className='feedBackBtnContainer' >
                             {/*<button className='closeBtn' >Cancel</button>*/}
-                            <button type='submit' className='submitFeedbackBtn' >{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Submit'}</button>
+                            <button 
+                            onClick={sendFeedback} 
+                            type='submit' className='submitFeedbackBtn' >{isLoading ? <CircularProgress color="primary" thickness={10} size={18} /> : 'Submit'}</button>
                         </div>
                     </form>
                 </div>

@@ -1010,7 +1010,7 @@ const PaymentContract = () => {
 
  
   const updateContractPayload = {
-    bidder_id: selectedTender?.bidder_id,
+    bidder_id: selectedTender?.bidder_id  || selectedBidder?.bidder_id,
     tender_id: selectedTender?.tender_id,
     organization_id: user?.organization_id,
     name_of_organization: user?.name_of_organization,
@@ -1023,11 +1023,10 @@ const PaymentContract = () => {
     contract_id:selectedTender?.tender_id,
     balance,
     contract_worth
-
   }
 
   
-
+   let contractData 
   const getContractData = async () => {
     console.log("new check",selectedTender?.tender_id)
     
@@ -1040,6 +1039,7 @@ const PaymentContract = () => {
     });
     const data = await res.json();
     if(data){
+      contractData = true
       console.log("this is response", data[0]);
     setMyContractData(data[0]);
     setContractAddress(data[0]?.contract_address)
@@ -1429,6 +1429,8 @@ const PaymentContract = () => {
     };
 
     try {
+      setIsloading(true)
+      setMessage("Creating contract, please wait ...")
       const newContractInstance = await contract.deploy(deployOptions).send({
         from: account,
         gas: 1500000,
@@ -1448,9 +1450,13 @@ const PaymentContract = () => {
       updateContractPayload.contract_status = "ongoing"
       updateContractPayload.contract_worth = `${totalAmount}`
       await createSmartContract(updateContractPayload)
+      setIsloading(false)
+      setMessage("")
       window.location.reload();
     } catch (error) {
       console.error('Error deploying contract:', error);
+      setIsloading(false)
+      setMessage("")
     }
   };
 
@@ -1467,9 +1473,19 @@ const PaymentContract = () => {
       alert("Funds deposited successfully")
       document.getElementById('my_modal_3').close();
       setContract_state("Contract Funded")
-      updateContractPayload.contract_state = "Contract Funded"
+     
     
-       await updateContract(updateContractPayload)
+      //  await updateContract(updateContractPayload)
+      const totalAmount = await contract.methods.getTotalAmount().call();
+      const getB = await contract.methods.getBalance().call();
+      const totalPaid = await contract.methods.getTotalPaid().call();
+      const b = getB.toString()
+      console.log("this is b", b)
+      setTotalAmount(totalAmount.toString())
+      updateContractPayload.contract_state = "Contract Funded"
+      updateContractPayload.balance = `${b}`
+      updateContractPayload.total_amount_paid = `${totalPaid}`
+      await updateContract(updateContractPayload)
 
 
       setIsloading(false)
@@ -1507,6 +1523,8 @@ const PaymentContract = () => {
 
        if(totalAmount.toString() == totalPaid.toString()){
         updateContractPayload.contract_status = "completed"
+        updateContractPayload.contract_state = "Contract completed"
+
         await updateContract(updateContractPayload)
      
        }
@@ -1524,6 +1542,10 @@ const PaymentContract = () => {
       setReload('reloaded')
     } catch (error) {
       console.error('Error distributing funds:', error);
+      setIsloading(false)
+      setMessage('')
+      alert("there was an error distributing funds, funds have been reverted to contract")
+      
     }
   };
 
@@ -1560,14 +1582,13 @@ const PaymentContract = () => {
     const b = getB.toString()
     console.log("this is b", b)
     setTotalAmount(totalAmount.toString())
-    updateContractPayload.contract_state = "contract is inactive"
     updateContractPayload.balance = `${b}`
     updateContractPayload.total_amount_paid = `${totalPaid}`
     await updateContract(updateContractPayload)
     console.log("checking in", totalAmount.toString(), totalPaid.toString())
     if(totalAmount.toString() == totalPaid.toString()){
       updateContractPayload.contract_status = "completed"
-      updateContractPayload.contract_state = "completed"
+      updateContractPayload.contract_state = "Contract completed"
       await updateContract(updateContractPayload)
    
      }
@@ -1576,9 +1597,42 @@ const PaymentContract = () => {
       setMessage('')
       alert('Excess funds withdrawn successfully!');
       window.location.reload()
-     
     } catch (error) {
       console.error('Error withdrawing excess funds:', error);
+    }
+  };
+
+
+  const terminateContract = async () => {
+    if (!contract) {
+      alert('Contract is not initialized');
+      return;
+    }
+
+    try {
+      setIsloading(true)
+      setMessage("Terminating contract, please waait...")
+      await contract.methods.withdrawExcess().send({ from: account });
+    const totalAmount = await contract.methods.getTotalAmount().call();
+    const getB = await contract.methods.getBalance().call();
+    const totalPaid = await contract.methods.getTotalPaid().call();
+    const b = getB.toString()
+    console.log("this is b", b)
+    setTotalAmount(totalAmount.toString())
+    updateContractPayload.balance = `${b}`
+    updateContractPayload.total_amount_paid = `${totalPaid}`
+    await updateContract(updateContractPayload)
+    console.log("checking in", totalAmount.toString(), totalPaid.toString())
+      updateContractPayload.contract_status = "cancelled"
+      updateContractPayload.contract_state = "cancelled"
+      await updateContract(updateContractPayload)
+     setIsloading(false)
+
+      setMessage('')
+      alert('contract terminated successfully!');
+      window.location.reload()
+    } catch (error) {
+      console.error('Error terminating contracct', error);
     }
   };
 
@@ -1633,10 +1687,8 @@ const PaymentContract = () => {
 </dialog>
 
       {/* check if user has an active contract and update state */}
-      {myContractData?.contract_status === 'ongoing' || 'completed' ? (
-       
+      {myContractData?.contract_id ? (
         <>
-         
           <div className=''>
 
             <div className='justify-between flex py-5 '>
@@ -1656,8 +1708,8 @@ const PaymentContract = () => {
                      Withdraw Excess
                   </button>
                   <button
-                   disabled={myContractData?.balance == "0"}
-                   onClick={withdrawExcess}
+                  // disabled={myContractData?.balance == "0"}
+                   onClick={terminateContract}
                    className='btn '>
                      Terminate contract
                   </button>
@@ -1719,13 +1771,29 @@ const PaymentContract = () => {
                       <button className="btn btn-ghost btn-xs">{myContractData?.contract_state}</button>
                     </th>
                     <th>
-                      {
+                      {/* {
                        myContractData?.contract_state === "Contract created" ? <button onClick={()=>document.getElementById('my_modal_3').showModal()} className="btn btn-ghost btn-xs">Fund Contract</button> :
-                          <button  disabled={myContractData?.total_amount_paid == myContractData?.contract_worth} onClick={distributeFundsAutomatically} className="btn btn-xs text-black">
+
+                          <button  disabled={ myContractData?.contract_status === "completed" || "cancelled" ? true : myContractData?.contract_status === "ongoing" ? false: null } onClick={distributeFundsAutomatically} className="btn btn-xs text-black">
                             {
-                              myContractData?.total_amount_paid == myContractData?.contract_worth ? "Contract Completed" : "Distribute Funds"} 
+                              myContractData?.total_amount_paid === myContractData?.contract_worth ? "Contract Completed" : "Distribute Funds"} 
                             </button>
-                      }
+                      } */}
+
+{
+  myContractData?.contract_state === "Contract created" ? 
+    <button 
+      onClick={() => document.getElementById('my_modal_3').showModal()} 
+      className="btn btn-ghost btn-xs">
+      Fund Contract
+    </button> :
+    <button  
+      disabled={myContractData?.contract_status === "completed" || myContractData?.contract_status === "cancelled" ? true : myContractData?.contract_status === "ongoing" ? false : null} 
+      onClick={distributeFundsAutomatically} 
+      className="btn btn-xs text-black">
+      {myContractData?.total_amount_paid === myContractData?.contract_worth ? "Contract Completed" : "Distribute Funds"} 
+    </button>
+}
 
                     </th>
                   </tr>
@@ -1740,7 +1808,11 @@ const PaymentContract = () => {
         </>
       ) : (
         <div>
-               <div>{message}</div>
+                <div className='py-2'>
+                  {
+                    isLoading ? <div className='items-center justify-start flex gap-2 '><span className="loading loading-spinner loading-md"></span> {message}</div> : null
+                  }
+                </div>
                <h1 className='text-md font-semibold lg:text-4xl text-center py-6' >Welcome to Smart Contract Take a step forward into the virtual world</h1>
                <div className='smartContractInputHolder' >
                  <div className='smartContractInputBox' >
