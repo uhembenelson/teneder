@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
+//import CompanyNav from '../../../components/OrganizationNav/OrganizationNav'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { CircularProgress } from '@mui/material'
+import BidderNav from '../../../components/BidderNav/Nav'
 
 const BidderFeedback = () => {
 
@@ -11,7 +12,7 @@ const BidderFeedback = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const [feedbacks, setFeedbacks] = useState([])
+  const [feedbacks, setFeedbacks] = useState()
 
   const user = useSelector(state => state.bidder.user)
 
@@ -19,55 +20,60 @@ const BidderFeedback = () => {
 
   const { token } = user
 
-  // const getFeedback = async () => {
-  //   try {
-  //     setIsLoading(true)
-  //     const res = await fetch('https://school-project-production-459d.up.railway.app/V5/feedback', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Authorization': `${token}`,
-  //         'Content-Type': 'application/json'
-  //       },
+  const getFeedback = async () => {
+    try {
+      setIsLoading(true)
+      const res = await fetch('https://school-project-production-459d.up.railway.app/V5/feedback', {
+        method: 'GET',
+        headers: {
+          'Authorization': `${token}`,
+          'Content-Type': 'application/json'
+        },
 
-  //     }
-  //     )
-  //     setIsLoading(false)
-  //     const data = await res.json()
-  //     setFeedbacks(data)
-  //     // const data = await res.json();
-  //   }
-  //   catch (err) {
-  //     setIsLoading(false)
-  //     console.log(err)
-  //   }
-  // }
+      }
+      )
+      setIsLoading(false)
+      
+      const data = await res.json()
+      setFeedbacks(data)
+      console.log(data)
+      // const data = await res.json();
+    }
+    catch (err) {
+      setIsLoading(false)
+      console.log(err)
+    }
+  }
 
-  // useEffect(() => {
-  //   getFeedback()
-  // }, [])
+  useEffect(() => {
+    getFeedback()
+  }, [])
 
 
 
-  // let content = <CircularProgress color="primary" thickness={10} size={18} />
+  let content = <CircularProgress color="primary" thickness={10} size={18} />
 
-  // if (feedbacks?.length === 0) {
-  //   content = null
-  // }
+  if (feedbacks?.length === 0) {
+    content = null
+  }
 
-  // else if (feedbacks?.length > 0) {
-  //   content = feedbacks?.map((feedback, id) => {
-  //     <p>{feedback?.comment}</p>
-  //   })
-  // }
+  else if (feedbacks?.length > 0) {
+    content = feedbacks?.map((feedback, id) => {
+      return(
+        <p>{feedback?.comment}</p>
+      )
+      
+    })
+  }
 
 
 
 
   return (
     <div>
-      <CompanyNav />
+     <BidderNav/>
       <div className='feedback' >
-        ppp
+      {content}
       </div>
     </div>
   )
