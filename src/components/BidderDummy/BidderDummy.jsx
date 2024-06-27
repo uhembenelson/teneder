@@ -57,7 +57,7 @@ const BidderDummy = () => {
                 <div className='bidderdummyBox' >
                     <div>
                         <p className='bidders '>Transactions</p>
-                        <p className='dummyBoxAmount'>0</p>
+                        <p className='dummyBoxAmount'>1000+</p>
 
                     </div>
                     <svg width="54" height="43" viewBox="0 0 54 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,8 +69,8 @@ const BidderDummy = () => {
             <div className='dummyBox dummyBox2' >
                 <div className='bidderdummyBox' >
                     <div>
-                        <p className='bidders'>Ratings</p>
-                        <p className='dummyBoxAmount'>0</p>
+                        <p className='bidders'>Tenders</p>
+                        <p className='dummyBoxAmount'>100+</p>
 
                     </div>
                     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">

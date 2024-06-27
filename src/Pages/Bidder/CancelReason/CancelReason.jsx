@@ -9,7 +9,7 @@ const CancelReason = () => {
 
 
 
-    const { token } = useSelector(state => state.bidder.user)
+    const { token, bidder_id, contact_number } = useSelector(state => state.bidder.user)
     const selectedTender = useSelector(state => state.bidder.selectedInfo)
 
     const [tender, setTender] = useState([{
@@ -39,7 +39,7 @@ const CancelReason = () => {
     };
 
     console.log(selectedTender)
-    const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/cancelled/${selectedTender?.tender_id}`
+    const url = `https://school-project-production-459d.up.railway.app/v4/tender/tender/cancelled/${bidder_id}`
 
     const { data: tenderDetails } = useSWR([url, token], () => fetchTenderDetails(url, token));
 
@@ -63,7 +63,7 @@ const CancelReason = () => {
                                 <b>Name of the Organization:</b> <span>{tender[0]?.name_of_organization}</span>
                             </li>
                             <li>
-                                <b>GST Number:</b> 035468276265
+                                <b>GST Number:</b> {contact_number}
                             </li>
                             <li>
                                 <b>Tender ID:</b> {tender[0]?.tender_id}
@@ -72,7 +72,7 @@ const CancelReason = () => {
                                 <b>Name of Bidder:</b> {tender[0]?.names}
     </li>*/}
                             <li>
-                                <b>Amount:</b> <span>{tender?.amount || 'null'}</span>
+                                <b>Amount:</b> <span>{tender[0]?.total_amount_paid || 'null'}</span>
                             </li>
                             <li>
                                 <b>Duration:</b> {formatDate(tender[0]?.duration_of_work_start)} - {formatDate(tender[0]?.duration_of_work_end)}

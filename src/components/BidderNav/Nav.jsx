@@ -199,7 +199,7 @@ function BidderNav() {
 
 						</div>
 					</li>
-					<Link to='/bidder/history' ><li>history</li></Link>
+					{/*<Link to='/bidder/history' ><li>history</li></Link>*/}
 				</ul>
 
 				{!isNavOpen ? <i onClick={toggleNavIcon} className="ri-menu-line homeNavIcon2"></i> :
@@ -296,7 +296,7 @@ function BidderNav() {
 
 								</div>
 							</li>
-							<li onClick={() => navigate('/bidder/history')} >history</li>
+							{/*<li onClick={() => navigate('/bidder/history')} >history</li>*/}
 
 						</ul>
 

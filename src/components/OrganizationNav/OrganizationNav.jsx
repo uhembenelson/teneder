@@ -192,10 +192,10 @@ function CompanyNav() {
 
                         </div>
                     </li>
-                    <Link to='/organization/history' >
+                    {/*<Link to='/organization/history' >
 
                         <li>history</li>
-                    </Link>
+                    </Link>*/}
                 </ul>
 
                 {!isNavOpen ? <i onClick={toggleNavIcon} className="ri-menu-line homeNavIcon2"></i> :
@@ -290,7 +290,7 @@ function CompanyNav() {
 
                             </div>
                         </li>
-                        <li onClick={() => navigate('/organization/history')}>history</li>
+                        {/*<li onClick={() => navigate('/organization/history')}>history</li>*/}
                     </ul>
 
                     <div className='overlay'></div>

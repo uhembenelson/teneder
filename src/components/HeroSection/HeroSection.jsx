@@ -2,7 +2,7 @@ import React from 'react';
 import './HeroSection.css';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import HeroImage from '../../assets/heroImage.png';
-import pdf from '../../assets/SMART-TENDER.pdf'
+import pdf from '../../assets/Learn_More.pdf'
 
 
 const HeroSection = ({ setShowLoginModal }) => {

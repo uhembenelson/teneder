@@ -11,7 +11,7 @@ const TopCompanies = () => {
                 <img className='topCompanyCardImage' src={Ellipse1} alt='ellipse1' />
                 <p className='topCompanyCardName' >Channel</p>
                 <p className='topCompanyCardDesc' >Making World a Better Place</p>
-                <div className='starContainer' >
+                {/*<div className='starContainer' >
                     {
                         starArray.map((star) => {
                             return (
@@ -22,14 +22,14 @@ const TopCompanies = () => {
                             )
                         })
                     }
-                </div>
+                </div>*/}
 
             </div>
             <div className='topCompanyCard topBidderCard' >
                 <img className='topCompanyCardImage' src={Ellipse4} alt='ellipse1' />
                 <p className='topCompanyCardName' >L&T</p>
                 <p className='topCompanyCardDesc' >Promise for the Future</p>
-                <div className='starContainer' >
+                {/*<div className='starContainer' >
                     {
                         starArray.map((star) => {
                             return (
@@ -40,14 +40,14 @@ const TopCompanies = () => {
                             )
                         })
                     }
-                </div>
+                </div>*/}
 
             </div>
             <div className='topCompanyCard topBidderCard' >
                 <img className='topCompanyCardImage' src={Ellipse3} alt='ellipse1' />
                 <p className='topCompanyCardName' >The Pentagon</p>
                 <p className='topCompanyCardDesc' >Trust & Loyalty</p>
-                <div className='starContainer' >
+                {/*<div className='starContainer' >
                     {
                         starArray.map((star) => {
                             return (
@@ -58,7 +58,7 @@ const TopCompanies = () => {
                             )
                         })
                     }
-                </div>
+                </div>*/}
 
             </div>
         </div>
